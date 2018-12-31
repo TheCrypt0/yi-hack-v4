@@ -1,0 +1,9 @@
+[submodule "src/dropbear/dropbear"]
+	path = src/dropbear/dropbear
+	url = https://github.com/mkj/dropbear.git
+[submodule "src/uClibc/uClibc"]
+	path = src/uClibc/uClibc
+	url = https://github.com/kraj/uClibc.git
+[submodule "src/busybox/busybox"]
+	path = src/busybox/busybox
+	url = https://github.com/mirror/busybox.git
