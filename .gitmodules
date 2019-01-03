@@ -7,9 +7,6 @@
 [submodule "src/busybox/busybox"]
 	path = src/busybox/busybox
 	url = https://github.com/mirror/busybox.git
-[submodule "src/libwebsockets/libwebsockets"]
-	path = src/libwebsockets/libwebsockets
-	url = https://github.com/warmcat/libwebsockets.git
 [submodule "src/proxychains-ng/proxychains-ng"]
 	path = src/proxychains-ng/proxychains-ng
 	url = https://github.com/rofl0r/proxychains-ng.git
