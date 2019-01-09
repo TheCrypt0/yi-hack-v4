@@ -1,0 +1,21 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+rm -rf ./_install
+
+cd pure-ftpd || exit 1
+git reset --hard || exit 1
+
+./autogen.sh || exit 1
+
+./configure CC=arm-hisiv300-linux-gcc \
+    --prefix=$SCRIPT_DIR/_install \
+    USER_CFLAGS="-march=armv5te -mcpu=arm926ej-s -I/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/include -L/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/lib" \
+    AR=arm-hisiv300-linux-ar \
+    RANLIB=arm-hisiv300-linux-ranlib \
+    --host=arm \
+    --with-minimal \
+    || exit 1
+

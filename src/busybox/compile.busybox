@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+cd busybox
+
+make -j$(nproc) ARCH=arm || exit 1
+make install || exit 1
+

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+if [ "$(whoami)" != "root" ]
+then
+    echo "$0 must be run as root!"
+    exit 1
+fi
+
+rsync -a ./_install/* ../../build/rootfs/
+
+# set the uid bit 
+chmod u+s ../../build/rootfs/bin/busybox
+

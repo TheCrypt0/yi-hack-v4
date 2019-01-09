@@ -1,0 +1,17 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+# Compress the file
+upx ./_install/*
+
+rsync -a ./_install/* ../../build/home/yi-hack-v4/bin/
+
+ln -fs /home/yi-hack-v4/bin/dropbearmulti ../../build/rootfs/bin/dbclient
+ln -fs /home/yi-hack-v4/bin/dropbearmulti ../../build/rootfs/bin/dropbearconvert
+ln -fs /home/yi-hack-v4/bin/dropbearmulti ../../build/rootfs/bin/dropbearkey
+ln -fs /home/yi-hack-v4/bin/dropbearmulti ../../build/rootfs/bin/scp
+ln -fs dbclient ../../build/rootfs/bin/ssh
+
+ln -fs /home/yi-hack-v4/bin/dropbearmulti ../../build/rootfs/sbin/dropbear

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+
+cd proxychains-ng || exit 1
+
+make clean
+make -j$(nproc) || exit 1
+
+mkdir -p $SCRIPT_DIR/_install/bin
+mkdir -p $SCRIPT_DIR/_install/lib
+
+cp -f proxychains4 $SCRIPT_DIR/_install/bin
+cp -f libproxychains4.so $SCRIPT_DIR/_install/lib
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+
+cd uClibc
+
+make -j$(nproc) CROSS_COMPILE=arm-hisiv300-linux- ARCH=arm || exit 1
+make install || exit 1

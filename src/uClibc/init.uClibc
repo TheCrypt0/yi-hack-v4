@@ -1,0 +1,12 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+
+cd uClibc
+git reset --hard
+
+cp ../.config ./
+patch ./extra/locale/gen_wctype.c < ../gen_wctype.patch
+
