@@ -1,0 +1,11 @@
+
+/build
+!/build/.gitkeep
+
+/stock_firmware
+!/stock_firmware/README.md
+
+/sysroot
+!/sysroot/.gitkeep
+
+/out
