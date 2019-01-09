@@ -10,3 +10,6 @@
 [submodule "src/proxychains-ng/proxychains-ng"]
 	path = src/proxychains-ng/proxychains-ng
 	url = https://github.com/rofl0r/proxychains-ng.git
+[submodule "src/ftpd/pure-ftpd"]
+	path = src/ftpd/pure-ftpd
+	url = https://github.com/jedisct1/pure-ftpd.git
