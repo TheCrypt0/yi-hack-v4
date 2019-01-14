@@ -57,7 +57,7 @@ This firmware _might_ add:
 
 Currently this project supports the following cameras:
 
-- Yi Home 17CN / 27US / 47US (not tested yet).
+- Yi Home 17CN / 27US / 47US
 - Yi 1080p Home
 - Yi Dome
 - Yi 1080p Dome
