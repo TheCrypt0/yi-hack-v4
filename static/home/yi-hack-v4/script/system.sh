@@ -1,17 +1,17 @@
 #!/bin/sh
 
-CONF_FILE="/yi-hack-v4/etc/system.conf"
+CONF_FILE="etc/system.conf"
 
 if [ -d "/usr/yi-hack-v4" ]; then
-        YI_HACK_V4_PREFIX="/usr"
+        YI_HACK_PREFIX="/usr/yi-hack-v4"
 elif [ -d "/home/yi-hack-v4" ]; then
-        YI_HACK_V4_PREFIX="/home"
+        YI_HACK_PREFIX="/home/yi-hack-v4"
 fi
 
 get_config()
 {
-        key=$1
-        grep $1 $YI_HACK_V4_PREFIX$CONF_FILE | cut -d "=" -f2
+    key=$1
+    grep $1 $YI_HACK_PREFIX/$CONF_FILE | cut -d "=" -f2
 }
 
 if [ -d "/usr/yi-hack-v4" ]; then
@@ -22,30 +22,33 @@ elif [ -d "/home/yi-hack-v4" ]; then
 	export PATH=$PATH:/home/base/tools:/home/yi-hack-v4/bin:/home/yi-hack-v4/sbin:/tmp/sd/yi-hack-v4/bin:/tmp/sd/yi-hack-v4/sbin
 fi
 
-hostname -F $YI_HACK_V4_PREFIX/yi-hack-v4/etc/hostname
+hostname -F $YI_HACK_PREFIX/etc/hostname
 
-if [[ $(get_config HTTPD) == "yes" ]] ; then
-	lwsws -D
-fi
+# NOT READY YET
+
+#if [[ $(get_config HTTPD) == "yes" ]] ; then
+#    lwsws -D
+#fi
 
 if [[ $(get_config TELNETD) == "yes" ]] ; then
-	telnetd
+    telnetd
 fi
 
 if [[ $(get_config FTPD) == "yes" ]] ; then
-	pure-ftpd -B
+    pure-ftpd -B
 fi
 
 if [[ $(get_config DROPBEAR) == "yes" ]] ; then
-        dropbear -R
+    dropbear -R
 fi
 
-# Get the latest version number from github
-wget -T 5 -O /tmp/yihack_new_version https://raw.githubusercontent.com/TheCrypt0/yi-hack-v4/master/VERSION 
+if [[ $(get_config CHECK_UPDATES) == "yes" ]] ; then
+    $YI_HACK_PREFIX/script/check_update.sh &
+fi
 
 
 if [ -f "/tmp/sd/yi-hack-v4/startup.sh" ]; then
-	/tmp/sd/yi-hack-v4/startup.sh
+    /tmp/sd/yi-hack-v4/startup.sh
 elif [ -f "/home/hd1/yi-hack-v4/startup.sh" ]; then
-	/home/hd1/yi-hack-v4/startup.sh
+    /home/hd1/yi-hack-v4/startup.sh
 fi
