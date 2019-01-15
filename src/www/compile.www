@@ -1,0 +1,32 @@
+#!/bin/sh
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+ORIGINAL=$SCRIPT_DIR/original
+COMPRESSED=$SCRIPT_DIR/compressed
+
+echo "Deleting old files..."
+rm -rf $COMPRESSED/*
+mkdir $COMPRESSED/images
+mkdir $COMPRESSED/css
+
+echo "Combining CSS files..."
+cat $ORIGINAL/css/*.css > $COMPRESSED/css/tmp.css
+
+echo "Compressing CSS files..."
+java -jar $SCRIPT_DIR/tools/yuicompressor-2.4.8.jar --type css -o $COMPRESSED/css/all.css $COMPRESSED/css/tmp.css
+
+echo "Compressing HTML files..."
+awk -f $SCRIPT_DIR/tools/remcomm.awk $ORIGINAL/index.html > $COMPRESSED/tmp.html
+xmllint --noblanks $COMPRESSED/tmp.html > $COMPRESSED/index.html
+
+echo "Copying image files..."
+cp -R $ORIGINAL/images/. $COMPRESSED/images/
+
+echo "Cleaning up..."
+rm $COMPRESSED/css/tmp.css
+rm $COMPRESSED/tmp.html
+
+echo "Aplying GZIP Compression to files..."
+gzip -9 $COMPRESSED/css/*.css
+gzip -9 $COMPRESSED/*.html
+
+echo "Compilation succeeded."
