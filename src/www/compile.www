@@ -30,6 +30,6 @@ cd tinyhttp
 make clean
 make
 cp tinyhttp ../_install/bin
-cp ./cgi-bin/*.cgi ../_install/www/cgi-bin
+cp ./cgi-bin/* ../_install/www/cgi-bin
 
 echo "Compilation succeeded."
