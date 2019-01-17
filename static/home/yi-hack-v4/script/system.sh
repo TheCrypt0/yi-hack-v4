@@ -26,9 +26,9 @@ hostname -F $YI_HACK_PREFIX/etc/hostname
 
 # NOT READY YET
 
-#if [[ $(get_config HTTPD) == "yes" ]] ; then
-#    lwsws -D
-#fi
+if [[ $(get_config HTTPD) == "yes" ]] ; then
+    tinyhttp 80 &
+fi
 
 if [[ $(get_config TELNETD) == "yes" ]] ; then
     telnetd
