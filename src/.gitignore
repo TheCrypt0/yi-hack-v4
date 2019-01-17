@@ -1,2 +1,6 @@
 # Ignore the install dir
 _install/
+
+# Igone local testing script and dir
+_local/
+local.www

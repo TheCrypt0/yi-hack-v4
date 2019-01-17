@@ -1,32 +1,35 @@
 #!/bin/sh
+
 SCRIPT_DIR=$(cd `dirname $0` && pwd)
-ORIGINAL=$SCRIPT_DIR/original
-COMPRESSED=$SCRIPT_DIR/compressed
+cd $SCRIPT_DIR
 
-echo "Deleting old files..."
-rm -rf $COMPRESSED/*
-mkdir $COMPRESSED/images
-mkdir $COMPRESSED/css
-
-echo "Combining CSS files..."
-cat $ORIGINAL/css/*.css > $COMPRESSED/css/tmp.css
+mkdir -p ./_install
+mkdir -p ./_install/cgi-bin
+mkdir -p ./_install/htdocs/images
+mkdir -p ./_install/htdocs/css
 
 echo "Compressing CSS files..."
-java -jar $SCRIPT_DIR/tools/yuicompressor-2.4.8.jar --type css -o $COMPRESSED/css/all.css $COMPRESSED/css/tmp.css
+cat ./tinyhttp/htdocs/css/skeleton.css ./tinyhttp/htdocs/css/normalize.css > ./_install/htdocs/css/tmp.css
+java -jar ./tinyhttp/tools/yuicompressor-2.4.8.jar --type css -o ./_install/htdocs/css/all.css ./_install/htdocs/css/tmp.css
+rm ./_install/htdocs/css/tmp.css
 
 echo "Compressing HTML files..."
-awk -f $SCRIPT_DIR/tools/remcomm.awk $ORIGINAL/index.html > $COMPRESSED/tmp.html
-xmllint --noblanks $COMPRESSED/tmp.html > $COMPRESSED/index.html
+awk -f ./tinyhttp/tools/remcomm.awk ./tinyhttp/htdocs/index.html > ./_install/htdocs/tmp.html
+xmllint --noblanks ./_install/htdocs/tmp.html > ./_install/htdocs/index.html
+rm ./_install/htdocs/tmp.html
 
 echo "Copying image files..."
-cp -R $ORIGINAL/images/. $COMPRESSED/images/
-
-echo "Cleaning up..."
-rm $COMPRESSED/css/tmp.css
-rm $COMPRESSED/tmp.html
+cp -R ./tinyhttp/htdocs/images/. ./_install/htdocs/images/
 
 echo "Aplying GZIP Compression to files..."
-gzip -9 $COMPRESSED/css/*.css
-gzip -9 $COMPRESSED/*.html
+gzip -9 ./_install/htdocs/css/*.css
+gzip -9 ./_install/htdocs/*.html
+
+echo "Building the tinyhttp server..."
+cd tinyhttp
+make clean
+make
+cp tinyhttp ../_install
+cp ./cgi-bin/*.cgi ../_install/cgi-bin
 
 echo "Compilation succeeded."
