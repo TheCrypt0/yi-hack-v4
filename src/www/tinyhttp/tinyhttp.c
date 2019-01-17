@@ -1,4 +1,4 @@
-/* 
+/*
  * tinyhttp.c - a minimal HTTP server that serves static and
  *          dynamic content for use on embedded linux platforms
  *
@@ -7,17 +7,17 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>	
+#include <stdlib.h>
 #include <string.h>
 #include <netdb.h>
 #include <fcntl.h>
-#include <sys/types.h> 
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <sys/wait.h>
 #include <netinet/in.h>
-#include <arpa/inet.h> 
+#include <arpa/inet.h>
 
 #define BUFSIZE 512
 #define MAXERRS 16
@@ -76,10 +76,10 @@ int main(int argc, char **argv) {
 	perror("ERROR opening socket");
     exit(1);
   }
-    
+
   /* allows us to restart server immediately */
   optval = 1;
-  setsockopt(parentfd, SOL_SOCKET, SO_REUSEADDR, 
+  setsockopt(parentfd, SOL_SOCKET, SO_REUSEADDR,
 	     (const void *)&optval , sizeof(int));
 
   /* bind port to socket */
@@ -87,14 +87,14 @@ int main(int argc, char **argv) {
   serveraddr.sin_family = AF_INET;
   serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
   serveraddr.sin_port = htons((unsigned short)portno);
-  if (bind(parentfd, (struct sockaddr *) &serveraddr, 
+  if (bind(parentfd, (struct sockaddr *) &serveraddr,
 	sizeof(serveraddr)) < 0) {
       perror("ERROR on binding");
       exit(1);
     }
 
   /* get us ready to accept connection requests */
-  if (listen(parentfd, 100) < 0) {  /* allow 100 requests to queue up */ 
+  if (listen(parentfd, 100) < 0) {  /* allow 100 requests to queue up */
     perror("ERROR on listen");
     exit(1);
   }
@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
       perror("ERROR on accept");
 	  exit(1);
 	}
-       
+
     /* open the child socket descriptor as a stream */
     if ((stream = fdopen(childfd, "r+")) == NULL) {
       perror("ERROR on fdopen");
@@ -127,7 +127,7 @@ int main(int argc, char **argv) {
       fclose(stream);
       close(childfd);
       continue;
-    } 
+    }
 
     /* read (and ignore) the HTTP headers */
     while(strcmp(buf, "\r\n")) {
@@ -138,15 +138,16 @@ int main(int argc, char **argv) {
     /* parse the uri */
     if (!strstr(uri, "cgi-bin")) {  /* static content */
       is_static = 1;
+      is_gzipped = 0;
       strcpy(cgiargs, "");
       strcpy(filename, WWWPATH);
       strcat(filename, uri);
-      if (uri[strlen(uri)-1] == '/') 
+      if (uri[strlen(uri)-1] == '/')
 	    strcat(filename, "index.html");
-	  if (strstr(filename, ".css") || strstr(filename, ".js") || strstr(filename, ".html")) {
-		is_gzipped = 1;
-		strcat(filename, ".gz");
-	  }
+	    if (strstr(filename, ".css") || strstr(filename, ".js") || strstr(filename, ".html")) {
+		    strcat(filename, ".gz");
+        is_gzipped = 1;
+      }
     }
     else {                          /* dynamic content */
       is_static = 0;
@@ -158,7 +159,7 @@ int main(int argc, char **argv) {
       else {
 	    strcpy(cgiargs, "");
       }
-      strcpy(filename, CGIPATH);     
+      strcpy(filename, CGIPATH);
       strcat(filename, uri);
     }
 
@@ -168,7 +169,7 @@ int main(int argc, char **argv) {
       fclose(stream);
       close(childfd);
       continue;
-    } 
+    }
 
     /* serve static content */
     if (is_static) {
@@ -180,16 +181,16 @@ int main(int argc, char **argv) {
 	    strcpy(filetype, "text/css");
       else if (strstr(filename, ".js"))
 	    strcpy(filetype, "text/javascript");
-      else 
+      else
 	    strcpy(filetype, "text/plain");
 
       /* print response header */
       fprintf(stream, "HTTP/1.1 200 OK\n");
       fprintf(stream, SERVER_STRING);
-	  if(is_gzipped == 1)
-		  fprintf(stream, "Content-encoding: gzip\n");
+	    if (is_gzipped == 1)
+		    fprintf(stream, "Content-encoding: gzip\n");
       fprintf(stream, "Content-type: %s\n", filetype);
-      fprintf(stream, "\r\n"); 
+      fprintf(stream, "\r\n");
       fflush(stream);
 
       /* Use mmap to return arbitrary-sized response body */
@@ -210,7 +211,7 @@ int main(int argc, char **argv) {
       }
 
       /* a real server would set other CGI environ vars as well*/
-      setenv("QUERY_STRING", cgiargs, 1); 
+      setenv("QUERY_STRING", cgiargs, 1);
 
       /* print first part of response header */
       sprintf(buf, "HTTP/1.1 200 OK\n");

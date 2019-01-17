@@ -1,4 +1,4 @@
-CC=arm-hisiv300-linux-gcc
+CC=gcc
 
 all: tinyhttp cgi
 
