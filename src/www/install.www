@@ -4,7 +4,7 @@ SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
 # Compress the tinyhttp binary
-upx ./_install/tinyhttp
+# upx ./_install/tinyhttp
 
 rsync -a ./_install/tinyhttp ../../build/home/yi-hack-v4/bin/
 

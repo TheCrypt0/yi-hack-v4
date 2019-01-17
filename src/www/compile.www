@@ -3,33 +3,33 @@
 SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
-mkdir -p ./_install
-mkdir -p ./_install/cgi-bin
-mkdir -p ./_install/htdocs/images
-mkdir -p ./_install/htdocs/css
+mkdir -p ./_install/bin
+mkdir -p ./_install/www/cgi-bin
+mkdir -p ./_install/www/htdocs/images
+mkdir -p ./_install/www/htdocs/css
 
 echo "Compressing CSS files..."
-cat ./tinyhttp/htdocs/css/skeleton.css ./tinyhttp/htdocs/css/normalize.css > ./_install/htdocs/css/tmp.css
-java -jar ./tinyhttp/tools/yuicompressor-2.4.8.jar --type css -o ./_install/htdocs/css/all.css ./_install/htdocs/css/tmp.css
-rm ./_install/htdocs/css/tmp.css
+cat ./tinyhttp/htdocs/css/skeleton.css ./tinyhttp/htdocs/css/normalize.css > ./_install/www/htdocs/css/tmp.css
+java -jar ./tinyhttp/tools/yuicompressor-2.4.8.jar --type css -o ./_install/www/htdocs/css/all.css ./_install/www/htdocs/css/tmp.css
+rm ./_install/www/htdocs/css/tmp.css
 
 echo "Compressing HTML files..."
-awk -f ./tinyhttp/tools/remcomm.awk ./tinyhttp/htdocs/index.html > ./_install/htdocs/tmp.html
-xmllint --noblanks ./_install/htdocs/tmp.html > ./_install/htdocs/index.html
-rm ./_install/htdocs/tmp.html
+awk -f ./tinyhttp/tools/remcomm.awk ./tinyhttp/htdocs/index.html > ./_install/www/htdocs/tmp.html
+xmllint --noblanks ./_install/www/htdocs/tmp.html > ./_install/www/htdocs/index.html
+rm ./_install/www/htdocs/tmp.html
 
 echo "Copying image files..."
-cp -R ./tinyhttp/htdocs/images/. ./_install/htdocs/images/
+cp -R ./tinyhttp/htdocs/images/. ./_install/www/htdocs/images/
 
 echo "Aplying GZIP Compression to files..."
-gzip -9 ./_install/htdocs/css/*.css
-gzip -9 ./_install/htdocs/*.html
+gzip -9 ./_install/www/htdocs/css/*.css
+gzip -9 ./_install/www/htdocs/*.html
 
 echo "Building the tinyhttp server..."
 cd tinyhttp
 make clean
 make
-cp tinyhttp ../_install
-cp ./cgi-bin/*.cgi ../_install/cgi-bin
+mv tinyhttp ../_install/bin
+mv ./cgi-bin/*.cgi ../_install/www/cgi-bin
 
 echo "Compilation succeeded."
