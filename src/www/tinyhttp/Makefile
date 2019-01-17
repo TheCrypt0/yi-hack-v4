@@ -1,4 +1,4 @@
-CC=gcc
+CC=arm-hisiv300-linux-gcc
 
 all: tinyhttp cgi
 
@@ -9,5 +9,3 @@ cgi: ./cgi-bin/test.c
 	$(CC) -w -Os -o ./cgi-bin/test.cgi ./cgi-bin/test.c
 
 clean:
-	rm tinyhttp
-	rm ./cgi-bin/*.cgi

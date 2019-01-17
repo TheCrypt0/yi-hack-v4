@@ -29,7 +29,7 @@ echo "Building the tinyhttp server..."
 cd tinyhttp
 make clean
 make
-mv tinyhttp ../_install/bin
-mv ./cgi-bin/*.cgi ../_install/www/cgi-bin
+cp tinyhttp ../_install/bin
+cp ./cgi-bin/*.cgi ../_install/www/cgi-bin
 
 echo "Compilation succeeded."

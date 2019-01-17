@@ -1,2 +1,6 @@
 # Ignore the install dir
 _install/
+
+# Ignore compiled binarys
+tinyhttp/tinyhttp
+tinyhttp/cgi-bin/*.cgi
