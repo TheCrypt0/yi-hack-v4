@@ -7,11 +7,15 @@ mkdir -p ./_install/bin
 mkdir -p ./_install/www/cgi-bin
 mkdir -p ./_install/www/htdocs/images
 mkdir -p ./_install/www/htdocs/css
+mkdir -p ./_install/www/htdocs/js
 
 echo "Compressing CSS files..."
 cat ./tinyhttp/htdocs/css/skeleton.css ./tinyhttp/htdocs/css/normalize.css > ./_install/www/htdocs/css/tmp.css
 java -jar ./tinyhttp/tools/yuicompressor-2.4.8.jar --type css -o ./_install/www/htdocs/css/all.css ./_install/www/htdocs/css/tmp.css
 rm ./_install/www/htdocs/css/tmp.css
+
+echo "Compressing JS files..."
+java -jar ./tinyhttp/tools/yuicompressor-2.4.8.jar --type js -o ./_install/www/htdocs/js/all.js ./tinyhttp/htdocs/js/all.js
 
 echo "Compressing HTML files..."
 awk -f ./tinyhttp/tools/remcomm.awk ./tinyhttp/htdocs/index.html > ./_install/www/htdocs/tmp.html
@@ -23,6 +27,7 @@ cp -R ./tinyhttp/htdocs/images/. ./_install/www/htdocs/images/
 
 echo "Aplying GZIP Compression to files..."
 gzip -9 ./_install/www/htdocs/css/*.css
+gzip -9 ./_install/www/htdocs/js/*.js
 gzip -9 ./_install/www/htdocs/*.html
 
 echo "Building the tinyhttp server..."
