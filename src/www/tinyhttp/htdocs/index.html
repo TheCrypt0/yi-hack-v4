@@ -63,7 +63,19 @@
 				<div class="twelf columns">
 					<h4 id="header">Basic Page</h4>
 					<p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! <br />
-					You can also <a href="#" onclick="get('cgi-bin/version.sh',console.log)">click here</a> to see if CGI´s are handled correctly.</p>
+					You can also click on any of the following buttons to check basic CGI and JavaScript functionality.</p>
+					<div class="row">
+						<div class="three columns"><a href="#" class="button" onclick="get('https://raw.githubusercontent.com/gaggi/yi-hack-v4/master/VERSION',repText,'githubver')">Get GitHub Version</a></div>
+						<h5 id="githubver">click to request</h5>
+					</div>
+					<div class="row">
+						<div class="three columns"><a href="#" class="button" onclick="get('./cgi-bin/getversion.sh',repText,'localver')">Get Local Version</a></div>
+						<h5 id="localver">click to request</h5>
+					</div>
+					<div class="row">
+						<div class="three columns"><a href="#" class="button" onclick="get('./cgi-bin/getstatus.sh',repText,'status')">Get Status</a></div>
+						<pre class="eight columns"><code id="status"><br /></code></pre>
+					</div>
 				</div>
 			</div>
 		</div>

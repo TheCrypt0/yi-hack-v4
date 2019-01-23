@@ -7,7 +7,7 @@ function get(url,callback,id) {
 	xhr.send()
 }
 
-function text(string,id) {
+function repText(string,id) {
 	document.getElementById(id).innerHTML = string.responseText;
 }
 
