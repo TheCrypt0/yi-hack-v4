@@ -20,18 +20,16 @@
 #include <arpa/inet.h>
 
 #define BUFSIZE 512
-#define MAXERRS 16
-#define SERVER_STRING "Server: tinyhttp\n"
-#define WWWPATH "../www/htdocs"
-#define CGIPATH "../www"
+#define SERVER_STRING "Server: tinyhttp\n\n"
+#define WWWPATH "../www"
 
 extern char **environ; /* the environment */
 
 /* cerror - returns an error message to the client */
 void cerror(FILE *stream, char *cause, char *errno, char *msg) {
   fprintf(stream, "HTTP/1.1 %s %s\n", errno, msg);
+  fprintf(stream, "Content-type: text/html\n");
   fprintf(stream, SERVER_STRING);
-  fprintf(stream, "Content-type: text/html\n\n");
   fprintf(stream, "%s: %s\n", errno, msg);
 }
 
@@ -54,10 +52,11 @@ int main(int argc, char **argv) {
   char version[16];      /* request method */
   char filename[64];     /* path derived from uri */
   char filetype[16];     /* path derived from uri */
-  char cgiargs[512];     /* cgi argument list */
+  char cgiargs[64];     /* cgi argument list */
   char *p;               /* temporary pointer */
   int is_static;         /* static request? */
   int is_gzipped;		 /* gzipped content? */
+  int postlength = 0;
   struct stat sbuf;      /* file status */
   int fd;                /* static content filedes */
   int pid;               /* process id from fork */
@@ -102,7 +101,12 @@ int main(int argc, char **argv) {
    * serve requested content, close connection. */
   clientlen = sizeof(clientaddr);
   while (1) {
-
+	  
+	/* make sure all variables are resetted in case the client canceled the request early */  
+    postlength = 0;
+    is_static = 0;
+    is_gzipped = 0;
+	
     /* wait for a connection request */
     childfd = accept(parentfd, (struct sockaddr *) &clientaddr, &clientlen);
     if (childfd < 0) {
@@ -122,7 +126,7 @@ int main(int argc, char **argv) {
     sscanf(buf, "%s %s %s\n", method, uri, version);
 
     /* tiny only supports the GET method */
-    if (strcasecmp(method, "GET")) {
+    if (strcasecmp(method, "GET") && strcasecmp(method, "POST")) {
       cerror(stream, method, "501", "Not Implemented");
       fclose(stream);
       close(childfd);
@@ -133,24 +137,34 @@ int main(int argc, char **argv) {
     while(strcmp(buf, "\r\n")) {
       fgets(buf, BUFSIZE, stream);
       // printf("%s", buf);
+      if(strstr(buf, "Content-Length"))
+        sscanf(buf, "%*s %i\n", &postlength);
     }
+	
+	/* read Request Body */
+	if (postlength) {
+      fgets(buf, postlength+1, stream);
+	  printf("REQUEST-BODY: %s\n", buf);
+	}
 
     /* parse the uri */
     if (!strstr(uri, "cgi-bin")) {  /* static content */
       is_static = 1;
-      is_gzipped = 0;
       strcpy(cgiargs, "");
       strcpy(filename, WWWPATH);
+	  strcat(filename, "/htdocs");
       strcat(filename, uri);
-      if (uri[strlen(uri)-1] == '/')
+      if (uri[strlen(uri)-1] == '/')   /* serve index.html if no filename is requested */
 	    strcat(filename, "index.html");
-	    if (strstr(filename, ".css") || strstr(filename, ".js") || strstr(filename, ".html")) {
-		    strcat(filename, ".gz");
+	
+      /* serve gzip version of file if ending is .css .js or .html */	
+	  if (strstr(filename, ".css") || strstr(filename, ".js") || strstr(filename, ".html")) {
+		strcat(filename, ".gz");
         is_gzipped = 1;
       }
-    }
+    
+	}
     else {                          /* dynamic content */
-      is_static = 0;
       p = index(uri, '?');
       if (p) {
 	    strcpy(cgiargs, p+1);
@@ -159,12 +173,13 @@ int main(int argc, char **argv) {
       else {
 	    strcpy(cgiargs, "");
       }
-      strcpy(filename, CGIPATH);
+      strcpy(filename, WWWPATH);
       strcat(filename, uri);
-    }
-
+    }	
+	
     /* make sure the file exists */
     if (stat(filename, &sbuf) < 0) {
+	  printf("%s", filename);
       cerror(stream, filename, "404", "Not found");
       fclose(stream);
       close(childfd);
@@ -186,11 +201,10 @@ int main(int argc, char **argv) {
 
       /* print response header */
       fprintf(stream, "HTTP/1.1 200 OK\n");
-      fprintf(stream, SERVER_STRING);
 	    if (is_gzipped == 1)
-		    fprintf(stream, "Content-encoding: gzip\n");
+		  fprintf(stream, "Content-encoding: gzip\n");
       fprintf(stream, "Content-type: %s\n", filetype);
-      fprintf(stream, "\r\n");
+      fprintf(stream, SERVER_STRING);
       fflush(stream);
 
       /* Use mmap to return arbitrary-sized response body */

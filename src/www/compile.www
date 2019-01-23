@@ -10,7 +10,8 @@ mkdir -p ./_install/www/htdocs/css
 mkdir -p ./_install/www/htdocs/js
 
 echo "Compressing CSS files..."
-cat ./tinyhttp/htdocs/css/skeleton.css ./tinyhttp/htdocs/css/normalize.css > ./_install/www/htdocs/css/tmp.css
+#find ./tinyhttp/htdocs/css/* ! -name all.css -exec cat {} \+  > ./_install/www/htdocs/css/tmp.css
+cat ./tinyhttp/htdocs/css/normalize.css ./tinyhttp/htdocs/css/skeleton.css ./tinyhttp/htdocs/css/custom.css > ./_install/www/htdocs/css/tmp.css
 java -jar ./tinyhttp/tools/yuicompressor-2.4.8.jar --type css -o ./_install/www/htdocs/css/all.css ./_install/www/htdocs/css/tmp.css
 rm ./_install/www/htdocs/css/tmp.css
 
