@@ -4,3 +4,6 @@ _install/
 # Ignore compiled binarys
 tinyhttp/tinyhttp
 tinyhttp/cgi-bin/*.cgi
+
+# Ignore test script
+test.www

@@ -1,0 +1,112 @@
+body {
+	padding-top: 80px; 
+}
+
+/* main navigation */
+nav {
+	top: 0;
+	position: fixed;
+	width: 100%;
+	z-index: 10000;
+
+	background-color: #fff;
+	border-bottom: 1px solid #dcdcdc;
+	
+	transition: top 0.2s ease-in-out;
+}
+
+nav ul {
+	margin: 0;
+	background-color: #fff;
+}
+
+nav ul li {
+	display: inline;
+	float: left;
+	position: relative;
+	margin: 0;
+	
+	list-style-type: none;
+}
+
+nav ul li a {
+	display: inline-block;
+	padding: 14px 16px;
+	
+	color: #757575;
+	font-size: 1.7rem;
+	text-decoration: none;
+	
+	transition: 0.2s;
+}
+
+/* add caret for drop menu */
+nav ul > li a:not(:only-child):after { content: '\00a0\00a0▼'; font-size: 0.8rem; vertical-align: middle; }
+
+/* sub menu */
+nav ul ul {
+	position: absolute;
+	min-width: 180px;
+	
+	height: 0px;
+	overflow: hidden; /* hide sub menu */
+}
+
+nav ul li:hover ul {
+	height: auto;
+	overflow: visible; /* show sub menu */
+	
+	border: 1px solid #dcdcdc;
+}
+
+nav ul ul li {
+	display: list-item;
+	float: none;
+}
+
+nav ul ul li a {
+	display: block;
+}
+
+/* Change background color of links on hover */
+nav ul li a:hover {	
+	background-color: #eee; 
+	color: #757575;
+}
+
+/* Hide the list item that contains the link that should open and close the topnav on small screens */
+nav ul li.icon { display: none; }
+
+/* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
+@media screen and (max-width:880px) {
+	nav ul li:not(:first-child) { display: none; }
+	nav ul li.icon {
+		position: absolute;
+		right: 0;
+		top: 0;
+		display: inline-block;
+	}
+}
+
+/* The "mobile" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the nav look good on small screens */
+@media screen and (max-width:880px) {
+	nav.mobile ul li {
+		float: none;
+		display: inline;
+	}
+	nav.mobile ul li a {
+		display: block;
+		text-align: left;
+	}
+	nav.mobile ul li ul {
+		position: relative;
+		height: auto;
+		overflow: visible;
+		padding-left: 20px;
+	}
+	nav.mobile ul li:hover ul {
+		border: none;
+	}
+}
+}
+

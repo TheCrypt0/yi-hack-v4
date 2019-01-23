@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	
+		<!-- Basic Page Needs
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<meta charset="utf-8" />
+		<title>YI-Hack-V4</title>
+		<meta name="author" content="gaggi" />
+
+		<!-- Mobile Specific Metas
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- CSS
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<link rel="stylesheet" href="css/all.css" />
+
+		<!-- Favicon
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<link rel="icon" type="image/png" href="images/favicon.png" />
+		
+	</head>
+
+	<body>
+	
+		<!-- Nagigation
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<nav class="nav-show">
+			<div class="container">
+				<ul>
+					<li><a href="index.html">YI-Hack-V4</a></li>
+					<li><a href="#">Status</a></li>
+					<li><a href="#">Control</a></li>
+					<li><a href="#">Recordings</a></li>
+					<li>
+						<a href="#">Configuration</a>
+						<ul>
+							<li><a href="#">Services</a></li>
+							<li><a href="#">Proxychains NG</a></li>
+							<li><a href="#">Network</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">System</a>
+						<ul>
+							<li><a href="#">Update</a></li>
+							<li><a href="#">Reboot</a></li>
+						</ul>
+					</li>
+					<li><a href="#">About</a></li>
+					<li class="icon">
+						<a href="javascript:void(0);" onclick="toggleMobileNav();">&#9776;</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- Website Data 
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->		
+		<div class="container">
+			<div class="row">
+				<div class="twelf columns">
+					<h4 id="header">Basic Page</h4>
+					<p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! <br />
+					You can also click on any of the following buttons to check basic CGI and JavaScript functionality.</p>
+					<div class="row">
+						<div class="three columns"><a href="#" class="button" onclick="get('https://raw.githubusercontent.com/gaggi/yi-hack-v4/master/VERSION',repText,'githubver')">Get GitHub Version</a></div>
+						<h5 id="githubver">click to request</h5>
+					</div>
+					<div class="row">
+						<div class="three columns"><a href="#" class="button" onclick="get('./cgi-bin/getversion.sh',repText,'localver')">Get Local Version</a></div>
+						<h5 id="localver">click to request</h5>
+					</div>
+					<div class="row">
+						<div class="three columns"><a href="#" class="button" onclick="get('./cgi-bin/getstatus.sh',repText,'status')">Get Status</a></div>
+						<pre class="eight columns"><code id="status"><br /></code></pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- JavaScript
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<script src="js/all.js"> </script>
+
+	<!-- End Document
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->		
+	</body>
+</html>
