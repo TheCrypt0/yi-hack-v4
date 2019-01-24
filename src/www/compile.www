@@ -4,33 +4,34 @@ SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
 mkdir -p ./_install/www/cgi-bin
-mkdir -p ./_install/www/htdocs/images
-mkdir -p ./_install/www/htdocs/css
-mkdir -p ./_install/www/htdocs/js
+mkdir -p ./_install/www/images
+mkdir -p ./_install/www/css
+mkdir -p ./_install/www/js
 
 echo "Compressing CSS files..."
 #find ./httpd/htdocs/css/* ! -name all.css -exec cat {} \+  > ./_install/www/htdocs/css/tmp.css
-cat ./httpd/htdocs/css/normalize.css ./httpd/htdocs/css/skeleton.css ./httpd/htdocs/css/custom.css > ./_install/www/htdocs/css/tmp.css
-yui-compressor --type css -o ./_install/www/htdocs/css/all.css ./_install/www/htdocs/css/tmp.css
-rm ./_install/www/htdocs/css/tmp.css
+cat ./httpd/htdocs/css/normalize.css ./httpd/htdocs/css/skeleton.css ./httpd/htdocs/css/custom.css > ./_install/www/css/tmp.css
+yui-compressor --type css -o ./_install/www/css/all.css ./_install/www/css/tmp.css
+rm ./_install/www/css/tmp.css
 
 echo "Compressing JS files..."
-yui-compressor --type js -o ./_install/www/htdocs/js/all.js ./httpd/htdocs/js/all.js
+yui-compressor --type js -o ./_install/www/js/all.js ./httpd/htdocs/js/all.js
 
 echo "Compressing HTML files..."
-awk -f ./httpd/tools/remcomm.awk ./httpd/htdocs/index.html > ./_install/www/htdocs/tmp.html
-xmllint --noblanks ./_install/www/htdocs/tmp.html > ./_install/www/htdocs/index.html
-rm ./_install/www/htdocs/tmp.html
+awk -f ./httpd/tools/remcomm.awk ./httpd/htdocs/index.html > ./_install/www/tmp.html
+xmllint --noblanks ./_install/www/tmp.html > ./_install/www/index.html
+rm ./_install/www/tmp.html
 
 echo "Copying image files..."
-cp -R ./httpd/htdocs/images/. ./_install/www/htdocs/images/
+cp -R ./httpd/htdocs/images/. ./_install/www/images/
 
-echo "Aplying GZIP Compression to files..."
-gzip -9 ./_install/www/htdocs/css/*.css
-gzip -9 ./_install/www/htdocs/js/*.js
-gzip -9 ./_install/www/htdocs/*.html
+# Removed gzip compression because not needed for now 
+#echo "Aplying GZIP Compression to files..."
+#gzip -9 ./_install/www/htdocs/css/*.css
+#gzip -9 ./_install/www/htdocs/js/*.js
+#gzip -9 ./_install/www/htdocs/*.html
 
 echo "Copying the cgi-bin folder..."
-cp ./cgi-bin/* ../_install/www/cgi-bin
+cp ./httpd/cgi-bin/* ./_install/www/cgi-bin
 
 echo "Compilation succeeded."

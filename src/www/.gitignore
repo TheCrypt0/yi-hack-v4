@@ -1,9 +1,5 @@
 # Ignore the install dir
 _install/
 
-# Ignore compiled binaries
-tinyhttp/tinyhttp
-tinyhttp/cgi-bin/*.cgi
-
 # Ignore test script
 test.www

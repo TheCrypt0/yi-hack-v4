@@ -1,4 +1,7 @@
 #!/bin/sh
+
+printf "Content-type: text/plain\r\n\r\n"
+
 CAM=$(cat /home/base/init.sh | grep if=/home/home_ | sed -e 's/.*home_\(.*\) of=.*/\1/')
 CPU=$(grep -e Processor -e Hardware /proc/cpuinfo | awk '{print $3}')
 CPUUSAGE=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}')

@@ -24,10 +24,8 @@ fi
 
 hostname -F $YI_HACK_PREFIX/etc/hostname
 
-# NOT READY YET
-
 if [[ $(get_config HTTPD) == "yes" ]] ; then
-    tinyhttp 80 &
+    httpd -p 80 -h $YI_HACK_PREFIX/www/
 fi
 
 if [[ $(get_config TELNETD) == "yes" ]] ; then
