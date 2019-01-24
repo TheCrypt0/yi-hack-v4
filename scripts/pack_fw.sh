@@ -129,10 +129,10 @@ rsync -a $SYSROOT_DIR/home/* $TMP_DIR/home || exit 1
 printf "done!\n"
 
 # Copy the static files to the tmp dir
-printf "Copying the static files... "
-rsync -a $STATIC_DIR/rootfs/* $TMP_DIR/rootfs || exit 1
-rsync -a $STATIC_DIR/home/* $TMP_DIR/home || exit 1
-printf "done!\n"
+#printf "Copying the static files... "
+#rsync -a $STATIC_DIR/rootfs/* $TMP_DIR/rootfs || exit 1
+#rsync -a $STATIC_DIR/home/* $TMP_DIR/home || exit 1
+#printf "done!\n"
 
 # Copy the build files to the tmp dir
 printf "Copying the build files... "
