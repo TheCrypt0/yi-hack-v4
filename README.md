@@ -3,10 +3,13 @@
 	<img height="200" src="https://raw.githubusercontent.com/TheCrypt0/yi-hack-v4/master/imgs/yi-hack-v4-header.png">
 </p>
 <p align="center">
- <a href="https://discord.gg/upPsFWZ">
-        <img src="https://img.shields.io/discord/530507539696189477.svg?logo=discord"
-            alt="Official Discord Server"></a>
-         <img src="https://img.shields.io/github/license/TheCrypt0/yi-hack-v4.svg">
+	<a href="https://discord.gg/upPsFWZ">
+        	<img src="https://img.shields.io/discord/530507539696189477.svg?logo=discord" alt="Official Discord Server">
+	</a>
+	<a href="https://trello.com/b/EtuK8577/yi-hack-v4">
+		<img src="https://img.shields.io/badge/Trello-yi--hack--v4-blue.svg" alt="Trello Board">
+	</a>
+	<img src="https://img.shields.io/github/license/TheCrypt0/yi-hack-v4.svg">
 </p>
 
 ## Why another Yi firmware?
