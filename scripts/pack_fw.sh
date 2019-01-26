@@ -145,6 +145,11 @@ printf "Copying the version file... "
 cp $BASE_DIR/VERSION $TMP_DIR/home/yi-hack-v4/version
 printf "done!\n\n"
 
+# insert the camera version file
+printf "Creating the .camver file... "
+echo $CAMERA_NAME > $TMP_DIR/home/app/.camver
+printf "done!\n\n"
+
 # fix the files ownership
 printf "Fixing the files ownership... "
 chown -R root:root $TMP_DIR/*

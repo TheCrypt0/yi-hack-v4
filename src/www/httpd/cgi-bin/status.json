@@ -1,0 +1,40 @@
+#!/bin/sh
+
+printf "Content-type: application/json\r\n\r\n"
+
+CAMERA_MODEL=$(cat /home/app/.camver)
+HOSTNAME=$(cat /etc/hostname)
+FW_VERSION=$(cat /home/yi-hack-v4/version)
+HOME_VERSION=$(cat /home/app/.appver)
+LOCAL_TIME=$(date)
+UPTIME=$(uptime | cut -d ' ' -f 4- | cut -d ',' -f 1)
+LOAD_AVG=$(cat /proc/loadavg | cut -d ' ' -f1-3)
+TOTAL_MEMORY=$(free -k | awk 'NR==2{print $2}')
+FREE_MEMORY=$(free -k | awk 'NR==2{print $4+$6+$7}')
+
+LOCAL_IP=$(ifconfig | awk '/inet addr/{print substr($2,6)}')
+NETMASK=$(ifconfig | awk '/inet addr/{print substr($4,6)}')
+GATEWAY=$(route -n | awk 'NR==3{print $2}')
+MAC_ADDR=$(ifconfig | awk '/HWaddr/{print substr($5,1)}')
+WLAN_ESSID=$(iwconfig wlan0 | grep ESSID | cut -d\" -f2)
+
+# Yeah, it's pretty ugly.. but hey, it works.
+
+printf "{\n"
+printf "\"%s\":\"%s\",\n" "camera_model"    "$CAMERA_MODEL"
+printf "\"%s\":\"%s\",\n" "hostname"        "$HOSTNAME"
+printf "\"%s\":\"%s\",\n" "fw_version"      "$FW_VERSION"
+printf "\"%s\":\"%s\",\n" "home_version"    "$HOME_VERSION"
+printf "\"%s\":\"%s\",\n" "local_time"      "$LOCAL_TIME"
+printf "\"%s\":\"%s\",\n" "uptime"          "$UPTIME"
+printf "\"%s\":\"%s\",\n" "load_avg"        "$LOAD_AVG"
+printf "\"%s\":\"%s\",\n" "total_memory"    "$TOTAL_MEMORY"
+printf "\"%s\":\"%s\",\n" "free_memory"     "$FREE_MEMORY"
+
+printf "\"%s\":\"%s\",\n" "local_ip"        "$LOCAL_IP"
+printf "\"%s\":\"%s\",\n" "netmask"         "$NETMASK"
+printf "\"%s\":\"%s\",\n" "gateway"         "$GATEWAY"
+printf "\"%s\":\"%s\",\n" "mac_addr"        "$MAC_ADDR"
+printf "\"%s\":\"%s\" \n" "wlan_essid"      "$WLAN_ESSID"
+
+printf "}"
