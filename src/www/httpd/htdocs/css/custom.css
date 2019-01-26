@@ -108,5 +108,34 @@ nav ul li.icon { display: none; }
 		border: none;
 	}
 }
+
+.strong {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.tiny-margin {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+table.padded-table tr td {
+    padding: 10px 10px 9px; !important
+}
+
+table.padded-table td:first-child {
+    color: rgba(0,0,0,0.7);
+    width: 35%;
+}
+
+table.padded-table td:last-child {
+    /*text-shadow: 0.01px 0 0 currentColor;*/
 }
 
