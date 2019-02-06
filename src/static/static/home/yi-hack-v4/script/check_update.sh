@@ -1,7 +1,7 @@
 #!/bin/sh
 
 REMOTE_VERSION_URL=https://raw.githubusercontent.com/TheCrypt0/yi-hack-v4/master/VERSION
-REMOTE_VERSION_FILE=/tmp/hack_new_version
+REMOTE_VERSION_FILE=/tmp/hacknewver
 
 while [ 1 ]; do
 

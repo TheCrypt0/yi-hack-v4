@@ -31,7 +31,7 @@ WHITE="[1;37m"
 umask 022
 
 HACK_VERSION=$(cat /home/yi-hack-v4/version)
-HACK_NEW_VERSION=$(cat /tmp/hack_new_version 2>/dev/null)
+HACK_NEW_VERSION=$(cat /tmp/hacknewver 2>/dev/null)
 
 ###############################################################################
 
