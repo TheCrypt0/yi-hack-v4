@@ -7,6 +7,7 @@ mkdir -p ./_install/www/cgi-bin
 mkdir -p ./_install/www/images
 mkdir -p ./_install/www/css
 mkdir -p ./_install/www/js
+mkdir -p ./_install/www/pages
 
 echo "Compressing CSS files..."
 #find ./httpd/htdocs/css/* ! -name all.css -exec cat {} \+  > ./_install/www/htdocs/css/tmp.css
@@ -20,6 +21,13 @@ yui-compressor --type js -o ./_install/www/js/all.js ./httpd/htdocs/js/all.js
 echo "Compressing HTML files..."
 awk -f ./httpd/tools/remcomm.awk ./httpd/htdocs/index.html > ./_install/www/tmp.html
 xmllint --noblanks ./_install/www/tmp.html > ./_install/www/index.html
+
+awk -f ./httpd/tools/remcomm.awk ./httpd/htdocs/pages/status.html > ./_install/www/tmp.html
+xmllint --noblanks ./_install/www/tmp.html > ./_install/www/pages/status.html
+
+awk -f ./httpd/tools/remcomm.awk ./httpd/htdocs/pages/about.html > ./_install/www/tmp.html
+xmllint --noblanks ./_install/www/tmp.html > ./_install/www/pages/about.html
+
 rm ./_install/www/tmp.html
 
 echo "Copying image files..."
