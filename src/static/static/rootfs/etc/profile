@@ -45,7 +45,7 @@ echo " | | | |___|   | .'|  _| '_|___| | |_  |"
 echo " |_  |_|   |_|_|__,|___|_,_|    \_/  |_|"
 echo " |___|"
 echo " -----------------------------------------------------"
-echo " yi-hack-v4 v$HACK_VERSION is active!"
+echo "  yi-hack-v4 - $HACK_VERSION"
 echo " -----------------------------------------------------"
 
 if [[ -z $HACK_NEW_VERSION ]] ; then
@@ -57,7 +57,7 @@ if [[ -z $HACK_NEW_VERSION ]] ; then
     echo " -----------------------------------------------------"
 else
     if [[ $HACK_VERSION != $HACK_NEW_VERSION ]] ; then
-        echo " UPDATE: Version v$HACK_NEW_VERSION is available."
+        echo " UPDATE: Version $HACK_NEW_VERSION is available."
         echo ""
         echo " You can download it from GitHub:"
         echo " > https://github.com/TheCrypt0/yi-hack-v4/releases"
