@@ -1,5 +1,16 @@
 #!/bin/sh
 
+compress_html()
+{
+    local SRC=$1
+    local DST=$2
+    
+    echo "Compressing $SRC..."
+    awk -f ./httpd/tools/remcomm.awk "$SRC" > ./_install/www/tmp.html
+    xmllint --noblanks ./_install/www/tmp.html > "$DST"
+    rm ./_install/www/tmp.html
+}
+
 SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
@@ -19,16 +30,14 @@ echo "Compressing JS files..."
 yui-compressor --type js -o ./_install/www/js/all.js ./httpd/htdocs/js/all.js
 
 echo "Compressing HTML files..."
-awk -f ./httpd/tools/remcomm.awk ./httpd/htdocs/index.html > ./_install/www/tmp.html
-xmllint --noblanks ./_install/www/tmp.html > ./_install/www/index.html
 
-awk -f ./httpd/tools/remcomm.awk ./httpd/htdocs/pages/status.html > ./_install/www/tmp.html
-xmllint --noblanks ./_install/www/tmp.html > ./_install/www/pages/status.html
+compress_html ./httpd/htdocs/index.html ./_install/www/index.html
 
-awk -f ./httpd/tools/remcomm.awk ./httpd/htdocs/pages/about.html > ./_install/www/tmp.html
-xmllint --noblanks ./_install/www/tmp.html > ./_install/www/pages/about.html
-
-rm ./_install/www/tmp.html
+# Compress pages
+for PAGE in ./httpd/htdocs/pages/*.html ; do
+    PAGE_NAME="${PAGE##*/}"
+    compress_html ./httpd/htdocs/pages/$PAGE_NAME ./_install/www/pages/$PAGE_NAME
+done
 
 echo "Copying image files..."
 cp -R ./httpd/htdocs/images/. ./_install/www/images/
