@@ -28,6 +28,16 @@ if [ -f $ARCHIVE_FILE ]; then
 	rm $ARCHIVE_FILE
 fi
 
+if [ ! -f $YI_PREFIX/cloudAPI_real ]; then
+	mv $YI_PREFIX/cloudAPI $YI_PREFIX/cloudAPI_real
+	cp $YI_HACK_V4_PREFIX/yi-hack-v4/script/cloudAPI $YI_PREFIX/
+        rm $UDHCPC_SCRIPT_DEST
+        cp $UDHCP_SCRIPT $UDHCPC_SCRIPT_DEST
+	if [ -f $DHCP_SCRIPT_DEST ]; then
+		rm $DHCP_SCRIPT_DEST
+		cp $DHCP_SCRIPT $DHCP_SCRIPT_DEST
+	fi
+fi
 
 mkdir -p $YI_HACK_V4_PREFIX/yi-hack-v4/etc/crontabs
 mkdir -p $YI_HACK_V4_PREFIX/yi-hack-v4/etc/dropbear
