@@ -30,6 +30,8 @@ WHITE="[1;37m"
 
 umask 022
 
+alias crontab="crontab -c /home/yi-hack-v4/etc/crontabs"
+
 HACK_VERSION=$(cat /home/yi-hack-v4/version)
 HACK_NEW_VERSION=$(cat /tmp/hacknewver 2>/dev/null)
 

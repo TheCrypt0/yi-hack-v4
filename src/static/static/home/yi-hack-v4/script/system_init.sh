@@ -25,4 +25,5 @@ if [ -f $ARCHIVE_FILE ]; then
 fi
 
 
+mkdir -p $YI_HACK_V4_PREFIX/yi-hack-v4/etc/crontabs
 mkdir -p $YI_HACK_V4_PREFIX/yi-hack-v4/etc/dropbear

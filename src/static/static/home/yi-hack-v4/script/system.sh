@@ -40,10 +40,10 @@ if [[ $(get_config DROPBEAR) == "yes" ]] ; then
     dropbear -R
 fi
 
-if [[ $(get_config CHECK_UPDATES) == "yes" ]] ; then
-    $YI_HACK_PREFIX/script/check_update.sh &
-fi
+# First run on startup, then every hour via crond
+$YI_HACK_PREFIX/script/check_update.sh
 
+crond -c $YI_HACK_PREFIX/etc/crontabs
 
 if [ -f "/tmp/sd/yi-hack-v4/startup.sh" ]; then
     /tmp/sd/yi-hack-v4/startup.sh
