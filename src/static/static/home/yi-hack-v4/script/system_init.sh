@@ -13,6 +13,10 @@ fi
 ARCHIVE_FILE="$YI_HACK_V4_PREFIX/yi-hack-v4/yi-hack-v4.7z"
 DESTDIR="$YI_HACK_V4_PREFIX/yi-hack-v4"
 
+DHCP_SCRIPT_DEST="/home/app/script/wifidhcp.sh"
+UDHCP_SCRIPT="$YI_HACK_V4_PREFIX/yi-hack-v4/script/default.script"
+DHCP_SCRIPT="$YI_HACK_V4_PREFIX/yi-hack-v4/script/wifidhcp.sh"
+
 files=`find $YI_PREFIX -maxdepth 1 -name "*.7z"`
 if [ ${#files[@]} -gt 0 ]; then
 	/home/base/tools/7za x "$YI_PREFIX/*.7z" -y -o$YI_PREFIX

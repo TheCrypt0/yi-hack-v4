@@ -22,7 +22,7 @@ elif [ -d "/home/yi-hack-v4" ]; then
 	export PATH=$PATH:/home/base/tools:/home/yi-hack-v4/bin:/home/yi-hack-v4/sbin:/tmp/sd/yi-hack-v4/bin:/tmp/sd/yi-hack-v4/sbin
 fi
 
-hostname -F $YI_HACK_PREFIX/etc/hostname
+hostname -F /etc/hostname
 
 if [[ $(get_config HTTPD) == "yes" ]] ; then
     httpd -p 80 -h $YI_HACK_PREFIX/www/

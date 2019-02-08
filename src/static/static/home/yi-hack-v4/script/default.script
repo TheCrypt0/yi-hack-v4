@@ -1,0 +1,110 @@
+#!/bin/sh
+# udhcpc script edited by Tim Riker <Tim@Rikers.org>
+
+RESOLV_CONF="/tmp/resolv.conf"
+DHCP_CONFIG="/tmp"
+DHCP_READ_FILE=$DHCP_CONFIG/config
+DHCP_WRITE_FILE=$DHCP_CONFIG/done
+config="/tmp/.count"
+HOSTNAME=""
+
+#echo "got input $1 $2 $3 $4 $5" > /tmp/123.txt 
+#echo "interface is $interface" >> /tmp/123.txt
+
+[ -n "$1" ] || { echo "Error: should be called from udhcpc"; exit 1; }
+
+NETMASK=""
+[ -n "$subnet" ] && NETMASK="netmask $subnet"
+BROADCAST="broadcast +"
+[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+
+case "$1" in
+        deconfig)
+                echo 0>$config                                                          
+                cat $config 
+                echo "Setting IP address 0.0.0.0 on $interface"
+                ifconfig $interface 0.0.0.0
+                ;;
+
+        renew|bound)
+                echo "Setting IP address $ip on $interface"
+                ifconfig $interface $ip $NETMASK $BROADCAST
+      
+                UPDATE_ROOT=yes
+
+                if [ "$UPDATE_ROOT" == "yes" ]; then
+
+                  echo " need update route and dns with $interface"
+                        if [ -n "$router" ] ; then
+
+                                echo "Deleting routers"
+                                #while route del default gw 0.0.0.0 dev $interface ; do
+                                #       :
+                                #done
+                                
+                                #echo "sleep 5 seconds to wait link up: try once"
+                                #sleep 5
+                
+                                #metric=0
+                                #for i in $router ; do
+                                #       echo "Adding router $i"
+                                #       route add default gw $i dev $interface metric $((metric++))
+                                #done
+                                
+                                #echo "sleep 5 seconds to wait link up: try again"
+                                #sleep 5
+                
+                                metric=0
+                                for i in $router ; do
+                                        echo "Adding router $i"
+                                        route add default gw $i dev $interface metric $((metric++))
+                                        if [ "$interface" == "eth0" ]; then
+                                          echo "$i" > "/tmp/gw0"
+                                        else
+                                          echo "$i" > "/tmp/gw1"
+                                        fi
+                                done                            
+                        fi
+                
+						echo "1200" > /sys/class/net/wlan0/mtu
+						
+                        echo "Recreating $RESOLV_CONF"
+                        echo -n > $RESOLV_CONF-$$
+                        if [ "$interface" == "eth0" ]; then
+                            echo -n > "/tmp/dns0"
+                            [ -n "$domain" ] && echo "search $domain" >> "/tmp/dns0"
+                        else
+                            echo -n > "/tmp/dns1"
+                            [ -n "$domain" ] && echo "search $domain" >> "/tmp/dns1"
+                        fi                      
+                        #[ -n "$domain" ] && echo "search $domain" >> $RESOLV_CONF-$$
+                        rm /tmp/resolv.conf
+                        for i in $dns ; do
+                                echo " Adding DNS server $i"
+                                echo "nameserver $i" >> $RESOLV_CONF-$$
+                                if [ "$interface" == "eth0" ]; then
+                                  echo "$i" >> "/tmp/dns0"
+                                else
+                                  echo "nameserver $1" >> "/tmp/resolv.conf"
+                                  echo "$i" >> "/tmp/dns1"
+                                fi
+                        done
+                        echo "Set DNS config"
+                        mv $RESOLV_CONF-$$ $RESOLV_CONF
+                        echo $subnet > /tmp/mask
+                        #echo "DHCP over,send msg to netmgmt"
+                        #/home/sendMq 0x80 0x1 0x1ffe 0x1 &
+
+                        if [ -n "$hostname" ] ; then
+                          hostname $hostname
+                        fi
+                else
+                  echo "needn't update route to $router"
+                fi
+                echo 1 > $DHCP_WRITE_FILE
+                ;;
+
+esac
+
+exit 0
+
