@@ -1,0 +1,14 @@
+--- yi-hack-v4/src/busybox/busybox/networking/httpd.c	2019-02-08 20:24:33.917338666 +0100
++++ test/yi-hack-v4/src/busybox/busybox/networking/httpd.c	2019-02-06 16:33:46.582275044 +0100
+@@ -2430,9 +2430,9 @@
+ 	tptr = urlcopy + 1;      /* skip first '/' */
+ 
+ #if ENABLE_FEATURE_HTTPD_CGI
+-	if (is_prefixed_with(tptr, "cgi-bin/")) {
++	if (is_prefixed_with(tptr, "onvif/") || is_prefixed_with(tptr, "cgi-bin/")) {
+ 		if (tptr[8] == '\0') {
+-			/* protect listing "cgi-bin/" */
++			/* protect listing "onvif/" and "cgi-bin/" */
+ 			send_headers_and_exit(HTTP_FORBIDDEN);
+ 		}
+ 		send_cgi_and_exit(urlcopy, urlcopy, prequest, length, cookie, content_type);
