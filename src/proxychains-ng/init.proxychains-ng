@@ -10,7 +10,8 @@ git reset --hard || exit 1
 
 ./configure CC=arm-hisiv300-linux-gcc \
     --prefix=$SCRIPT_DIR/_install \
-    --libdir=$SCRIPT_DIR/_install/lib
+    --libdir=$SCRIPT_DIR/_install/lib \
+    sysconfdir=/home/yi-hack-v4/etc \ 
     USER_CFLAGS="-march=armv5te -mcpu=arm926ej-s -I/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/include -L/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/lib" \
     AR=arm-hisiv300-linux-ar \
     RANLIB=arm-hisiv300-linux-ranlib \
