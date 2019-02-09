@@ -1,0 +1,12 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+# Compress the file
+upx ./_install/wsdd
+
+mkdir -p ../../build/home/yi-hack-v4/sbin/
+
+rsync -a ./_install/wsdd ../../build/home/yi-hack-v4/sbin/
+

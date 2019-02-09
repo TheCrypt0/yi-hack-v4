@@ -1,5 +1,5 @@
---- yi-hack-v4/src/busybox/busybox/networking/httpd.c	2019-02-08 20:24:33.917338666 +0100
-+++ test/yi-hack-v4/src/busybox/busybox/networking/httpd.c	2019-02-06 16:33:46.582275044 +0100
+--- busybox/networking/httpd.c	2019-02-08 20:24:33.917338666 +0100
++++ new/yi-hack-v4/src/busybox/busybox/networking/httpd.c	2019-02-06 16:33:46.582275044 +0100
 @@ -2430,9 +2430,9 @@
  	tptr = urlcopy + 1;      /* skip first '/' */
  

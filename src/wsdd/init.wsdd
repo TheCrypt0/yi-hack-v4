@@ -1,15 +1,12 @@
-#/bin/bash
+#!/bin/bash
 
 SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
 rm -rf ./_install
 
-cd busybox 
+cd wsdd 
 git reset --hard || exit 1
 
-cp ../.config ./ || exit 1
-
 cd $SCRIPT_DIR
-patch -p0 < httpd.patch
-
+patch -p0 < wsdd.patch
