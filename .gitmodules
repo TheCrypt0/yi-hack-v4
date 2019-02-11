@@ -13,6 +13,6 @@
 [submodule "src/ftpd/pure-ftpd"]
 	path = src/ftpd/pure-ftpd
 	url = https://github.com/jedisct1/pure-ftpd.git
-[submodule "src/uClibc++/uClibc++/"]
-	path = src/uClibc++/uClibc++/
+[submodule "src/uClibc++/uClibc++"]
+	path = src/uClibc++/uClibc++
 	url = https://git.busybox.net/uClibc++
