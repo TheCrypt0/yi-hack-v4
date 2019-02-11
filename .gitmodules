@@ -16,3 +16,6 @@
 [submodule "src/uClibc++/uClibc++"]
 	path = src/uClibc++/uClibc++
 	url = https://git.busybox.net/uClibc++
+[submodule "src/libfuse/libfuse"]
+	path = src/libfuse/libfuse
+	url = https://github.com/libfuse/libfuse.git
