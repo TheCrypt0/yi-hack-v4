@@ -15,3 +15,5 @@ mkdir -p $SCRIPT_DIR/_install/lib
 cp -f proxychains4 $SCRIPT_DIR/_install/bin
 cp -f libproxychains4.so $SCRIPT_DIR/_install/lib
 
+arm-hisiv300-linux-strip $SCRIPT_DIR/_install/bin/proxychains4
+arm-hisiv300-linux-strip $SCRIPT_DIR/_install/lib/libproxychains4.so
