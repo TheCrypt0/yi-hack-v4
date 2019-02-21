@@ -5,6 +5,9 @@
 /stock_firmware/*
 !/stock_firmware/README.md
 
+/stock_firmware/common/*
+!/stock_firmware/common/README.md
+
 /sysroot/*
 !/sysroot/.gitkeep
 

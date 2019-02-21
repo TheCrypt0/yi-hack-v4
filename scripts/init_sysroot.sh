@@ -124,6 +124,133 @@ extract_stock_fw()
     
 }
 
+generate_pem_certificate_from_xiaomi_binary_key()
+{
+    # This took me way too much time that I'm confident to admit
+    # Really.
+    
+    local RSA_PUB_KEY=$1
+    local RSA_CERT=$2
+    
+    if [ ! -f "$RSA_PUB_KEY" ]; then
+        printf "ERROR: Cannot find the rsa public key \"%s\"\n" $RSA_PUB_KEY
+        printf "Exiting...\n\n"
+        exit 0
+    fi
+    
+    local TMP_DIR=$(mktemp -d)
+    
+    if [[ ! "$TMP_DIR" || ! -d "$TMP_DIR" ]]; then
+        echo "ERROR: Could not create temp dir \"$TMP_DIR\". Exiting."
+        exit 1
+    fi
+    
+    dd if=$RSA_PUB_KEY of=$TMP_DIR/modulus.bin bs=1 count=256 
+    dd if=$RSA_PUB_KEY of=$TMP_DIR/exponent.bin bs=1 skip=256 count=3
+    echo 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA' | base64 -d > $TMP_DIR/header.bin
+    echo '02 03' | xxd -r -p > $TMP_DIR/mid-header.bin
+    cat $TMP_DIR/header.bin $TMP_DIR/modulus.bin $TMP_DIR/mid-header.bin $TMP_DIR/exponent.bin > $TMP_DIR/key.der
+    openssl pkey -inform der -outform pem -pubin -in $TMP_DIR/key.der -out $TMP_DIR/key.pem || exit 1
+    
+    cp $TMP_DIR/key.pem $RSA_CERT
+    
+    rm -rf "$TMP_DIR"
+}
+
+extract_fw_update()
+{
+    # extract_fw_update 
+    # Based on the script: y18m (17CN) unpacker 0.1 by MP77V 4pda.ru 04.05.2017
+
+    local CAMERA_ID=$1
+    local SYSROOT_DIR=$2
+    local FW_DIR=$3
+      
+    local UPDATE_FW=""
+    local RSA_PUB_KEY=$FW_DIR/../common/pub_key
+    local RSA_PEM_CERT=$FW_DIR/../common/pub_key.pem
+    
+    if [ $CAMERA_ID == "v201" ]; then
+        # The yi_dome uses a different filename for the update
+        UPDATE_FW=$FW_DIR/home_v200m
+    else
+        UPDATE_FW=$FW_DIR/home_${CAMERA_ID}m
+    fi
+    
+    if [ ! -f $UPDATE_FW ] ; then
+        printf "WARNING: Cannot find \"%s\"\n" $UPDATE_FW
+        printf "Skipping fw update...\n\n"
+        return 0
+    fi
+    
+    if [ ! -f $RSA_PUB_KEY ] ; then
+        printf "ERROR: Cannot find the rsa public key \"%s\"\n" $RSA_PUB_KEY
+        printf "Skipping fw update...\n\n"
+        return 0
+    fi
+    
+    printf "Update firmware file \"%s\" found! Extracting...\n" home_${CAMERA_ID}m
+
+    chunk()
+    {
+        if [ -z "${3}" ]; then
+            tail -c +${2} ${1}
+        else
+            head -c $(($2 + $3)) ${1} | tail -c ${3}
+        fi
+    }
+    
+    printf "Generating .pem cerificate from Xiaomi rsa key...\n"
+    generate_pem_certificate_from_xiaomi_binary_key $RSA_PUB_KEY $RSA_PEM_CERT
+    printf "RSA PEM CERTIFICATE GENERATED!\n"
+
+    hdr="$(chunk ${UPDATE_FW} 0 22)"
+    echo -e "\n   hdr=\"${hdr}\""
+
+    hdr="$FW_DIR/hdr.dec"
+    echo -n "" >${hdr}
+    
+    for ((i = 0; i <= 4; i++)); do
+        chunk ${UPDATE_FW} $((22 + 256 * $i)) 256 | openssl rsautl -inkey $RSA_PEM_CERT -pubin -raw | base64 -d >>${hdr}
+    done
+    
+    rm $RSA_PEM_CERT
+    
+    local md5="$(chunk ${hdr}  0 33)"
+    local key="$(chunk ${hdr} 33 33)"
+    local ver="$(chunk ${hdr} 66 22)"
+
+    echo -e "   ver=\"$ver\"\n   key=\"$key\"\n   md5=\"$md5\""
+
+    chunk ${hdr} $((33 + 33 +22 + 1)) > "$FW_DIR/update.7z.tmp"
+    chunk ${UPDATE_FW}  $((22 + 1280 + 1))  >> "$FW_DIR/update.7z.tmp"
+    rm -f ${hdr}
+
+    sum="$(md5sum $FW_DIR/update.7z.tmp | cut -f1 -d' ')"
+    echo -e "md5sum=\"${sum}\"\n"
+
+    rm -rf ${wd} &>/dev/null
+
+    if [ "$md5" != "$sum" ]; then
+        echo "!!! Incorrect checksumm !!!"
+        exit 4
+    fi
+    
+    mkdir $FW_DIR/tmp
+
+    7za x -y -o$FW_DIR/tmp -p$key $FW_DIR/update.7z.tmp | tail -n 6
+    test "$?" -eq 0 && echo "END" || exit 5    
+    
+    # Copy all the extracted files to the sysroot dir
+    rsync -a $FW_DIR/tmp/* $SYSROOT_DIR/
+    
+    printf "Update applied to the sysroot!\n"
+    
+    # Cleanup
+    rm -f  "$FW_DIR/update.7z.tmp"
+    rm -rf "$FW_DIR/tmp/"
+}
+
 ###############################################################################
 
 source "$(get_script_dir)/common.sh"
@@ -172,6 +299,11 @@ echo ""
 
 # Extract the stock fw to the camera's sysroot
 extract_stock_fw $CAMERA_ID $SYSROOT_DIR $FIRMWARE_DIR
+
+printf "\n"
+
+# Extract and decrypy the stock firmware update
+extract_fw_update $CAMERA_ID $SYSROOT_DIR $FIRMWARE_DIR
 
 echo ""
 
