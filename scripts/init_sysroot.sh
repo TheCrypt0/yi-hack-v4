@@ -239,16 +239,20 @@ extract_fw_update()
     mkdir $FW_DIR/tmp
 
     7za x -y -o$FW_DIR/tmp -p$key $FW_DIR/update.7z.tmp | tail -n 6
-    test "$?" -eq 0 && echo "END" || exit 5    
+    test "$?" -eq 0 && echo "END" || exit 5
+    
+    # Sometimes some files in the update are 7zipped 
+    # Let's unpack them
+    find $FW_DIR/tmp -type f -name "*.7z" -execdir 7za x {} \; -exec rm -- {} \; > /dev/null || exit 0
     
     # Copy all the extracted files to the sysroot dir
     rsync -a $FW_DIR/tmp/* $SYSROOT_DIR/
     
-    printf "Update applied to the sysroot!\n"
-    
     # Cleanup
     rm -f  "$FW_DIR/update.7z.tmp"
     rm -rf "$FW_DIR/tmp/"
+    
+    printf "Update applied to the sysroot!\n"
 }
 
 ###############################################################################
