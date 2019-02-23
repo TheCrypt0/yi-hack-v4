@@ -3,10 +3,13 @@
 	<img height="200" src="https://raw.githubusercontent.com/TheCrypt0/yi-hack-v4/master/imgs/yi-hack-v4-header.png">
 </p>
 <p align="center">
-	<a href="https://discord.gg/upPsFWZ">
+	<a target="_blank" href="https://discord.gg/upPsFWZ">
         	<img src="https://img.shields.io/discord/530507539696189477.svg?logo=discord" alt="Official Discord Server">
 	</a>
-	<a href="https://trello.com/b/EtuK8577/yi-hack-v4">
+	<a target="_blank" href="https://github.com/TheCrypt0/yi-hack-v4/releases">
+		<img src="https://img.shields.io/github/downloads/TheCrypt0/yi-hack-v4/total.svg" alt="Releases Downloads">
+	</a>
+	<a target="_blank" href="https://trello.com/b/EtuK8577/yi-hack-v4">
 		<img src="https://img.shields.io/badge/Trello-yi--hack--v4-blue.svg" alt="Trello Board">
 	</a>
 	<img src="https://img.shields.io/github/license/TheCrypt0/yi-hack-v4.svg">
@@ -19,7 +22,7 @@ The answer is simple: missing updates, RTSP and not based on the latest stock fi
 ## Alpha stage
 The firmware is currently in alpha stage, it has been tested by the people on the [Discord Server](https://discord.gg/upPsFWZ) on their cameras. 
 
-A pre-release will be publicly available in the next days. 
+The **RTSP Server** is currently available to Supporters only, see the pinned messages in the channel __#rtsp-server__ in Discord for further info.
 
 ## Table of Contents
 
@@ -38,8 +41,6 @@ This firmware will add the following features:
   - **NEW CAMERAS SUPPORTED**: Yi Outdoor 1080p and Yi Cloud Dome 1080p
   - [viewd](https://github.com/TheCrypt0/viewd) - a daemon to check the `/tmp/view` buffer heads/tails location.
   - RTSP server - which will allow a RTSP stream of the video while keeping the cloud features enabled.
-    - Based on @andy2301's rtsp2303 server integrated with the `viewd` daemon
-    - (it works but sometimes it randomly hangs)
 - In development:
   - A static image snapshot from the web interface.
   - The possibility to disable all the cloud features while keeping the RTSP stream.
@@ -47,7 +48,7 @@ This firmware will add the following features:
   - SSH server -  _Enabled by default._
   - Telnet server -  _Disabled by default._
   - FTP server -  _Enabled by default._
-  - ~~Web server -  _Enabled by default._~~ Not yet, needs further development.
+  - Web server -  _Enabled by default._
   - Proxychains-ng -  _Enabled by default. Useful if the camera is region locked._
 
 This firmware _might_ add:
