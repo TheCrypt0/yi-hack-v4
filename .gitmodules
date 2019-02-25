@@ -13,6 +13,3 @@
 [submodule "src/ftpd/pure-ftpd"]
 	path = src/ftpd/pure-ftpd
 	url = https://github.com/jedisct1/pure-ftpd.git
-[submodule "src/wsdd/wsdd"]
-	path = src/wsdd/wsdd
-	url = https://github.com/KoynovStas/wsdd.git
