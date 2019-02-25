@@ -11,8 +11,8 @@ make
 mkdir -p ../_install
 cp wsdiscovery ../_install
 
-mkdir -p ../_install/onvif
+mkdir -p ../_install/www/onvif
 echo "Copying the onvif folder..."
-cp ./onvif/* ../_install/onvif
+cp ./onvif/* ../_install/www/onvif
 
 echo "Compilation succeeded."

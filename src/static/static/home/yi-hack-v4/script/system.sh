@@ -40,8 +40,8 @@ if [[ $(get_config DROPBEAR) == "yes" ]] ; then
     dropbear -R
 fi
 
-if [[ $(get_config WSDD) == "yes" ]] ; then
-    dropbear -R
+if [[ $(get_config WSD) == "yes" ]] ; then
+    wsdiscovery wlan0 $(cat /home/app/.camver)
 fi
 
 # First run on startup, then every hour via crond

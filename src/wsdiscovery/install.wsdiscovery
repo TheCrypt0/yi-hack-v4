@@ -4,4 +4,4 @@ SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
 rsync -a ./_install/wsdiscovery ../../build/home/yi-hack-v4/bin/
-rsync -a ./_install/onvif/* ../../build/home/yi-hack-v4/www/onvif/
+rsync -a ./_install/www/* ../../build/home/yi-hack-v4/www/

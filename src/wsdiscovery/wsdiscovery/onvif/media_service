@@ -1,5 +1,17 @@
 #!/bin/sh
 POST_STRING=$(cat)
+
+case $(cat /home/app/.camver) in
+  *1080*)
+    MAINWIDTH=1920
+	MAINHEIGHT=1080
+  ;;
+  *)
+    MAINWIDTH=1280
+	MAINHEIGHT=720
+  ;;
+esac
+
 printf "Content-type: application/soap+xml\r\n\r\n<?xml version=\"1.0\" encoding=\"UTF-8\"?><env:Envelope xmlns:env=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:tt=\"http://www.onvif.org/ver10/schema\" xmlns:trt=\"http://www.onvif.org/ver10/media/wsdl\" xmlns:ter=\"http://www.onvif.org/ver10/error\" xmlns:xs=\"http://www.w3.org/2000/10/XMLSchema\"><env:Body>"
 
 case $POST_STRING in
@@ -11,24 +23,24 @@ case $POST_STRING in
                         <tt:Name>VideoSourceConfig</tt:Name>
                         <tt:UseCount>2</tt:UseCount>
                         <tt:SourceToken>VideoSource_1</tt:SourceToken>
-                        <tt:Bounds height=\"1080\" width=\"1920\" y=\"0\" x=\"0\"></tt:Bounds>
+                        <tt:Bounds width=\"%i\" height=\"%i\" y=\"0\" x=\"0\"></tt:Bounds>
                     </tt:VideoSourceConfiguration>
                     <tt:VideoEncoderConfiguration token=\"profile_video_stream_0\">
                         <tt:Name>VideoEncoder_0</tt:Name>
                         <tt:UseCount>1</tt:UseCount>
                         <tt:Encoding>H264</tt:Encoding>
                         <tt:Resolution>
-                            <tt:Width>1920</tt:Width>
-                            <tt:Height>1080</tt:Height>
+                            <tt:Width>%i</tt:Width>
+                            <tt:Height>%i</tt:Height>
                         </tt:Resolution>
                         <tt:Quality>5</tt:Quality>
                         <tt:RateControl>
-                            <tt:FrameRateLimit>25</tt:FrameRateLimit>
-                            <tt:EncodingInterval>25</tt:EncodingInterval>
+                            <tt:FrameRateLimit>20</tt:FrameRateLimit>
+                            <tt:EncodingInterval>20</tt:EncodingInterval>
                             <tt:BitrateLimit>3072</tt:BitrateLimit>
                         </tt:RateControl>
                         <tt:H264>
-                            <tt:GovLength>25</tt:GovLength>
+                            <tt:GovLength>20</tt:GovLength>
                             <tt:H264Profile>Main</tt:H264Profile>
                         </tt:H264>
                         <tt:Multicast>
@@ -61,12 +73,12 @@ case $POST_STRING in
                         </tt:Resolution>
                         <tt:Quality>5</tt:Quality>
                         <tt:RateControl>
-                            <tt:FrameRateLimit>15</tt:FrameRateLimit>
-                            <tt:EncodingInterval>15</tt:EncodingInterval>
+                            <tt:FrameRateLimit>20</tt:FrameRateLimit>
+                            <tt:EncodingInterval>20</tt:EncodingInterval>
                             <tt:BitrateLimit>512</tt:BitrateLimit>
                         </tt:RateControl>
                         <tt:H264>
-                            <tt:GovLength>15</tt:GovLength>
+                            <tt:GovLength>20</tt:GovLength>
                             <tt:H264Profile>Main</tt:H264Profile>
                         </tt:H264>
                         <tt:Multicast>
@@ -81,28 +93,28 @@ case $POST_STRING in
                         <tt:SessionTimeout>PT5S</tt:SessionTimeout>
                     </tt:VideoEncoderConfiguration>
                 </trt:Profiles>
-            </trt:GetProfilesResponse>"
+            </trt:GetProfilesResponse>" $MAINWIDTH $MAINHEIGHT $MAINWIDTH $MAINHEIGHT
   ;;
 
   *GetVideoSources*)
   printf "<trt:GetVideoSourcesResponse>
             <trt:VideoSources
                 token=\"VideoSource_1\">
-                <tt:Framerate>25</tt:Framerate>
+                <tt:Framerate>20</tt:Framerate>
                 <tt:Resolution>
-                    <tt:Width>1920</tt:Width>
-                    <tt:Height>1080</tt:Height>
+                    <tt:Width>%i</tt:Width>
+                    <tt:Height>%i</tt:Height>
                 </tt:Resolution>
             </trt:VideoSources>
-        </trt:GetVideoSourcesResponse>"
+        </trt:GetVideoSourcesResponse>" $MAINWIDTH $MAINHEIGHT
   ;;
 
   *GetProfile*)
   case $POST_STRING in
     *profile_0*)
       PROFILE=0
-      WIDTH=1920
-      HEIGHT=1080
+      WIDTH=$MAINWIDTH
+      HEIGHT=$MAINHEIGHT
     ;;
     *profile_1*)
       PROFILE=1
@@ -117,15 +129,15 @@ case $POST_STRING in
 					    <tt:Name>VideoSourceConfig</tt:Name>
                         <tt:UseCount>2</tt:UseCount>
                         <tt:SourceToken>VideoSource_1</tt:SourceToken>
-                        <tt:Bounds height=\"%i\" width=\"%i\" y=\"0\" x=\"0\"></tt:Bounds>
+                        <tt:Bounds width=\"%i\" height=\"%i\" y=\"0\" x=\"0\"></tt:Bounds>
                     </tt:VideoSourceConfiguration>
                     <tt:VideoEncoderConfiguration token=\"profile_video_stream_%i\">
                         <tt:Name>VideoEncoder_%i</tt:Name>
                         <tt:UseCount>1</tt:UseCount>
                         <tt:Encoding>H264</tt:Encoding>
                         <tt:Resolution>
-                            <tt:Height>%i</tt:Height>
                             <tt:Width>%i</tt:Width>
+                            <tt:Height>%i</tt:Height>
                         </tt:Resolution>
                         <tt:Quality>5</tt:Quality>
                         <tt:RateControl>
@@ -149,7 +161,7 @@ case $POST_STRING in
                         <tt:SessionTimeout>PT5S</tt:SessionTimeout>
                     </tt:VideoEncoderConfiguration>
             </trt:Profile>
-        </trt:GetProfileResponse>" $PROFILE $HEIGHT $WIDTH $PROFILE $PROFILE $HEIGHT $WIDTH
+        </trt:GetProfileResponse>" $PROFILE $WIDTH $HEIGHT $PROFILE $PROFILE $WIDTH $HEIGHT 
   ;;
 
   *GetStreamUri*)
@@ -188,8 +200,8 @@ case $POST_STRING in
                             <tt:Height>360</tt:Height>
                         </tt:ResolutionsAvailable>
                         <tt:ResolutionsAvailable>
-                            <tt:Width>1920</tt:Width>
-                            <tt:Height>1080</tt:Height>
+                            <tt:Width>%i</tt:Width>
+                            <tt:Height>%i</tt:Height>
                         </tt:ResolutionsAvailable>
                         <tt:GovLengthRange>
                             <tt:Min>1</tt:Min>
@@ -209,30 +221,18 @@ case $POST_STRING in
                         <tt:H264ProfilesSupported>High</tt:H264ProfilesSupported>
                     </tt:H264>
                 </trt:Options>
-            </trt:GetVideoEncoderConfigurationOptionsResponse>"
+            </trt:GetVideoEncoderConfigurationOptionsResponse>" $MAINWIDTH $MAINHEIGHT
   ;;
   
   *GetVideoSourceConfiguration*)
 	printf "<trt:GetVideoSourceConfigurationResponse>
-				<trt:Configuration
-					token=\"profile_VideoSource_1\">
-					<tt:Name>
-						VideoSourceConfig
-						</tt:Name>
-					<tt:UseCount>
-						2
-						</tt:UseCount>
-					<tt:SourceToken>
-						VideoSource_1
-						</tt:SourceToken>
-					<tt:Bounds
-						height=\"1080\"
-						width=\"1920\"
-						y=\"0\"
-						x=\"0\">
-						</tt:Bounds>
-					</trt:Configuration>
-				</trt:GetVideoSourceConfigurationResponse>"
+				<trt:Configuration token=\"profile_VideoSource_1\">
+					<tt:Name>VideoSourceConfig</tt:Name>
+					<tt:UseCount>2</tt:UseCount>
+					<tt:SourceToken>VideoSource_1</tt:SourceToken>
+					<tt:Bounds width=\"%i\" height=\"%i\" y=\"0\" x=\"0\"></tt:Bounds>
+				</trt:Configuration>
+			</trt:GetVideoSourceConfigurationResponse>" $MAINWIDTH $MAINHEIGHT
   ;;
 
   *)
