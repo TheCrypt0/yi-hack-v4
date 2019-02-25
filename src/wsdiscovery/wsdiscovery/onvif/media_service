@@ -1,0 +1,257 @@
+#!/bin/sh
+POST_STRING=$(cat)
+printf "Content-type: application/soap+xml\r\n\r\n<?xml version=\"1.0\" encoding=\"UTF-8\"?><env:Envelope xmlns:env=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:tt=\"http://www.onvif.org/ver10/schema\" xmlns:trt=\"http://www.onvif.org/ver10/media/wsdl\" xmlns:ter=\"http://www.onvif.org/ver10/error\" xmlns:xs=\"http://www.w3.org/2000/10/XMLSchema\"><env:Body>"
+
+case $POST_STRING in
+  *GetProfiles*)
+    printf "<trt:GetProfilesResponse>
+                <trt:Profiles fixed=\"true\" token=\"profile_0\">
+                    <tt:Name>MainStream</tt:Name>
+                    <tt:VideoSourceConfiguration token=\"profile_VideoSource_1\">
+                        <tt:Name>VideoSourceConfig</tt:Name>
+                        <tt:UseCount>2</tt:UseCount>
+                        <tt:SourceToken>VideoSource_1</tt:SourceToken>
+                        <tt:Bounds height=\"1080\" width=\"1920\" y=\"0\" x=\"0\"></tt:Bounds>
+                    </tt:VideoSourceConfiguration>
+                    <tt:VideoEncoderConfiguration token=\"profile_video_stream_0\">
+                        <tt:Name>VideoEncoder_0</tt:Name>
+                        <tt:UseCount>1</tt:UseCount>
+                        <tt:Encoding>H264</tt:Encoding>
+                        <tt:Resolution>
+                            <tt:Width>1920</tt:Width>
+                            <tt:Height>1080</tt:Height>
+                        </tt:Resolution>
+                        <tt:Quality>5</tt:Quality>
+                        <tt:RateControl>
+                            <tt:FrameRateLimit>25</tt:FrameRateLimit>
+                            <tt:EncodingInterval>25</tt:EncodingInterval>
+                            <tt:BitrateLimit>3072</tt:BitrateLimit>
+                        </tt:RateControl>
+                        <tt:H264>
+                            <tt:GovLength>25</tt:GovLength>
+                            <tt:H264Profile>Main</tt:H264Profile>
+                        </tt:H264>
+                        <tt:Multicast>
+                            <tt:Address>
+                                <tt:Type>IPv4</tt:Type>
+                                <tt:IPv4Address>0.0.0.0</tt:IPv4Address>
+                            </tt:Address>
+                            <tt:Port>0</tt:Port>
+                            <tt:TTL>3</tt:TTL>
+                            <tt:AutoStart>false</tt:AutoStart>
+                        </tt:Multicast>
+                        <tt:SessionTimeout>PT0S</tt:SessionTimeout>
+                    </tt:VideoEncoderConfiguration>
+                </trt:Profiles>
+                <trt:Profiles fixed=\"true\" token=\"profile_1\">
+                    <tt:Name>SubStream</tt:Name>
+                    <tt:VideoSourceConfiguration token=\"profile_VideoSource_1\">
+                        <tt:Name>VideoSourceConfig</tt:Name>
+                        <tt:UseCount>2</tt:UseCount>
+                        <tt:SourceToken>VideoSource_1</tt:SourceToken>
+                        <tt:Bounds height=\"360\" width=\"640\" y=\"0\" x=\"0\"></tt:Bounds>
+                    </tt:VideoSourceConfiguration>
+                    <tt:VideoEncoderConfiguration token=\"profile_video_stream_1\">
+                        <tt:Name>VideoEncoder_1</tt:Name>
+                        <tt:UseCount>1</tt:UseCount>
+                        <tt:Encoding>H264</tt:Encoding>
+                        <tt:Resolution>
+                            <tt:Width>640</tt:Width>
+                            <tt:Height>360</tt:Height>
+                        </tt:Resolution>
+                        <tt:Quality>5</tt:Quality>
+                        <tt:RateControl>
+                            <tt:FrameRateLimit>15</tt:FrameRateLimit>
+                            <tt:EncodingInterval>15</tt:EncodingInterval>
+                            <tt:BitrateLimit>512</tt:BitrateLimit>
+                        </tt:RateControl>
+                        <tt:H264>
+                            <tt:GovLength>15</tt:GovLength>
+                            <tt:H264Profile>Main</tt:H264Profile>
+                        </tt:H264>
+                        <tt:Multicast>
+                            <tt:Address>
+                                <tt:Type>IPv4</tt:Type>
+                                <tt:IPv4Address>239.255.0.0</tt:IPv4Address>
+                            </tt:Address>
+                            <tt:Port>1024</tt:Port>
+                            <tt:TTL>1</tt:TTL>
+                            <tt:AutoStart>false</tt:AutoStart>
+                        </tt:Multicast>
+                        <tt:SessionTimeout>PT5S</tt:SessionTimeout>
+                    </tt:VideoEncoderConfiguration>
+                </trt:Profiles>
+            </trt:GetProfilesResponse>"
+  ;;
+
+  *GetVideoSources*)
+  printf "<trt:GetVideoSourcesResponse>
+            <trt:VideoSources
+                token=\"VideoSource_1\">
+                <tt:Framerate>25</tt:Framerate>
+                <tt:Resolution>
+                    <tt:Width>1920</tt:Width>
+                    <tt:Height>1080</tt:Height>
+                </tt:Resolution>
+            </trt:VideoSources>
+        </trt:GetVideoSourcesResponse>"
+  ;;
+
+  *GetProfile*)
+  case $POST_STRING in
+    *profile_0*)
+      PROFILE=0
+      WIDTH=1920
+      HEIGHT=1080
+    ;;
+    *profile_1*)
+      PROFILE=1
+      WIDTH=640
+      HEIGHT=360
+    ;;
+  esac
+  printf "<trt:GetProfileResponse>
+                <trt:Profile fixed=\"true\" token=\"profile_%i\">
+                    <tt:Name>MainStream</tt:Name>
+                    <tt:VideoSourceConfiguration token=\"profile_VideoSource_1\"> 
+					    <tt:Name>VideoSourceConfig</tt:Name>
+                        <tt:UseCount>2</tt:UseCount>
+                        <tt:SourceToken>VideoSource_1</tt:SourceToken>
+                        <tt:Bounds height=\"%i\" width=\"%i\" y=\"0\" x=\"0\"></tt:Bounds>
+                    </tt:VideoSourceConfiguration>
+                    <tt:VideoEncoderConfiguration token=\"profile_video_stream_%i\">
+                        <tt:Name>VideoEncoder_%i</tt:Name>
+                        <tt:UseCount>1</tt:UseCount>
+                        <tt:Encoding>H264</tt:Encoding>
+                        <tt:Resolution>
+                            <tt:Height>%i</tt:Height>
+                            <tt:Width>%i</tt:Width>
+                        </tt:Resolution>
+                        <tt:Quality>5</tt:Quality>
+                        <tt:RateControl>
+                            <tt:FrameRateLimit>25</tt:FrameRateLimit>
+                            <tt:EncodingInterval>25</tt:EncodingInterval>
+                            <tt:BitrateLimit>3072</tt:BitrateLimit>
+                        </tt:RateControl>
+                        <tt:H264>
+                            <tt:GovLength>25</tt:GovLength>
+                            <tt:H264Profile>Main</tt:H264Profile>
+                        </tt:H264>
+                        <tt:Multicast>
+                            <tt:Address>
+                                <tt:Type>IPv4</tt:Type>
+                                <tt:IPv4Address>239.255.0.0</tt:IPv4Address>
+                            </tt:Address>
+                            <tt:Port>1024</tt:Port>
+                            <tt:TTL>1</tt:TTL>
+                            <tt:AutoStart>false</tt:AutoStart>
+                        </tt:Multicast>
+                        <tt:SessionTimeout>PT5S</tt:SessionTimeout>
+                    </tt:VideoEncoderConfiguration>
+            </trt:Profile>
+        </trt:GetProfileResponse>" $PROFILE $HEIGHT $WIDTH $PROFILE $PROFILE $HEIGHT $WIDTH
+  ;;
+
+  *GetStreamUri*)
+  case $POST_STRING in
+    *profile_0*)
+      RTSPPATH="ch0_0.h264"
+    ;;
+    *profile_1*)
+      RTSPPATH="ch0_1.h264"
+    ;;
+  esac
+  printf "<trt:GetStreamUriResponse>
+            <trt:MediaUri>
+                <tt:Uri>rtsp://%s/%s</tt:Uri>
+                <tt:InvalidAfterConnect>true</tt:InvalidAfterConnect>
+                <tt:InvalidAfterReboot>true</tt:InvalidAfterReboot>
+                <tt:Timeout>PT5S</tt:Timeout>
+            </trt:MediaUri>
+        </trt:GetStreamUriResponse>" $(ifconfig | awk '/inet addr/{print substr($2,6)}') $RTSPPATH
+  ;;
+
+  *GetSnapshotUri*)
+
+  ;;
+
+  *GetVideoEncoderConfigurationOptions*)
+    printf "<trt:GetVideoEncoderConfigurationOptionsResponse>
+                <trt:Options>
+                    <tt:QualityRange>
+                        <tt:Min>1</tt:Min>
+                        <tt:Max>6</tt:Max>
+                    </tt:QualityRange>
+                    <tt:H264>
+                        <tt:ResolutionsAvailable>
+                            <tt:Width>640</tt:Width>
+                            <tt:Height>360</tt:Height>
+                        </tt:ResolutionsAvailable>
+                        <tt:ResolutionsAvailable>
+                            <tt:Width>1920</tt:Width>
+                            <tt:Height>1080</tt:Height>
+                        </tt:ResolutionsAvailable>
+                        <tt:GovLengthRange>
+                            <tt:Min>1</tt:Min>
+                            <tt:Max>100</tt:Max>
+                        </tt:GovLengthRange>
+                        <tt:FrameRateRange>
+                            <tt:Min>1</tt:Min>
+                            <tt:Max>30</tt:Max>
+                        </tt:FrameRateRange>
+                        <tt:EncodingIntervalRange>
+                            <tt:Min>1</tt:Min>
+                            <tt:Max>25</tt:Max>
+                        </tt:EncodingIntervalRange>
+                        <tt:H264ProfilesSupported>Main</tt:H264ProfilesSupported>
+                        <tt:H264ProfilesSupported>Baseline</tt:H264ProfilesSupported>
+                        <tt:H264ProfilesSupported>Extended</tt:H264ProfilesSupported>
+                        <tt:H264ProfilesSupported>High</tt:H264ProfilesSupported>
+                    </tt:H264>
+                </trt:Options>
+            </trt:GetVideoEncoderConfigurationOptionsResponse>"
+  ;;
+  
+  *GetVideoSourceConfiguration*)
+	printf "<trt:GetVideoSourceConfigurationResponse>
+				<trt:Configuration
+					token=\"profile_VideoSource_1\">
+					<tt:Name>
+						VideoSourceConfig
+						</tt:Name>
+					<tt:UseCount>
+						2
+						</tt:UseCount>
+					<tt:SourceToken>
+						VideoSource_1
+						</tt:SourceToken>
+					<tt:Bounds
+						height=\"1080\"
+						width=\"1920\"
+						y=\"0\"
+						x=\"0\">
+						</tt:Bounds>
+					</trt:Configuration>
+				</trt:GetVideoSourceConfigurationResponse>"
+  ;;
+
+  *)
+	printf "<env:Fault>
+				<env:Code>
+					<env:Value>env:Receiver</env:Value>
+					<env:Subcode>
+						<env:Value>ter:ActionNotSupported</env:Value>
+					</env:Subcode>
+				</env:Code>
+				<env:Reason>
+					<env:Text xml:lang=\"en\">ActionNotSupported</env:Text>
+				</env:Reason>
+				<env:Detail>
+					<env:Text>The device do NOT support this feature.</env:Text>
+				</env:Detail>
+			</env:Fault>"
+  ;;
+ 
+esac
+
+printf "</env:Body></env:Envelope>"

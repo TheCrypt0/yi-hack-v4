@@ -1,0 +1,18 @@
+#!/bin/sh
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+echo "Building the WebService Discovery server..."
+cd wsdiscovery
+make clean
+make
+
+mkdir -p ../_install
+cp wsdiscovery ../_install
+
+mkdir -p ../_install/onvif
+echo "Copying the onvif folder..."
+cp ./onvif/* ../_install/onvif
+
+echo "Compilation succeeded."
