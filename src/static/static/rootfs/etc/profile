@@ -33,12 +33,11 @@ umask 022
 alias crontab="crontab -c /home/yi-hack-v4/etc/crontabs"
 
 HACK_VERSION=$(cat /home/yi-hack-v4/version)
-HACK_NEW_VERSION=$(cat /tmp/hacknewver 2>/dev/null)
+NEW_VERSION=$(cat /tmp/.hacknewver 2>/dev/null)
 
 ###############################################################################
 
 echo ""
-
 echo "      _     _           _           ___ "
 echo "  _ _|_|___| |_ ___ ___| |_ ___ _ _| | |"
 echo " | | | |___|   | .'|  _| '_|___| | |_  |"
@@ -48,7 +47,7 @@ echo " -----------------------------------------------------"
 echo "  yi-hack-v4 - $HACK_VERSION"
 echo " -----------------------------------------------------"
 
-if [[ -z $HACK_NEW_VERSION ]] ; then
+if [[ -z $NEW_VERSION ]] ; then
     echo " WARNING: Cannot check for updates from GitHub."
     echo ""
     echo " The camera might not be connected to the internet"
@@ -56,11 +55,14 @@ if [[ -z $HACK_NEW_VERSION ]] ; then
     echo " hasn't contacted the server yet."
     echo " -----------------------------------------------------"
 else
-    if [[ $HACK_VERSION != $HACK_NEW_VERSION ]] ; then
-        echo " UPDATE: Version $HACK_NEW_VERSION is available."
+    if [[ $NEW_VERSION == "yes" ]] ; then
+        echo " UPDATE: A new version is available."
         echo ""
         echo " You can download it from GitHub:"
         echo " > https://github.com/TheCrypt0/yi-hack-v4/releases"
+        echo " -----------------------------------------------------"
+    elif [[ $NEW_VERSION == "no_currentversionisbeta" ]] ; then
+        echo " WARNING: You are using an early-access version."
         echo " -----------------------------------------------------"
     fi
 fi
