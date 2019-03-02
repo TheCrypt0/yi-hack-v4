@@ -140,7 +140,15 @@ printf "done!\n"
 
 # We can safely replace chinese audio files with links to the us version
 printf "Removing unneeded audio files... "
-for AUDIO_FILE in $TMP_DIR/home/app/audio_file/us/*.aac ; do
+
+AUDIO_EXTENSION="*.aac"
+
+if [[ $CAMERA_NAME == "yi_home" ]] ; then
+    # The yi_home camera uses *.g726 and *.726 audio files
+    AUDIO_EXTENSION="*726"
+fi
+
+for AUDIO_FILE in $TMP_DIR/home/app/audio_file/us/$AUDIO_EXTENSION ; do
     AUDIO_NAME=$(basename $AUDIO_FILE)
     
     # Delete the original audio files
