@@ -1,105 +1,96 @@
 <div class="row">
-        <div class="twelf columns">
-                <h3 class="no-margin" id="header">Status</h3>
-                <hr class="tiny-margin" />
+    <div class="twelf columns">
+        <h3 class="no-margin" id="header">Status</h3>
+        <hr class="tiny-margin"/>
 
-                <div class="row">
-                    <p>Here you can see some info and stats about your camera. This page is under construction and it will be probably modified in the future.</p>
-                    <p>If you have any suggestion feel free to tell me!</p>
-                </div>
-
-                <h5 class="tiny-margin strong">System</h5>
-                <hr class="no-margin" />
-
-                <table class="u-full-width padded-table">
-                    <tbody>
-                    <tr class="row">
-                        <td>Camera Model</td>
-                        <td id="camera_model"></td>
-                    </tr>
-                    <tr class="row">
-                        <td>Hostname</td>
-                        <td id="hostname"></td>
-                    </tr>
-                    <tr>
-                        <td>Firmware Version</td>
-                        <td id="fw_version"></td>
-                    </tr>
-                    <tr>
-                        <td>Base Version</td>
-                        <td id="home_version"></td>
-                    </tr>
-                    <tr>
-                        <td>Local Time</td>
-                        <td id="local_time"></td>
-                    </tr>
-                    <tr>
-                        <td>Uptime</td>
-                        <td id="uptime"></td>
-                    </tr>
-                    <tr>
-                        <td>Load Average</td>
-                        <td id="load_avg"></td>
-                    </tr>
-                    <tr>
-                        <td>Free/Total Memory</td>
-                        <td id="memory"></td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <h5 class="tiny-margin strong">Network</h5>
-                <hr class="no-margin" />
-
-                <table class="u-full-width padded-table">
-                    <tbody>
-                    <tr>
-                        <td class="">Address</td>
-                        <td id="local_ip"></td>
-                    </tr>
-                    <tr>
-                        <td>Netmask</td>
-                        <td id="netmask"></td>
-                    </tr>
-                    <tr>
-                        <td>Gateway</td>
-                        <td id="gateway"></td>
-                    </tr>
-                    <tr>
-                        <td>MAC</td>
-                        <td id="mac_addr"></td>
-                    </tr>
-                    <tr>
-                        <td>WiFi ESSID</td>
-                        <td id="wlan_essid"></td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <!--
-
-                <div class="row">
-                        <div class="three columns"><a href="#" class="button" onclick="get('https://raw.githubusercontent.com/TheCrypt0/yi-hack-v4/master/VERSION',repText,'githubver')">Get GitHub Version</a></div>
-                        <h5 id="githubver">click to request</h5>
-                </div>
-                <div class="row">
-                        <div class="three columns"><a href="#" class="button" onclick="get('./cgi-bin/getversion.sh',repText,'localver')">Get Local Version</a></div>
-                        <h5 id="localver">click to request</h5>
-                </div>
-                <div class="row">
-                        <div class="three columns"><a href="#" class="button" onclick="get('./cgi-bin/getstatus.sh',repText,'status')">Get Status</a></div>
-                        <pre class="eight columns"><code id="status"><br /></code></pre>
-                </div>
-                -->
+        <div class="row">
+            <p>Here you can see some info and stats about your camera. This page is under construction and it will be
+                probably modified in the future.</p>
+            <p>If you have any suggestion feel free to tell me!</p>
         </div>
 
-        <script>
-            function pageInit()
-            {
-                updateStatusPage();
-                setInterval(updateStatusPage, 10000);
-            }
-        </script>
+        <h5 class="tiny-margin strong">System</h5>
+        <hr class="no-margin"/>
 
+        <table class="u-full-width padded-table">
+            <tbody>
+            <tr class="row">
+                <td>Camera Model</td>
+                <td id="camera_model"></td>
+            </tr>
+            <tr class="row">
+                <td>Hostname</td>
+                <td id="hostname"></td>
+            </tr>
+            <tr>
+                <td>Firmware Version</td>
+                <td id="fw_version"></td>
+            </tr>
+            <tr>
+                <td>Base Version</td>
+                <td id="home_version"></td>
+            </tr>
+            <tr>
+                <td>Local Time</td>
+                <td id="local_time"></td>
+            </tr>
+            <tr>
+                <td>Uptime</td>
+                <td id="uptime"></td>
+            </tr>
+            <tr>
+                <td>Load Average</td>
+                <td id="load_avg"></td>
+            </tr>
+            <tr>
+                <td>Free/Total Memory</td>
+                <td id="memory"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h5 class="tiny-margin strong">Network</h5>
+        <hr class="no-margin"/>
+
+        <table class="u-full-width padded-table">
+            <tbody>
+            <tr>
+                <td class="">Address</td>
+                <td id="local_ip"></td>
+            </tr>
+            <tr>
+                <td>Netmask</td>
+                <td id="netmask"></td>
+            </tr>
+            <tr>
+                <td>Gateway</td>
+                <td id="gateway"></td>
+            </tr>
+            <tr>
+                <td>MAC</td>
+                <td id="mac_addr"></td>
+            </tr>
+            <tr>
+                <td>WiFi ESSID</td>
+                <td id="wlan_essid"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--
+
+        <div class="row">
+                <div class="three columns"><a href="#" class="button" onclick="get('https://raw.githubusercontent.com/TheCrypt0/yi-hack-v4/master/VERSION',repText,'githubver')">Get GitHub Version</a></div>
+                <h5 id="githubver">click to request</h5>
+        </div>
+        <div class="row">
+                <div class="three columns"><a href="#" class="button" onclick="get('./cgi-bin/getversion.sh',repText,'localver')">Get Local Version</a></div>
+                <h5 id="localver">click to request</h5>
+        </div>
+        <div class="row">
+                <div class="three columns"><a href="#" class="button" onclick="get('./cgi-bin/getstatus.sh',repText,'status')">Get Status</a></div>
+                <pre class="eight columns"><code id="status"><br /></code></pre>
+        </div>
+        -->
+    </div>
 </div>
-
