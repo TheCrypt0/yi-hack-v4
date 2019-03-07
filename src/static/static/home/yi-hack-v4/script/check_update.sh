@@ -24,7 +24,7 @@ REMOTE_NEWVERSION_FILE=/tmp/.hacknewver
 LOCAL_VERSION_FILE=/home/yi-hack-v4/version
 
 if [[ $(get_config CHECK_UPDATES) == "yes" ]] ; then
-    while [ ! -f $REMOTE_VERSION_FILE ] && [ $N_RETRY -le $MAX_RETRY ] ; do
+    while : ; do
         # Get the latest version number from github
         wget -T 10 -O $REMOTE_VERSION_FILE $REMOTE_VERSION_URL &> /dev/null
 
@@ -34,7 +34,9 @@ if [[ $(get_config CHECK_UPDATES) == "yes" ]] ; then
             # Keep checking every 5 seconds and increment retry number
             sleep 5
             ((N_RETRY++))
-        fi    
+        fi
+        
+        [ ! -f $REMOTE_VERSION_FILE ] && [ $N_RETRY -le $MAX_RETRY ] || break
     done
     
     if [ -f $REMOTE_VERSION_FILE ] ; then
