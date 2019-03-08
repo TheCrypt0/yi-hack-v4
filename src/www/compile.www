@@ -27,7 +27,10 @@ yui-compressor --type css -o ./_install/www/css/all.css ./_install/www/css/tmp.c
 rm ./_install/www/css/tmp.css
 
 echo "Compressing JS files..."
-yui-compressor --type js -o ./_install/www/js/all.js ./httpd/htdocs/js/all.js
+cp ./httpd/htdocs/js/jquery-3.3.1.min.js ./_install/www/js/jquery-3.3.1.min.js
+cat ./httpd/htdocs/js/utils.js ./httpd/htdocs/js/app.js ./httpd/htdocs/js/modules/*.js > ./_install/www/js/tmp.js
+yui-compressor --type js -o ./_install/www/js/all.js ./_install/www/js/tmp.js
+rm ./_install/www/js/tmp.js
 
 echo "Compressing HTML files..."
 
