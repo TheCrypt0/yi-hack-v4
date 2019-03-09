@@ -10,3 +10,6 @@ git reset --hard || exit 1
 
 cp ../.config ./ || exit 1
 
+cd $SCRIPT_DIR
+patch -p0 < httpd.patch
+
