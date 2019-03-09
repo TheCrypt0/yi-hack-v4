@@ -19,3 +19,6 @@
 [submodule "src/libfuse/libfuse"]
 	path = src/libfuse/libfuse
 	url = https://github.com/libfuse/libfuse.git
+[submodule "src/mosquitto/mosquitto"]
+	path = src/mosquitto/mosquitto
+	url = https://github.com/eclipse/mosquitto.git
