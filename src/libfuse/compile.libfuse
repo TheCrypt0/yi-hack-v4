@@ -1,0 +1,17 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+cd libfuse || exit 1
+
+mkdir -p ../_install/lib || exit 1
+
+cd build || exit 1
+
+ninja || exit 1
+
+rsync -av lib/libfuse3.so* ../../_install/lib/ || exit 1
+
+arm-hisiv300-linux-strip ../../_install/lib/* || exit 1
+

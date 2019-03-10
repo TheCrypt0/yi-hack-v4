@@ -1,0 +1,32 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+cd mosquitto || exit 1
+
+make clean
+make -j$(nproc) \
+    CROSS_COMPILE=arm-hisiv300-linux- \
+    CC=gcc \
+    ARCH=arm \
+    CFLAGS="-march=armv5te -Os -mcpu=arm926ej-s -I/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/include -L/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/lib" \
+    WITH_SRV=no \
+    WITH_UUID=no \
+    WITH_WEBSOCKETS=no \
+    WITH_TLS=no \
+    WITH_MEMORY_TRACKING=no \
+    WITH_DOCS=no \
+    || exit 1
+
+mkdir -p ../_install/bin || exit 1
+mkdir -p ../_install/lib || exit 1
+
+cp ./client/mosquitto_pub ../_install/bin || exit 1
+cp ./client/mosquitto_sub ../_install/bin || exit 1
+
+cp ./lib/libmosquitto.so.1 ../_install/lib || exit 1
+
+arm-hisiv300-linux-strip ../_install/bin/* || exit 1
+arm-hisiv300-linux-strip ../_install/lib/* || exit 1
+

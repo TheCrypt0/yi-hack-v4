@@ -13,3 +13,12 @@
 [submodule "src/ftpd/pure-ftpd"]
 	path = src/ftpd/pure-ftpd
 	url = https://github.com/jedisct1/pure-ftpd.git
+[submodule "src/uClibc++/uClibc++"]
+	path = src/uClibc++/uClibc++
+	url = https://git.busybox.net/uClibc++
+[submodule "src/libfuse/libfuse"]
+	path = src/libfuse/libfuse
+	url = https://github.com/libfuse/libfuse.git
+[submodule "src/mosquitto/mosquitto"]
+	path = src/mosquitto/mosquitto
+	url = https://github.com/eclipse/mosquitto.git

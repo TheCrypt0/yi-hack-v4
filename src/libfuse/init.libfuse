@@ -1,0 +1,17 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+rm -rf ./_install
+rm -rf ./libfuse/build
+
+cd libfuse || exit 1
+git reset --hard 
+
+mkdir build || exit 1
+cd build
+
+meson .. --cross-file ../../Hi3518eV200.conf || exit 1
+meson configure --optimization 2 -D examples=false || exit 1
+
