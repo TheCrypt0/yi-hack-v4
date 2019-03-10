@@ -10,7 +10,7 @@ make -j$(nproc) \
     CROSS_COMPILE=arm-hisiv300-linux- \
     CC=gcc \
     ARCH=arm \
-    USER_CFLAGS="-march=armv5te -mcpu=arm926ej-s -I/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/include -L/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/lib" \
+    CFLAGS="-march=armv5te -Os -mcpu=arm926ej-s -I/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/include -L/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/lib" \
     WITH_SRV=no \
     WITH_UUID=no \
     WITH_WEBSOCKETS=no \
