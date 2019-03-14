@@ -37,7 +37,7 @@ if [[ $(get_config FTPD) == "yes" ]] ; then
     pure-ftpd -B
 fi
 
-if [[ $(get_config DROPBEAR) == "yes" ]] ; then
+if [[ $(get_config SSHD) == "yes" ]] ; then
     dropbear -R
 fi
 
