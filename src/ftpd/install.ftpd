@@ -4,7 +4,7 @@ SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
 # Compress the file
-upx ./_install/sbin/pure-ftpd
+#upx ./_install/sbin/pure-ftpd
 
 mkdir -p ../../build/home/yi-hack-v4/sbin/
 
