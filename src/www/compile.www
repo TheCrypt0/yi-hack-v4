@@ -45,11 +45,10 @@ done
 echo "Copying image files..."
 cp -R ./httpd/htdocs/images/. ./_install/www/images/
 
-# Removed gzip compression because not needed for now 
-#echo "Aplying GZIP Compression to files..."
-#gzip -9 ./_install/www/htdocs/css/*.css
-#gzip -9 ./_install/www/htdocs/js/*.js
-#gzip -9 ./_install/www/htdocs/*.html
+# To exlude more directories add the following line to the find command (after "-type f")
+# -not \( -path './_install/www/DIRECTORY_NAME/*' -prune \)
+echo "Aplying GZIP Compression to files..."
+find ./_install/www/* -type f -not \( -path './_install/www/cgi-bin/*' -prune \) -exec gzip -9 {} +
 
 echo "Copying the cgi-bin folder..."
 cp ./httpd/cgi-bin/* ./_install/www/cgi-bin
