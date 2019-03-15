@@ -25,6 +25,20 @@ fi
 ulimit -s 1024
 hostname -F /etc/hostname
 
+if [[ $(get_config DISABLE_CLOUD) == "no" ]] ; then
+    (
+        cd /home/app
+        sleep 2
+        ./mp4record &
+        ./cloud &
+        ./p2p_tnp &
+        if [[ $(cat /home/app/.camver) != "yi_dome" ]] ; then
+            ./oss &
+        fi
+        ./watch_process &
+    )
+fi
+
 if [[ $(get_config HTTPD) == "yes" ]] ; then
     httpd -p 80 -h $YI_HACK_PREFIX/www/
 fi

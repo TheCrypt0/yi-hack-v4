@@ -41,3 +41,9 @@ fi
 
 mkdir -p $YI_HACK_V4_PREFIX/yi-hack-v4/etc/crontabs
 mkdir -p $YI_HACK_V4_PREFIX/yi-hack-v4/etc/dropbear
+
+sed -i '/^\.\/watch_process/s/^/#/' /home/app/init.sh
+sed -i '/^\.\/oss/s/^/#/' /home/app/init.sh
+sed -i '/^\.\/p2p_tnp/s/^/#/' /home/app/init.sh
+sed -i '/^\.\/cloud/s/^/#/' /home/app/init.sh
+sed -i '/^\.\/mp4record/s/^/#/' /home/app/init.sh
