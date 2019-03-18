@@ -37,7 +37,7 @@ APP.global = (function ($) {
 
         $.ajax({
             type: "GET",
-            url: "pages/" + currentPage + ".html",
+            url: "pages/" + currentPage + ".html?nocache=" + Math.floor(Date.now() / 1000),
             success: function(data) {
                 $('#container').html(data);
                 initPageModule(currentPage);
