@@ -139,6 +139,10 @@ table.padded-table td:last-child {
     /*text-shadow: 0.01px 0 0 currentColor;*/
 }
 
+li.nav-elem-right {
+    float: right;
+}
+
 /* The switch - the box around the slider */
 .switch {
 	position: relative;
