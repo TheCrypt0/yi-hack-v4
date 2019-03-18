@@ -24,6 +24,7 @@ printf "\"%s\":\"%s\",\n" "TELNETD"         "$(get_config TELNETD)"
 printf "\"%s\":\"%s\",\n" "SSHD"            "$(get_config SSHD)"
 printf "\"%s\":\"%s\",\n" "FTPD"            "$(get_config FTPD)"
 printf "\"%s\":\"%s\",\n" "PROXYCHAINSNG"   "$(get_config PROXYCHAINSNG)"
-printf "\"%s\":\"%s\"\n"  "CHECK_UPDATES"   "$(get_config CHECK_UPDATES)"
+printf "\"%s\":\"%s\",\n" "CHECK_UPDATES"   "$(get_config CHECK_UPDATES)"
+printf "\"%s\":\"%s\"\n"  "DISABLE_CLOUD"   "$(get_config DISABLE_CLOUD)"
 
 printf "}"
