@@ -12,10 +12,10 @@ LOAD_AVG=$(cat /proc/loadavg | cut -d ' ' -f1-3)
 TOTAL_MEMORY=$(free -k | awk 'NR==2{print $2}')
 FREE_MEMORY=$(free -k | awk 'NR==2{print $4+$6+$7}')
 
-LOCAL_IP=$(ifconfig | awk '/inet addr/{print substr($2,6)}')
-NETMASK=$(ifconfig | awk '/inet addr/{print substr($4,6)}')
+LOCAL_IP=$(ifconfig wlan0 | awk '/inet addr/{print substr($2,6)}')
+NETMASK=$(ifconfig wlan0 | awk '/inet addr/{print substr($4,6)}')
 GATEWAY=$(route -n | awk 'NR==3{print $2}')
-MAC_ADDR=$(ifconfig | awk '/HWaddr/{print substr($5,1)}')
+MAC_ADDR=$(ifconfig wlan0 | awk '/HWaddr/{print substr($5,1)}')
 WLAN_ESSID=$(iwconfig wlan0 | grep ESSID | cut -d\" -f2)
 
 # Yeah, it's pretty ugly.. but hey, it works.
