@@ -42,8 +42,15 @@ fi
 mkdir -p $YI_HACK_V4_PREFIX/yi-hack-v4/etc/crontabs
 mkdir -p $YI_HACK_V4_PREFIX/yi-hack-v4/etc/dropbear
 
+# Comment out all the cloud stuff from base/init.sh
 sed -i '/^\.\/watch_process/s/^/#/' /home/app/init.sh
 sed -i '/^\.\/oss/s/^/#/' /home/app/init.sh
 sed -i '/^\.\/p2p_tnp/s/^/#/' /home/app/init.sh
 sed -i '/^\.\/cloud/s/^/#/' /home/app/init.sh
 sed -i '/^\.\/mp4record/s/^/#/' /home/app/init.sh
+
+# Comment out the rtc command that sometimes hangs the camera in base/init.sh
+# rtctime=$(/home/base/tools/rtctool -g time
+# date -s $rtctime
+sed -i '/^rtctime=\$(\/home\/base\/tools\/rtctool -g time)/s/^/#/' /home/base/init.sh
+sed -i '/^date -s \$rtctime/s/^/#/' /home/base/init.sh
