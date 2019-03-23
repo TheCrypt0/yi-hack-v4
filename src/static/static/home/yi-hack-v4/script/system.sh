@@ -56,7 +56,8 @@ if [[ $(get_config SSHD) == "yes" ]] ; then
 fi
 
 if [[ $(get_config NTPD) == "yes" ]] ; then
-    ntpd -p time.nist.gov
+    # Wait until all the other processes have been initialized
+    sleep 5 && ntpd -p pool.ntp.org &
 fi
 
 # First run on startup, then every hour via crond
