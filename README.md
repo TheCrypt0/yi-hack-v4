@@ -33,7 +33,7 @@ Tested on the following platforms (but it should work with anything that accepts
 
 I'm really thankful to those who supported the project and helped me by donating or sending me new cameras to test on, therefore I would like to reward them allowing to be the first ones to test the new functionalities.
 
-See the pinned messages in the channel __#rtsp-server__ in the [Discord Server](https://discord.gg/upPsFWZ) for further info.
+Here's a quick guide on how to enable it: [Enable RTSP Server](https://github.com/TheCrypt0/yi-hack-v4/wiki/Enable-RTSP-Server).
 
 ## Table of Contents
 
