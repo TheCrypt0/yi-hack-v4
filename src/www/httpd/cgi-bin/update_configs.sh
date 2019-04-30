@@ -27,8 +27,8 @@ for S in $PARAMS ; do
         fi
     done
     
-    if [ $KEY == "hostname" ] ; then
-        if [ -z $VALUE ] ; then
+    if [ $KEY == "HOSTNAME" ] ; then
+        if [ ! -z $VALUE ] ; then
             echo "$VALUE" > /etc/hostname
         fi
     else

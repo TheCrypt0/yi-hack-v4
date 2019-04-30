@@ -8,8 +8,8 @@ APP.configurations = (function ($) {
     }
 
     function registerEventHandler() {
-        $(document).on("change", '.configs-switch input[type="checkbox"]', function (e) {
-            updateConfigs();
+        $(document).on("click", '#button-save', function (e) {
+            saveConfigs();
         });
     }
 
@@ -20,7 +20,10 @@ APP.configurations = (function ($) {
             dataType: "json",
             success: function(response) {
                 $.each(response, function (key, state) {
-                    $('input[type="checkbox"][data-key="' + key +'"]').prop('checked', state === 'yes');
+                    if(key=="HOSTNAME")
+                        $('input[type="text"][data-key="' + key +'"]').prop('value', state);
+                    else
+                        $('input[type="checkbox"][data-key="' + key +'"]').prop('checked', state === 'yes');
                 });
             },
             error: function(response) {
@@ -29,18 +32,30 @@ APP.configurations = (function ($) {
         });
     }
 
-    function updateConfigs() {
+    function saveConfigs() {
+        var saveStatusElem;
         let configs = {};
+        
+        saveStatusElem = $('#save-status');
+        
+        saveStatusElem.text("Saving...");
+        
         $('.configs-switch input[type="checkbox"]').each(function () {
             configs[$(this).attr('data-key')] = $(this).prop('checked') ? 'yes' : 'no';
         });
+        
+        configs["HOSTNAME"] =  $('input[type="text"][data-key="HOSTNAME"]').prop('value');
 
         $.ajax({
             type: "POST",
             url: 'cgi-bin/update_configs.sh',
             data: configs,
             dataType: "json",
+            success: function(response) {
+                saveStatusElem.text("Saved");
+            },
             error: function(response) {
+                saveStatusElem.text("Error while saving");
                 console.log('error', response);
             }
         });
