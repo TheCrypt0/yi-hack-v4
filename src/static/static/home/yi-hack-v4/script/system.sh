@@ -39,6 +39,12 @@ if [[ $(get_config DISABLE_CLOUD) == "no" ]] ; then
         fi
         ./watch_process &
     )
+elif [[ $(get_config REC_WITHOUT_CLOUD) == "yes" ]] ; then
+    (
+        cd /home/app
+        sleep 2
+        ./mp4record &
+    )
 fi
 
 if [[ $(get_config HTTPD) == "yes" ]] ; then
@@ -62,7 +68,7 @@ if [[ $(get_config NTPD) == "yes" ]] ; then
     sleep 5 && ntpd -p pool.ntp.org &
 fi
 
-# First run on startup, then every hour via crond
+# First run on startup, then every day via crond
 $YI_HACK_PREFIX/script/check_update.sh
 
 crond -c $YI_HACK_PREFIX/etc/crontabs
