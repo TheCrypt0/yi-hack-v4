@@ -48,7 +48,7 @@ cp -R ./httpd/htdocs/images/. ./_install/www/images/
 # To exlude more directories add the following line to the find command (after "-type f")
 # -not \( -path './_install/www/DIRECTORY_NAME/*' -prune \)
 echo "Aplying GZIP Compression to files..."
-find ./_install/www/* -type f -not \( -path './_install/www/cgi-bin/*' -prune \) -exec gzip -9 {} +
+find ./_install/www/* -type f -not \( -path './_install/www/cgi-bin/*' -prune \) -exec gzip -f -9 {} +
 
 echo "Copying the cgi-bin folder..."
 cp ./httpd/cgi-bin/* ./_install/www/cgi-bin
