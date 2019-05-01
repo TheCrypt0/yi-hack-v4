@@ -121,6 +121,10 @@ nav ul li.icon { display: none; }
 	float: right;
 }
 
+.inline-block {
+    display: inline-block;
+}
+
 .no-margin {
     margin: 0;
 }
@@ -261,7 +265,12 @@ input:checked + .slider:before {
 }
 
 .save-text {
-    display: inline-block;
-    min-width: 80px;
-    text-align: center;
+	display: inline-block;
+	min-width: 80px;
+	text-align: center;
+}
+
+.loading-text {
+	margin-top: 15px;
+	margin-bottom: 0px;
 }

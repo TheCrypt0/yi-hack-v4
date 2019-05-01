@@ -14,11 +14,16 @@ APP.configurations = (function ($) {
     }
 
     function fetchConfigs() {
+        loadingStatusElem = $('#loading-status');
+        loadingStatusElem.text("Loading...");
+       
         $.ajax({
             type: "GET",
             url: 'cgi-bin/get_configs.sh',
             dataType: "json",
             success: function(response) {
+                loadingStatusElem.fadeOut(500);
+                
                 $.each(response, function (key, state) {
                     if(key=="HOSTNAME")
                         $('input[type="text"][data-key="' + key +'"]').prop('value', state);
