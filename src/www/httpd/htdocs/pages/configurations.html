@@ -77,21 +77,6 @@
                 <table class="u-full-width padded-table config-table">
                     <tbody>
                     <tr class="row">
-                        <td>Telnet</td>
-                        <td>
-                            <label class="switch small">
-                                <input type="checkbox" data-key="TELNETD"/>
-                                <span class="slider round"></span>
-                                <span class="switch-text"></span>
-                            </label>
-                            <span class="switch-description">
-                                Enable or disable the Telnet server.
-                                <br/>
-                                <span class="strong">WARNING: Telnet is NOT a secure protocol and should be avoided. Enable only if it's really necessary.</span>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr class="row">
                         <td>SSH</td>
                         <td>
                             <label class="switch small">
@@ -114,6 +99,21 @@
                             </label>
                             <span class="switch-description">
                                 Enable or disable the FTP server.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Telnet</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="TELNETD"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable or disable the Telnet server.
+                                <br/>
+                                <span class="strong">WARNING: Telnet is NOT a secure protocol and should be avoided. Enable only if it's really necessary.</span>
                             </span>
                         </td>
                     </tr>
@@ -151,7 +151,7 @@
         </div>
         <br/>
         <div class="float-right">
-            <span class="padded-right" id="save-status"></span>
+            <div class="padded-right save-text" id="save-status"></div>
             <input class="button-primary" type="button" id="button-save" value="Save Configuration"/>
         </div>
     </div>

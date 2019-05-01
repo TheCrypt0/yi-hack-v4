@@ -259,3 +259,9 @@ input:checked + .slider:before {
 	line-height: 1;
 	min-width: 150px;
 }
+
+.save-text {
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+}

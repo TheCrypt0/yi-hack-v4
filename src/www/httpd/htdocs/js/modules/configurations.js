@@ -44,7 +44,14 @@ APP.configurations = (function ($) {
             configs[$(this).attr('data-key')] = $(this).prop('checked') ? 'yes' : 'no';
         });
         
-        configs["HOSTNAME"] =  $('input[type="text"][data-key="HOSTNAME"]').prop('value');
+        configs["HOSTNAME"] = $('input[type="text"][data-key="HOSTNAME"]').prop('value');
+        
+        if(!validateHostname(configs["HOSTNAME"]))
+        {
+            saveStatusElem.text("Failed");
+            alert("Hostname not valid!");
+            return;
+        }
 
         $.ajax({
             type: "POST",
@@ -59,6 +66,10 @@ APP.configurations = (function ($) {
                 console.log('error', response);
             }
         });
+    }
+    
+    function validateHostname(hostname) {
+        return /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/.test(hostname);
     }
 
     return {
