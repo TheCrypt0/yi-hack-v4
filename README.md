@@ -29,7 +29,7 @@ Tested on the following platforms (but it should work with anything that accepts
 - Home Assistant
 - Shinobi
 - Zoneminder
-- Snology Surveillance Station
+- Synology Surveillance Station
 
 I'm really thankful to those who supported the project and helped me by donating or sending me new cameras to test on, therefore I would like to reward them allowing to be the first ones to test the new functionalities.
 
