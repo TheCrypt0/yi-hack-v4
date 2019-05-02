@@ -24,6 +24,7 @@ get_script_dir()
 
 compile_module()
 {
+    (
     local MOD_DIR=$1
     local MOD_NAME=$(basename "$MOD_DIR")
     
@@ -64,6 +65,7 @@ compile_module()
     ./$MOD_INSTALL || exit 1
     
     printf "\n\nDone!\n\n"
+    )
 }
 
 ###############################################################################
@@ -94,5 +96,12 @@ for SUB_DIR in $SRC_DIR/* ; do
         compile_module $(normalize_path "$SUB_DIR")
     fi
 done
+
+BIN_DIR=$(get_script_dir)/../bin
+BUILD_DIR=$(get_script_dir)/../build
+
+if [ -d "$BIN_DIR" ]; then
+    cp -R $BIN_DIR/* $BUILD_DIR/
+fi
 
 

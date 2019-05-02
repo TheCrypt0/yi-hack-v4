@@ -138,11 +138,32 @@ rsync -a $SYSROOT_DIR/rootfs/* $TMP_DIR/rootfs || exit 1
 rsync -a $SYSROOT_DIR/home/* $TMP_DIR/home || exit 1
 printf "done!\n"
 
-# Copy the static files to the tmp dir
-#printf "Copying the static files... "
-#rsync -a $STATIC_DIR/rootfs/* $TMP_DIR/rootfs || exit 1
-#rsync -a $STATIC_DIR/home/* $TMP_DIR/home || exit 1
-#printf "done!\n"
+# We can safely replace chinese audio files with links to the us version
+printf "Removing unneeded audio files... "
+
+AUDIO_EXTENSION="*.aac"
+
+if [[ $CAMERA_NAME == "yi_home" ]] ; then
+    # The yi_home camera uses *.g726 and *.726 audio files
+    AUDIO_EXTENSION="*726"
+fi
+
+for AUDIO_FILE in $TMP_DIR/home/app/audio_file/us/$AUDIO_EXTENSION ; do
+    AUDIO_NAME=$(basename $AUDIO_FILE)
+    
+    # Delete the original audio files
+    rm -f $TMP_DIR/home/app/audio_file/jp/$AUDIO_NAME
+    rm -f $TMP_DIR/home/app/audio_file/kr/$AUDIO_NAME
+    rm -f $TMP_DIR/home/app/audio_file/simplecn/$AUDIO_NAME
+    rm -f $TMP_DIR/home/app/audio_file/trditionalcn/$AUDIO_NAME
+    
+    # Create links to the us version
+    ln -s ../us/$AUDIO_NAME $TMP_DIR/home/app/audio_file/jp/$AUDIO_NAME
+    ln -s ../us/$AUDIO_NAME $TMP_DIR/home/app/audio_file/kr/$AUDIO_NAME
+    ln -s ../us/$AUDIO_NAME $TMP_DIR/home/app/audio_file/simplecn/$AUDIO_NAME
+    ln -s ../us/$AUDIO_NAME $TMP_DIR/home/app/audio_file/trditionalcn/$AUDIO_NAME
+done
+printf "done!\n"
 
 # Copy the build files to the tmp dir
 printf "Copying the build files... "

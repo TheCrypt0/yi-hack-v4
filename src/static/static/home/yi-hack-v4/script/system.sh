@@ -22,7 +22,30 @@ elif [ -d "/home/yi-hack-v4" ]; then
 	export PATH=$PATH:/home/base/tools:/home/yi-hack-v4/bin:/home/yi-hack-v4/sbin:/tmp/sd/yi-hack-v4/bin:/tmp/sd/yi-hack-v4/sbin
 fi
 
+ulimit -s 1024
 hostname -F /etc/hostname
+
+sleep 15 && camhash > /tmp/camhash &
+
+if [[ $(get_config DISABLE_CLOUD) == "no" ]] ; then
+    (
+        cd /home/app
+        sleep 2
+        ./mp4record &
+        ./cloud &
+        ./p2p_tnp &
+        if [[ $(cat /home/app/.camver) != "yi_dome" ]] ; then
+            ./oss &
+        fi
+        ./watch_process &
+    )
+elif [[ $(get_config REC_WITHOUT_CLOUD) == "yes" ]] ; then
+    (
+        cd /home/app
+        sleep 2
+        ./mp4record &
+    )
+fi
 
 if [[ $(get_config HTTPD) == "yes" ]] ; then
     httpd -p 80 -h $YI_HACK_PREFIX/www/
@@ -36,11 +59,16 @@ if [[ $(get_config FTPD) == "yes" ]] ; then
     pure-ftpd -B
 fi
 
-if [[ $(get_config DROPBEAR) == "yes" ]] ; then
+if [[ $(get_config SSHD) == "yes" ]] ; then
     dropbear -R
 fi
 
-# First run on startup, then every hour via crond
+if [[ $(get_config NTPD) == "yes" ]] ; then
+    # Wait until all the other processes have been initialized
+    sleep 5 && ntpd -p pool.ntp.org &
+fi
+
+# First run on startup, then every day via crond
 $YI_HACK_PREFIX/script/check_update.sh
 
 crond -c $YI_HACK_PREFIX/etc/crontabs

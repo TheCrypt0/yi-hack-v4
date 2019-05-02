@@ -1,0 +1,160 @@
+<div class="row">
+    <div class="twelve columns">
+        <div class="row">
+            <div class="twelve columns">
+                <h3 class="no-margin inline-block" id="header">Configurations</h3>
+                <h6 id="loading-status" class="float-right loading-text"></h6>
+            </div>
+        </div>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <p>
+                In this page you can enable and disable services, change the camera hostname, disable the cloud features and more.
+                <br/>
+                <span class="strong">NOTE: Any change will take effect after the reboot of the camera.</span>
+            </p>
+        </div>
+        <h4 class="no-margin">General</h4>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <div class="twelve columns configs-switch">
+                <table class="u-full-width padded-table config-table">
+                    <tbody>
+                    <tr class="row">
+                        <td>Hostname</td>
+                        <td>
+                            <input class="u-full-width" type="text" placeholder="yi-hack-v4" data-key="HOSTNAME" id="HOSTNAME"/>
+                            <span class="switch-description">
+                                Camera's hostname on the network.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Disable Cloud</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="DISABLE_CLOUD"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Disable the Yi App and all the Cloud features (aka private mode).
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Recording without Cloud</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="REC_WITHOUT_CLOUD"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable recording on the SD card even with the Cloud features disabled. (It takes effect only if the "Disable Cloud" option is enabled).
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Proxychains-ng</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="PROXYCHAINSNG"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Proxychains-ng is a way to bypass the region restrictions imposed by Yi when using a Chinese camera outside China. See the GitHub page for more info on how to configure it.
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h4 class="no-margin">Advanced</h4>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <div class="twelve columns configs-switch">
+                <table class="u-full-width padded-table config-table">
+                    <tbody>
+                    <tr class="row">
+                        <td>SSH</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="SSHD"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable or disable the SSH server.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>FTP</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="FTPD"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable or disable the FTP server.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Telnet</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="TELNETD"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable or disable the Telnet server.
+                                <br/>
+                                <span class="strong">WARNING: Telnet is NOT a secure protocol and should be avoided. Enable only if it's really necessary.</span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>NTPD</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="NTPD"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable or disable the Network Time Protocol Daemon. This is required to sync the time on the camera if the cloud features are disabled.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>HTTPD</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="HTTPD"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable or disable the Web Server.
+                                <br/>
+                                <span class="strong">WARNING: If disabled, you won't have access to this page.</span>
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="float-right">
+            <div class="padded-right save-text" id="save-status"></div>
+            <input class="button-primary" type="button" id="button-save" value="Save Configuration"/>
+        </div>
+    </div>
+</div>

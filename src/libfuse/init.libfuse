@@ -4,14 +4,19 @@ SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
 rm -rf ./_install
-rm -rf ./libfuse/build
 
 cd libfuse || exit 1
-git reset --hard 
+git reset --hard || exit 1
+
+if [ -d "./build" ]; then
+    # Cleanup the build directory (if exists)
+    printf "Cleaning up build directory...\n"
+    rm -rf ./build
+fi
 
 mkdir build || exit 1
 cd build
 
-meson .. --cross-file ../../Hi3518eV200.conf || exit 1
-meson configure --optimization 2 -D examples=false || exit 1
+meson .. --cross-file ../../Hi3518eV200.conf --optimization 2 -Dexamples=false || exit 1
+
 

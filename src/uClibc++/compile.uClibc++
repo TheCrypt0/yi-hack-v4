@@ -6,6 +6,7 @@ cd $SCRIPT_DIR
 cd uClibc++ || exit 1
 
 make clean
+make realclean
 
 cp ../.config ./ || exit 1
 

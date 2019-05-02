@@ -3,10 +3,13 @@
 	<img height="200" src="https://raw.githubusercontent.com/TheCrypt0/yi-hack-v4/master/imgs/yi-hack-v4-header.png">
 </p>
 <p align="center">
-	<a href="https://discord.gg/upPsFWZ">
+	<a target="_blank" href="https://discord.gg/upPsFWZ">
         	<img src="https://img.shields.io/discord/530507539696189477.svg?logo=discord" alt="Official Discord Server">
 	</a>
-	<a href="https://trello.com/b/EtuK8577/yi-hack-v4">
+	<a target="_blank" href="https://github.com/TheCrypt0/yi-hack-v4/releases">
+		<img src="https://img.shields.io/github/downloads/TheCrypt0/yi-hack-v4/total.svg" alt="Releases Downloads">
+	</a>
+	<a target="_blank" href="https://trello.com/b/EtuK8577/yi-hack-v4">
 		<img src="https://img.shields.io/badge/Trello-yi--hack--v4-blue.svg" alt="Trello Board">
 	</a>
 	<img src="https://img.shields.io/github/license/TheCrypt0/yi-hack-v4.svg">
@@ -16,16 +19,26 @@
 
 The answer is simple: missing updates, RTSP and not based on the latest stock firmware (which features improvements and new cool stuff). The effort and work that has been put into the other projects is great and without them the making of this new version wouldn't be possible.
 
-## Alpha stage
-The firmware is currently in alpha stage, it has been tested by the people on the [Discord Server](https://discord.gg/upPsFWZ) on their cameras. 
+## RTSP Server
+I've been working on a functional RTSP implementation for the past 3 months. After that I published on Discord the first working closed-beta, available to supporters only.
+Since then I fixed some issues with Xiaomi's H264 encoder that happened to hang ffmpeg of Shinobi and Home Assistant.
 
-A pre-release will be publicly available in the next days. 
+Now everything works as it should and the app functionalities are intact (but they can be disabled if you want).
+
+Tested on the following platforms (but it should work with anything that accepts an RTSP stream:
+- Home Assistant
+- Shinobi
+- Zoneminder
+- Synology Surveillance Station
+
+I'm really thankful to those who supported the project and helped me by donating or sending me new cameras to test on, therefore I would like to reward them allowing to be the first ones to test the new functionalities.
+
+Here's a quick guide on how to enable it: [Enable RTSP Server](https://github.com/TheCrypt0/yi-hack-v4/wiki/Enable-RTSP-Server).
 
 ## Table of Contents
 
 - [Features](#features)
 - [Supported cameras](#supported-cameras)
-- [Contribute to the development](#contribute-to-the-development)
 - [Getting started](#getting-started)
 - [Unbrick your camera](#unbrick-your-camera)
 - [Acknowledgments](#acknowledgments)
@@ -35,20 +48,20 @@ A pre-release will be publicly available in the next days.
 This firmware will add the following features:
 
 - **NEW FEATURES**
-  - **NEW CAMERAS SUPPORTED**: Yi Outdoor 1080p and Yi Cloud Dome 1080p
-  - [viewd](https://github.com/TheCrypt0/viewd) - a daemon to check the `/tmp/view` buffer heads/tails location.
-  - RTSP server - which will allow a RTSP stream of the video while keeping the cloud features enabled.
-    - Based on @andy2301's rtsp2303 server integrated with the `viewd` daemon
-    - (it works but sometimes it randomly hangs)
-- In development:
-  - A static image snapshot from the web interface.
-  - The possibility to disable all the cloud features while keeping the RTSP stream.
-- Features from  the `yi-hack-v3` firmware
+  - **NEW CAMERAS SUPPORTED**: Yi Outdoor 1080p and Yi Cloud Dome 1080p.
+  - **RTSP server** - which will allow a RTSP stream of the video while keeping the cloud features enabled.
+  - viewd - a daemon to check the `/tmp/view` buffer heads/tails location (needed by the RTSP).
+  - WebServer - user-friendly stats and configurations.
   - SSH server -  _Enabled by default._
   - Telnet server -  _Disabled by default._
   - FTP server -  _Enabled by default._
-  - ~~Web server -  _Enabled by default._~~ Not yet, needs further development.
-  - Proxychains-ng -  _Enabled by default. Useful if the camera is region locked._
+  - Web server -  _Enabled by default._
+  - Proxychains-ng - _Disabled by default. Useful if the camera is region locked._
+- In development:
+  - MQTT
+  - ONVIF
+  - A static image snapshot from the web interface.
+  - The possibility to disable all the cloud features while keeping the RTSP stream.
 
 This firmware _might_ add:
 - Alarm functionality via Telegram (@frekel's [PR #177 in yi-hack-v3](https://github.com/shadow-1/yi-hack-v3/pull/117))
@@ -67,20 +80,48 @@ Currently this project supports the following cameras:
 - Yi 1080p Cloud Dome
 - Yi 1080p Outdoor
 
-Do you have one of these? Read the section below.
-
-## Contribute to the development
-#### Add support to new camers
-To add support for a new camera I need to test the firmware on it, if you want to help the development open an issue with the model you own and we'll start testing it.
-
-#### Donations
-I don't like asking for donations, I prefer PRs to help the development. If you really want to send me a contribution, I will be glad to [accept it](https://paypal.me/TheCrypt0) and it will be used only to buy new cameras to test the firmware on. 
-
-#### How to compile the Firmware
-_TO DO - Maybe in the wiki_
-
 ## Getting Started
- _TO DO - (It will be really similar to yi-hack-v3's guide)_
+1. Check that you have a correct Xiaomi Yi camera. (see the section above)
+
+2. Get an microSD card, preferably of capacity 16gb or less and format it by selecting File System as FAT32.
+
+**_IMPORTANT: The microSD card must be formatted in FAT32. exFAT formatted microSD cards will not work._**
+
+3. Get the correct firmware files for your camera from this link: https://github.com/TheCrypt0/yi-hack-v4/releases
+
+| Camera | rootfs partition | home partition | Remarks |
+| --- | --- | --- | --- |
+| **Yi Home** | - | - | Not yet supported. |
+| **Yi Home 17CN / 27US / 47US** | rootfs_y18 | home_y18 | Firmware files required for the Yi Home 17CN / 27US / 47US camera. |
+| **Yi 1080p Home** | rootfs_y20 | home_y20 | Firmware files required for the Yi 1080p Home camera. |
+| **Yi Dome** | rootfs_v201 | home_v201 | Firmware files required for the Yi Dome camera. |
+| **Yi 1080p Dome** | rootfs_h20 | home_h20 | Firmware files required for the Yi 1080p Dome camera. |
+| **Yi 1080p Cloud Dome** | rootfs_y19 | home_y19 | Firmware files required for the Yi 1080p Cloud Dome camera. |
+| **Yi Outdoor** | rootfs_h30 | home_h30 | Firmware files required for the Yi Outdoor camera. |
+
+4. Save both files on root path of microSD card.
+
+**_IMPORTANT: Make sure that the filename stored on microSD card are correct and didn't get changed. e.g. The firmware filenames for the Yi 1080p Dome camera must be home_h20 and rootfs_h20._**
+
+5. Remove power to the camera, insert the microSD card, turn the power back ON. 
+
+6. The yellow light will come ON and flash for roughly 30 seconds, which means the firmware is being flashed successfully. The camera will boot up.
+
+7. The yellow light will come ON again for the final stage of flashing. This will take up to 2 minutes.
+
+8. Blue light should come ON indicating that your WiFi connection has been successful.
+
+9. Go in the browser and access the web interface of the camera as a website. By default, the hostname of the camera is `yi-hack-v4`. Access the web interface by entering the following in your web browser: http://yi-hack-v4
+
+Depending upon your network setup, accessing the web interface with the hostname **may not work**. In this case, the IP address of the camera has to be found.
+
+This can be done from the App. Open it and go to the Camera Settings --> Network Info --> IP Address.
+
+Access the web interface by entering the IP address of the came in a web browser. e.g. http://192.168.1.5
+
+**_IMPORTANT: If you have multiple cameras. It is important to configure each camera with a unique hostname. Otherwise the web interface will only be accessible by IP address._**
+
+10. Done! You are now successfully running yi-hack-v4!
 
 ## Unbrick your camera
 _TO DO - (It happened a few times and it's often possible to recover from it)_

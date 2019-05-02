@@ -5,10 +5,14 @@
 /stock_firmware/*
 !/stock_firmware/README.md
 
+/stock_firmware/common/*
+!/stock_firmware/common/README.md
+
 /sysroot/*
 !/sysroot/.gitkeep
 
 /out
+/bin
 
 # The following files are ignored because they need some cleanup
 REQUIRED_PACKAGES

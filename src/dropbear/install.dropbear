@@ -19,4 +19,6 @@ ln -fs /home/yi-hack-v4/bin/dropbearmulti ../../build/rootfs/bin/dropbearkey
 ln -fs /home/yi-hack-v4/bin/dropbearmulti ../../build/rootfs/bin/scp
 ln -fs dbclient ../../build/rootfs/bin/ssh
 
+ln -fs /bin/dbclient ../../build/rootfs/usr/bin/dbclient
+
 ln -fs /home/yi-hack-v4/bin/dropbearmulti ../../build/rootfs/sbin/dropbear
