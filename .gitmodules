@@ -22,3 +22,6 @@
 [submodule "src/mosquitto/mosquitto"]
 	path = src/mosquitto/mosquitto
 	url = https://github.com/eclipse/mosquitto.git
+[submodule "src/mqtt/mqttv4"]
+	path = src/mqtt/mqttv4
+	url = https://github.com/TheCrypt0/mqttv4.git
