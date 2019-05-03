@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="twelve columns">
+        <div class="row">
+            <div class="twelve columns">
+                <h3 class="no-margin inline-block" id="header">RTSP</h3>
+                <h6 id="loading-status" class="float-right loading-text"></h6>
+            </div>
+        </div>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <p>
+
+                <br/>
+
+                <br/>
+                <br/>
+                <span class="strong">NOTE: Any change will take effect after the reboot of the camera.</span>
+            </p>
+        </div>
+        <h4 class="no-margin">General</h4>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <div class="twelve columns configs-switch">
+                <table class="u-full-width padded-table config-table">
+                    <tbody>
+                        <tr class="row">
+                        <td>Enabled</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" id="enable-rtsp" data-key="RTSP"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable or disable the RTSP service.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>HD Stream</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" id="enable-mqtt" data-key="HIRES"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable or disable the High Resolution stream (1080p or 720p depending on the camera version).
+                                <br/>
+                                URL: <span class="strong" id="hires-url"></span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>SD Stream</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" id="enable-mqtt" data-key="LOWRES"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable or disable the Low Resolution stream (360p).
+                                <br/>
+                                URL: <span class="strong" id="lowres-url"></span>
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="float-right">
+            <div class="padded-right save-text" id="save-status"></div>
+            <input class="button-primary" type="button" id="button-save" value="Save Configuration"/>
+        </div>
+        <br/>
+        <br/>
+        <h4 class="no-margin">License</h4>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <div class="twelve columns configs-switch">
+                <table class="u-full-width padded-table config-table">
+                    <tbody>
+                    <tr class="row" id="steps-enable-rtsp">
+                        <td>Steps to enable the RTSP</td>
+                        <td>
+                            <ul class="no-margin">
+                            <li id="step-upload-rtsp">
+                                Upload the rtspv4__vX.X.X.7z file.
+                            </li>
+                            <li id="step-upload-license">
+                                Upload the license file.
+                            </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>License Status</td>
+                        <td>
+                            <span id="license-status"></span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Camhash</td>
+                        <td>
+                            <input class="u-full-width" type="text" placeholder="" data-key="CAMHASH" readonly="" />
+                        </td>
+                    </tr>
+                    <tr class="row" id="rtsp-upload-row">
+                        <td>RTSPv4 File</td>
+                        <td>
+                            <form id="rtsp-form" class="inline" enctype="multipart/form-data" method="POST" name="rtsp-form">
+                                <input class="u-full-width" id="file-rtsp" name="rtsp" type="file" />
+                            </form>
+                        </td>
+                    </tr>
+                    <tr class="row" id="license-upload-row">
+                        <td>License File</td>
+                        <td>
+                            <form id="license-form" class="inline" enctype="multipart/form-data" method="POST" name="license-form">
+                                <input class="u-full-width" id="file-license" name="license" type="file" />
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="float-right">
+            <input class="button-primary" type="button" id="button-upload" value="Upload"/>
+        </div>
+    </div>
+</div>
