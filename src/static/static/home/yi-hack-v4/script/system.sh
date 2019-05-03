@@ -72,6 +72,13 @@ if [[ $(get_config MQTT) == "yes" ]] ; then
     mqttv4 &
 fi
 
+if [[ $(get_config RTSP) == "yes" ]] ; then
+    if [[ -f "$YI_HACK_PREFIX/bin/viewd" && -f "$YI_HACK_PREFIX/bin/rtspv4" ]] ; then
+        viewd -D -S
+        rtspv4 -D -S
+    fi
+fi
+
 # First run on startup, then every day via crond
 $YI_HACK_PREFIX/script/check_update.sh
 
