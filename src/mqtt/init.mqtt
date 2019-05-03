@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+rm -rf ./_install
+
+cd mqttv4
+git reset --hard 
+
+mkdir -p ./lib
+
+if [ ! -f ../../mosquitto/_install/lib/libmosquitto.so.1 ] ; then
+    echo "ERROR: mqttv4 requires mosquitto to be compiled first."
+    exit 1
+fi
+
+ln -fs ../../../mosquitto/_install/lib/libmosquitto.so.1 ./lib/libmosquitto.so
+

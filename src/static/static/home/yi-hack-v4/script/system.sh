@@ -68,6 +68,10 @@ if [[ $(get_config NTPD) == "yes" ]] ; then
     sleep 5 && ntpd -p pool.ntp.org &
 fi
 
+if [[ $(get_config MQTT) == "yes" ]] ; then
+    mqttv4 &
+fi
+
 # First run on startup, then every day via crond
 $YI_HACK_PREFIX/script/check_update.sh
 

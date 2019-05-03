@@ -19,7 +19,7 @@ APP.configurations = (function ($) {
        
         $.ajax({
             type: "GET",
-            url: 'cgi-bin/get_configs.sh',
+            url: 'cgi-bin/get_configs.sh?conf=system',
             dataType: "json",
             success: function(response) {
                 loadingStatusElem.fadeOut(500);
@@ -60,7 +60,7 @@ APP.configurations = (function ($) {
 
         $.ajax({
             type: "POST",
-            url: 'cgi-bin/update_configs.sh',
+            url: 'cgi-bin/set_configs.sh?conf=system',
             data: configs,
             dataType: "json",
             success: function(response) {

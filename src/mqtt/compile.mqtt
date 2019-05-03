@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+cd mqttv4
+
+make clean
+make
+
+mkdir -p ../_install/bin
+mkdir -p ../_install/etc
+
+cp ./mqttv4 ../_install/bin
+cp ./conf/mqttv4.conf ../_install/etc
+
+arm-hisiv300-linux-strip ../_install/bin/*
+
