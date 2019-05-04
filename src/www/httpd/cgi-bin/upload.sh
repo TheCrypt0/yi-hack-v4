@@ -64,17 +64,24 @@ printf "Content-type: application/json\r\n\r\n"
 FILE_TYPE="$(get_file_type)"
 TMP_FILE=$(get_random_tmp_file)
 
-get_file_from_post $TMP_FILE
+CUT_FILE_TYPE=$(echo $FILE_TYPE | cut -d'_' -f1)
 
-if [ "$FILE_TYPE" == "rtspv4__upload" ] ; then
-    7za x "$TMP_FILE" -y -o. &>/dev/null
-    cp -rf rtspv4__*/* $YI_HACK_PREFIX/
-    rm -rf rtspv4__*
-    
-    chmod +x $YI_HACK_PREFIX/bin/viewd
-    chmod +x $YI_HACK_PREFIX/bin/rtspv4
+if [[ "$CUT_FILE_TYPE" == "home" || "$CUT_FILE_TYPE" == "rootfs" ]] ; then
+    # If home or rootfs image, place directly on sd card
+    get_file_from_post "/tmp/sd/$FILE_TYPE"
 else
-    cp -f "$TMP_FILE" "$YI_HACK_PREFIX/$FILE_TYPE"
+    get_file_from_post $TMP_FILE
+
+    if [ "$FILE_TYPE" == "rtspv4__upload" ] ; then
+        7za x "$TMP_FILE" -y -o. &>/dev/null
+        cp -rf rtspv4__*/* $YI_HACK_PREFIX/
+        rm -rf rtspv4__*
+        
+        chmod +x $YI_HACK_PREFIX/bin/viewd
+        chmod +x $YI_HACK_PREFIX/bin/rtspv4
+    else
+        cp -f "$TMP_FILE" "$YI_HACK_PREFIX/$FILE_TYPE"
+    fi
 fi
 
 rm -f $TMP_FILE
