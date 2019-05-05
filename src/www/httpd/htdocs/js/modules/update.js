@@ -54,7 +54,13 @@ APP.update = (function ($) {
     }
     
     function uploadFiles()
-    {        
+    {
+        if(configs["IS_SD_PRESENT"]=="NO")
+        {
+            alert("An SD card must be present in the camera to flash a new image.");
+            return;
+        }
+
         var homeFilename=getFilename($("#file-home").val());
         var rootfsFilename=getFilename($("#file-rootfs").val());
         
@@ -130,6 +136,13 @@ APP.update = (function ($) {
     {
         var verStatusElem=$("#version-status");
         var needsUpdate=configs["NEEDS_UPDATE"];
+        var isSdPresent=configs["IS_SD_PRESENT"]=="YES" ? true : false;
+
+        if(!isSdPresent)
+        {
+            var elem=$("#upload-tbody");
+            elem.text("An SD card must be present in the camera to flash a new image.")
+        }
         
         if(needsUpdate=="yes")
         {
