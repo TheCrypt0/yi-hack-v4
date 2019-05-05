@@ -7,17 +7,22 @@ APP.rtsp = (function ($) {
     var isRtspPresent=false;
     var isLicensePresent=false;
     var isLicenseForThisCamera=false;
+    var isCameraStillBooting=true;
     
     var licenseStatusElem;
         
     var stepsElem;
     var stepRtspElem;
     var stepLicenseElem;
+
+    var configSection;
     
     var licUploadRow;
     var rtspUploadRow;
     
     var uploadButton;
+
+    var filesToUpload;
 
     function init() {
         registerEventHandler();
@@ -38,7 +43,11 @@ APP.rtsp = (function ($) {
         licenseStatusElem=$("#license-status");
         
         uploadButton=$("#button-upload");
+
+        configSection=$("#config-section");
         
+        configSection.hide();
+
         stepsElem.hide();
         
         stepRtspElem.hide();
@@ -95,8 +104,7 @@ APP.rtsp = (function ($) {
             success: function(response) {
 
                 $.each(response, function (key, state) {
-                    if(key == "RTSP")
-                        $('input[type="checkbox"][data-key="' + key +'"]').prop('checked', state === 'yes');
+                    $('input[type="checkbox"][data-key="' + key +'"]').prop('checked', state === 'yes');
                 });
             },
             error: function(response) {
@@ -114,11 +122,13 @@ APP.rtsp = (function ($) {
         saveStatusElem = $('#save-status');
         saveStatusElem.text("Saving...");
         
-        $('.configs-switch input[type="text"]').each(function () {
-            configs[$(this).attr('data-key')] = $(this).prop('value');
+        $('.configs-switch input[type="checkbox"]').each(function () {
+            var key=$(this).attr('data-key');
+            if(key!="RTSP")
+                configs[key] = $(this).prop('checked') ? 'yes' : 'no';
+            else
+                configsSystem[key] = $(this).prop('checked') ? 'yes' : 'no';
         });
-
-        configsSystem["RTSP"]=$("#enable-rtsp").prop('checked') ? 'yes' : 'no';
 
         $.ajax({
             type: "POST",
@@ -152,6 +162,10 @@ APP.rtsp = (function ($) {
     {
         var licFilename=getFilename($("#file-license").val());
         var rtspFilename=getFilename($("#file-rtsp").val());
+
+        var fileName="";
+
+        filesToUpload=0;
         
         if(licFilename!="")
         {
@@ -161,57 +175,57 @@ APP.rtsp = (function ($) {
                 return;
             }
             
-            var fileName="etc/" + licFilename;
-            
-            console.log("Uploading " + fileName);
-        
-            var fd = new FormData($("#license-form"));
-            
-            fd.append('file',$('#file-license')[0].files[0]);
-            
-            ajaxUpload(fd, fileName);
+            fileName="etc/" + licFilename;
+            uploadFile("#license-form", "#file-license", fileName, uploadFinished);
         }
         
         if(rtspFilename!="")
-        {            
-            var fileName=rtspFilename;
-            
-            if(fileName.split('.').pop()!="7z")
+        {
+            if(rtspFilename.split('.').pop()!="7z")
             {
                 alert("ERROR: The RTSP file isn't a 7z archive.");
                 return;
             }
-            
-            console.log("Uploading " + fileName);
-            
+
             fileName="rtspv4__upload";
-        
-            var fd = new FormData($("#rtsp-form"));
-            
-            fd.append('file',$('#file-rtsp')[0].files[0]);
-            
-            ajaxUpload(fd, fileName);
+            uploadFile("#rtsp-form", "#file-rtsp", fileName, uploadFinished);
         }
     }
+
+    function uploadFile(formId, fileId, filename, callback)
+    {
+        uploadButton.prop('value', 'Uploading...');
+        filesToUpload++;
+        console.log("Uploading " + filename);
+        var fd = new FormData($(formId));
+        fd.append('file',$(fileId)[0].files[0]);
+        ajaxUpload(fd, filename, callback);
+    }
     
-    function ajaxUpload(fd, fileName)
+    function ajaxUpload(fd, fileName, callback)
     {
         $.ajax({
-            url: "cgi-bin/upload.sh?file=" + fileName,  
+            url: "cgi-bin/upload.sh?file=" + fileName,
             type: 'POST',
             data: fd,
             success: function(data){
                 console.log(data);
+                callback(data);
             },
             cache: false,
             contentType: false,
             processData: false
         });
     }
-    
-    function uploadLicense()
+
+    function uploadFinished()
     {
-        
+        filesToUpload--;
+        if(filesToUpload==0)
+        {
+            uploadButton.prop('value', 'Done!');
+            setTimeout(location.reload.bind(location), 1000);
+        }
     }
     
     function printRtspUrls(addr)
@@ -220,7 +234,8 @@ APP.rtsp = (function ($) {
         baseUrl="rtsp://" + rtspConfigs["REMOTE_ADDR"] + "/";
         
         $('#hires-url').text(baseUrl + "ch0_0.h264");
-        $('#lowres-url').text(baseUrl + "ch1_0.h264");
+        $('#lowres-url').text(baseUrl + "ch0_1.h264");
+        $('#audio-url').text(baseUrl + "ch0_2.aac");
     }
     
     function rtspChecks()
@@ -235,6 +250,11 @@ APP.rtsp = (function ($) {
             
         if(licFile!="")
             isLicensePresent=true;
+
+        if(camhash=="")
+            isCameraStillBooting=true;
+        else
+            isCameraStillBooting=false;
             
         if(isLicForCamera(licFile))
             isLicenseForThisCamera=true;
@@ -252,7 +272,7 @@ APP.rtsp = (function ($) {
             uploadButton.show();
         }
         
-        if(!isLicensePresent || !isLicenseForThisCamera)
+        if(!isLicensePresent || (!isLicenseForThisCamera && !isCameraStillBooting))
         {
             stepLicenseElem.show();
             licUploadRow.show();
@@ -263,6 +283,11 @@ APP.rtsp = (function ($) {
             licenseStatusElem.text("You first need to upload the rtspv4 file.");
             stepRtspElem.show();
             rtspUploadRow.show();
+        }
+        else if (isCameraStillBooting)
+        {
+            licenseStatusElem.text("The camera is still booting. Reloading the page in 2 seconds..");
+            setTimeout(location.reload.bind(location), 2000);
         }
         else if (!isLicensePresent)
         {
@@ -275,6 +300,7 @@ APP.rtsp = (function ($) {
         else
         {
             licenseStatusElem.text("All the required files are on the camera.");
+            configSection.show();
             stepsElem.hide();
         }
     }
