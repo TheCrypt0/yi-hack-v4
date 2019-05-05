@@ -25,8 +25,6 @@ fi
 ulimit -s 1024
 hostname -F /etc/hostname
 
-sleep 15 && camhash > /tmp/camhash &
-
 if [[ $(get_config DISABLE_CLOUD) == "no" ]] ; then
     (
         cd /home/app
@@ -78,6 +76,8 @@ if [[ $(get_config RTSP) == "yes" ]] ; then
         rtspv4 -D -S
     fi
 fi
+
+sleep 25 && camhash > /tmp/camhash &
 
 # First run on startup, then every day via crond
 $YI_HACK_PREFIX/script/check_update.sh
