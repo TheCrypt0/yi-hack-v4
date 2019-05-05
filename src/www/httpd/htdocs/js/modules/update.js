@@ -16,7 +16,7 @@ APP.update = (function ($) {
         uploadButton=$("#button-upload");
         
         uploadSection=$("#upload-section");
-        uploadSection.hide();
+        //uploadSection.hide();
     }
 
     function registerEventHandler() {
