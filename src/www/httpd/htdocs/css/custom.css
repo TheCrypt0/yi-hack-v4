@@ -121,6 +121,10 @@ nav ul li.icon { display: none; }
 	float: right;
 }
 
+.align-right {
+    text-align: right;
+}
+
 .inline {
     display: inline;
 }
