@@ -17,63 +17,83 @@
                 <span class="strong">NOTE: Any change will take effect after the reboot of the camera.</span>
             </p>
         </div>
-        <h4 class="no-margin">General</h4>
-        <hr class="tiny-margin"/>
-        <div class="row">
-            <div class="twelve columns configs-switch">
-                <table class="u-full-width padded-table config-table">
-                    <tbody>
+        <div id="config-section">
+            <h4 class="no-margin">General</h4>
+            <hr class="tiny-margin"/>
+            <div class="row">
+                <div class="twelve columns configs-switch">
+                    <table class="u-full-width padded-table config-table">
+                        <tbody>
+                            <tr class="row">
+                            <td>Enabled</td>
+                            <td>
+                                <label class="switch small">
+                                    <input type="checkbox" id="enable-rtsp" data-key="RTSP"/>
+                                    <span class="slider round"></span>
+                                    <span class="switch-text"></span>
+                                </label>
+                                <span class="switch-description">
+                                    Enable or disable the RTSP service.
+                                </span>
+                            </td>
+                        </tr>
                         <tr class="row">
-                        <td>Enabled</td>
-                        <td>
-                            <label class="switch small">
-                                <input type="checkbox" id="enable-rtsp" data-key="RTSP"/>
-                                <span class="slider round"></span>
-                                <span class="switch-text"></span>
-                            </label>
-                            <span class="switch-description">
-                                Enable or disable the RTSP service.
-                            </span>
-                        </td>
-                    </tr>
-                    <tr class="row">
-                        <td>HD Stream</td>
-                        <td>
-                            <label class="switch small">
-                                <input type="checkbox" id="enable-mqtt" data-key="HIRES"/>
-                                <span class="slider round"></span>
-                                <span class="switch-text"></span>
-                            </label>
-                            <span class="switch-description">
-                                Enable or disable the High Resolution stream (1080p or 720p depending on the camera version).
-                                <br/>
-                                URL: <span class="strong" id="hires-url"></span>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr class="row">
-                        <td>SD Stream</td>
-                        <td>
-                            <label class="switch small">
-                                <input type="checkbox" id="enable-mqtt" data-key="LOWRES"/>
-                                <span class="slider round"></span>
-                                <span class="switch-text"></span>
-                            </label>
-                            <span class="switch-description">
-                                Enable or disable the Low Resolution stream (360p).
-                                <br/>
-                                URL: <span class="strong" id="lowres-url"></span>
-                            </span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            <td>HD Stream</td>
+                            <td>
+                                <label class="switch small">
+                                    <input type="checkbox" data-key="HIRES"/>
+                                    <span class="slider round"></span>
+                                    <span class="switch-text"></span>
+                                </label>
+                                <span class="switch-description">
+                                    Enable or disable the High Resolution stream (1080p or 720p depending on the camera version).
+                                    <br/>
+                                    URL: <span class="strong" id="hires-url"></span>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td>SD Stream</td>
+                            <td>
+                                <label class="switch small">
+                                    <input type="checkbox" data-key="LOWRES"/>
+                                    <span class="slider round"></span>
+                                    <span class="switch-text"></span>
+                                </label>
+                                <span class="switch-description">
+                                    Enable or disable the Low Resolution stream (360p).
+                                    <br/>
+                                    URL: <span class="strong" id="lowres-url"></span>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td>Audio</td>
+                            <td>
+                                <label class="switch small">
+                                    <input type="checkbox" data-key="AUDIO"/>
+                                    <span class="slider round"></span>
+                                    <span class="switch-text"></span>
+                                </label>
+                                <span class="switch-description">
+                                    Enable or disable the AAC audio stream.
+                                    <br/>
+                                    URL: <span class="strong" id="audio-url"></span>
+                                    <br/>
+                                    <br/>
+                                    <span class="strong">WARNING: This is an experimental feature and it may cause problems on the video stream due to a CPU overload. For the best results disable the Cloud Features and all the not-needed services. If you experience issues with the main stream disable it.</span>
+                                </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-        <br/>
-        <div class="float-right">
-            <div class="padded-right save-text" id="save-status"></div>
-            <input class="button-primary" type="button" id="button-save" value="Save Configuration"/>
+            <br/>
+            <div class="float-right">
+                <div class="padded-right save-text" id="save-status"></div>
+                <input class="button-primary" type="button" id="button-save" value="Save Configuration"/>
+            </div>
         </div>
         <br/>
         <br/>
