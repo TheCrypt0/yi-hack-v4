@@ -7,151 +7,153 @@
             </div>
         </div>
         <hr class="tiny-margin"/>
-        <div class="row">
-            <p>
-
+        <div id="content">
+            <div class="row">
+                <p>
+                    <span>The RTSP protocol is required if you want to use the camera with your own server or DVR. It has been tested with multiple platforms such as Home Assistant, Synology, Shinobi, ZoneMinder.</span>
+                    <p>It can be used with the Cloud Features (App) enabled or disabled.</p>
+                    <p class="italic">Note: "viewd" in combination with "rtspv4" is used to get a functioning RTSP stream from the camera. The former is currently donationware only and can't be compiled. This is mostly to prevent others from monetizing this function, as example Chinese sellers selling pre-hacked cameras and such. Sadly those exist.</p>
+                    <p>Please refer to this Wiki article to <a target="_blank" href="https://github.com/TheCrypt0/yi-hack-v4/wiki/Enable-RTSP-Server">Enable the RTSP Server</a>.</p>
+                </p>
+            </div>
+            <div id="config-section">
+                <h4 class="no-margin">General</h4>
+                <hr class="tiny-margin"/>
+                <div class="row">
+                    <div class="twelve columns configs-switch">
+                        <table class="u-full-width padded-table config-table">
+                            <tbody>
+                                <tr class="row">
+                                <td>Enabled</td>
+                                <td>
+                                    <label class="switch small">
+                                        <input type="checkbox" id="enable-rtsp" data-key="RTSP"/>
+                                        <span class="slider round"></span>
+                                        <span class="switch-text"></span>
+                                    </label>
+                                    <span class="switch-description">
+                                        Enable or disable the RTSP service.
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="row">
+                                <td>HD Stream</td>
+                                <td>
+                                    <label class="switch small">
+                                        <input type="checkbox" data-key="HIRES"/>
+                                        <span class="slider round"></span>
+                                        <span class="switch-text"></span>
+                                    </label>
+                                    <span class="switch-description">
+                                        Enable or disable the High Resolution stream (1080p or 720p depending on the camera version).
+                                        <br/>
+                                        URL: <span class="strong" id="hires-url"></span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="row">
+                                <td>SD Stream</td>
+                                <td>
+                                    <label class="switch small">
+                                        <input type="checkbox" data-key="LOWRES"/>
+                                        <span class="slider round"></span>
+                                        <span class="switch-text"></span>
+                                    </label>
+                                    <span class="switch-description">
+                                        Enable or disable the Low Resolution stream (360p).
+                                        <br/>
+                                        URL: <span class="strong" id="lowres-url"></span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="row">
+                                <td>Audio</td>
+                                <td>
+                                    <label class="switch small">
+                                        <input type="checkbox" data-key="AUDIO"/>
+                                        <span class="slider round"></span>
+                                        <span class="switch-text"></span>
+                                    </label>
+                                    <span class="switch-description">
+                                        Enable or disable the AAC audio stream.
+                                        <br/>
+                                        URL: <span class="strong" id="audio-url"></span>
+                                        <br/>
+                                        <br/>
+                                        <span class="strong">WARNING: This is an experimental feature and it may cause problems on the video stream due to a CPU overload. For the best results disable the Cloud Features and all the not-needed services. If you experience issues with the main stream disable it.</span>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="align-right">
+                    <span class="strong">Any change will take effect after the reboot of the camera.</span>
+                </div>
                 <br/>
-
+                <div class="float-right">
+                    <div class="padded-right save-text" id="save-status"></div>
+                    <input class="button-primary" type="button" id="button-save" value="Save Configuration"/>
+                </div>
                 <br/>
-            </p>
-        </div>
-        <div id="config-section">
-            <h4 class="no-margin">General</h4>
+                <br/>
+            </div>
+            <h4 class="no-margin">License</h4>
             <hr class="tiny-margin"/>
             <div class="row">
                 <div class="twelve columns configs-switch">
                     <table class="u-full-width padded-table config-table">
                         <tbody>
-                            <tr class="row">
-                            <td>Enabled</td>
+                        <tr class="row" id="steps-enable-rtsp">
+                            <td>Steps to enable the RTSP</td>
                             <td>
-                                <label class="switch small">
-                                    <input type="checkbox" id="enable-rtsp" data-key="RTSP"/>
-                                    <span class="slider round"></span>
-                                    <span class="switch-text"></span>
-                                </label>
-                                <span class="switch-description">
-                                    Enable or disable the RTSP service.
-                                </span>
+                                <ul class="no-margin">
+                                <li id="step-upload-rtsp">
+                                    Upload the rtspv4__vX.X.X.7z file.
+                                </li>
+                                <li id="step-upload-license">
+                                    Upload the license file.
+                                </li>
+                                </ul>
                             </td>
                         </tr>
                         <tr class="row">
-                            <td>HD Stream</td>
+                            <td>License Status</td>
                             <td>
-                                <label class="switch small">
-                                    <input type="checkbox" data-key="HIRES"/>
-                                    <span class="slider round"></span>
-                                    <span class="switch-text"></span>
-                                </label>
-                                <span class="switch-description">
-                                    Enable or disable the High Resolution stream (1080p or 720p depending on the camera version).
-                                    <br/>
-                                    URL: <span class="strong" id="hires-url"></span>
-                                </span>
+                                <span id="license-status"></span>
                             </td>
                         </tr>
                         <tr class="row">
-                            <td>SD Stream</td>
+                            <td>Camhash</td>
                             <td>
-                                <label class="switch small">
-                                    <input type="checkbox" data-key="LOWRES"/>
-                                    <span class="slider round"></span>
-                                    <span class="switch-text"></span>
-                                </label>
-                                <span class="switch-description">
-                                    Enable or disable the Low Resolution stream (360p).
-                                    <br/>
-                                    URL: <span class="strong" id="lowres-url"></span>
-                                </span>
+                                <input class="u-full-width" type="text" placeholder="" data-key="CAMHASH" readonly="" />
                             </td>
                         </tr>
-                        <tr class="row">
-                            <td>Audio</td>
+                        <tr class="row" id="rtsp-upload-row">
+                            <td>RTSPv4 File</td>
                             <td>
-                                <label class="switch small">
-                                    <input type="checkbox" data-key="AUDIO"/>
-                                    <span class="slider round"></span>
-                                    <span class="switch-text"></span>
-                                </label>
-                                <span class="switch-description">
-                                    Enable or disable the AAC audio stream.
-                                    <br/>
-                                    URL: <span class="strong" id="audio-url"></span>
-                                    <br/>
-                                    <br/>
-                                    <span class="strong">WARNING: This is an experimental feature and it may cause problems on the video stream due to a CPU overload. For the best results disable the Cloud Features and all the not-needed services. If you experience issues with the main stream disable it.</span>
-                                </span>
+                                <form id="rtsp-form" class="inline" enctype="multipart/form-data" method="POST" name="rtsp-form">
+                                    <input class="u-full-width" id="file-rtsp" name="rtsp" type="file" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr class="row" id="license-upload-row">
+                            <td>License File</td>
+                            <td>
+                                <form id="license-form" class="inline" enctype="multipart/form-data" method="POST" name="license-form">
+                                    <input class="u-full-width" id="file-license" name="license" type="file" />
+                                </form>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-                <div class="align-right">
-                    <span class="strong">Any change will take effect after the reboot of the camera.</span>
-                </div>
             <br/>
             <div class="float-right">
-                <div class="padded-right save-text" id="save-status"></div>
-                <input class="button-primary" type="button" id="button-save" value="Save Configuration"/>
+                <input class="button-primary" type="button" id="button-upload" value="Upload"/>
             </div>
-        </div>
-        <br/>
-        <br/>
-        <h4 class="no-margin">License</h4>
-        <hr class="tiny-margin"/>
-        <div class="row">
-            <div class="twelve columns configs-switch">
-                <table class="u-full-width padded-table config-table">
-                    <tbody>
-                    <tr class="row" id="steps-enable-rtsp">
-                        <td>Steps to enable the RTSP</td>
-                        <td>
-                            <ul class="no-margin">
-                            <li id="step-upload-rtsp">
-                                Upload the rtspv4__vX.X.X.7z file.
-                            </li>
-                            <li id="step-upload-license">
-                                Upload the license file.
-                            </li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr class="row">
-                        <td>License Status</td>
-                        <td>
-                            <span id="license-status"></span>
-                        </td>
-                    </tr>
-                    <tr class="row">
-                        <td>Camhash</td>
-                        <td>
-                            <input class="u-full-width" type="text" placeholder="" data-key="CAMHASH" readonly="" />
-                        </td>
-                    </tr>
-                    <tr class="row" id="rtsp-upload-row">
-                        <td>RTSPv4 File</td>
-                        <td>
-                            <form id="rtsp-form" class="inline" enctype="multipart/form-data" method="POST" name="rtsp-form">
-                                <input class="u-full-width" id="file-rtsp" name="rtsp" type="file" />
-                            </form>
-                        </td>
-                    </tr>
-                    <tr class="row" id="license-upload-row">
-                        <td>License File</td>
-                        <td>
-                            <form id="license-form" class="inline" enctype="multipart/form-data" method="POST" name="license-form">
-                                <input class="u-full-width" id="file-license" name="license" type="file" />
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <br/>
-        <div class="float-right">
-            <input class="button-primary" type="button" id="button-upload" value="Upload"/>
         </div>
     </div>
 </div>

@@ -15,6 +15,7 @@ APP.rtsp = (function ($) {
     var stepRtspElem;
     var stepLicenseElem;
 
+    var contentSection;
     var configSection;
     
     var licUploadRow;
@@ -45,7 +46,9 @@ APP.rtsp = (function ($) {
         uploadButton=$("#button-upload");
 
         configSection=$("#config-section");
+        contentSection=$("#content");
         
+        contentSection.hide();
         configSection.hide();
 
         stepsElem.hide();
@@ -88,7 +91,9 @@ APP.rtsp = (function ($) {
                         $('input[type="text"][data-key="' + key +'"]').prop('value', state);
                     
                 });
-                
+
+                contentSection.show();
+
                 printRtspUrls();
                 rtspChecks();
             },
@@ -265,11 +270,13 @@ APP.rtsp = (function ($) {
         console.log("isLicensePresent: " + isLicensePresent);
         console.log("isLicenseForThisCamera: " + isLicenseForThisCamera);
         */
+
+        uploadButton.show();
+        rtspUploadRow.show();
         
         if(!isRtspPresent || !isLicensePresent || !isLicenseForThisCamera)
         {
             stepsElem.show();
-            uploadButton.show();
         }
         
         if(!isLicensePresent || (!isLicenseForThisCamera && !isCameraStillBooting))
@@ -282,7 +289,6 @@ APP.rtsp = (function ($) {
         {
             licenseStatusElem.text("You first need to upload the rtspv4 file.");
             stepRtspElem.show();
-            rtspUploadRow.show();
         }
         else if (isCameraStillBooting)
         {
