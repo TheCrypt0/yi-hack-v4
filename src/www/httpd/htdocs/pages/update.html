@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="twelve columns">
+        <div class="row">
+            <div class="twelve columns">
+                <h3 class="no-margin inline-block" id="header">Update</h3>
+                <h6 id="loading-status" class="float-right loading-text"></h6>
+            </div>
+        </div>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <p>
+                Check out the releases page: <a target="_blank" href="https://github.com/TheCrypt0/yi-hack-v4/releases">https://github.com/TheCrypt0/yi-hack-v4/releases</a>
+            </p>
+        </div>
+        <h4 class="no-margin">Versions</h4>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <div class="twelve columns configs-switch">
+                <table class="u-full-width padded-table config-table">
+                    <tbody>
+                    <tr class="row">
+                        <td>Status</td>
+                        <td>
+                            <span id="version-status"></span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Local Version</td>
+                        <td>
+                            <input class="u-full-width" type="text" placeholder="" data-key="LOCAL_VERSION" readonly="" />
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Remote Version</td>
+                        <td>
+                            <input class="u-full-width" type="text" placeholder="" data-key="REMOTE_VERSION" readonly="" />
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div id="upload-section">
+            <h4 class="no-margin">Flash Image</h4>
+            <hr class="tiny-margin"/>
+            <div class="row">
+                <div class="twelve columns configs-switch">
+                    <table class="u-full-width padded-table config-table">
+                        <tbody id="upload-tbody">
+                        <tr class="row">
+                            <td>home</td>
+                            <td>
+                                <form id="home-form" class="inline" enctype="multipart/form-data" method="POST" name="home-form">
+                                    <input class="u-full-width" id="file-home" name="home" type="file" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td>rootfs</td>
+                            <td>
+                                <form id="rootfs-form" class="inline" enctype="multipart/form-data" method="POST" name="rootfs-form">
+                                    <input class="u-full-width" id="file-rootfs" name="rootfs" type="file" />
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br/>
+            <div class="float-right">
+                <input class="button-primary" type="button" id="button-upload" value="Upload"/>
+            </div>
+        </div>
+    </div>
+</div>
