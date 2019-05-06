@@ -36,7 +36,7 @@ if [ $ACTION_TYPE == "getconf" ] ; then
     printf "\"%s\":\"%s\",\n"  "VIEWD_FILE"     $(ls $YI_HACK_PREFIX/bin/viewd)
     printf "\"%s\":\"%s\",\n"  "RTSP_FILE"      $(ls $YI_HACK_PREFIX/bin/rtspv4)
     printf "\"%s\":\"%s\",\n"  "LIC_FILE"       $(ls $YI_HACK_PREFIX/etc/viewd_*.lic)
-    printf "\"%s\":\"%s\",\n"  "CAMHASH"        $(cat /tmp/camhash)
+    printf "\"%s\":\"%s\",\n"  "CAMHASH"        $(camhash)
     printf "\"%s\":\"%s\",\n"  "REMOTE_ADDR"    $HTTP_HOST
 
 fi
