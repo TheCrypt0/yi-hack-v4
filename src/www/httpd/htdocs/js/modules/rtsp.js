@@ -202,7 +202,7 @@ APP.rtsp = (function ($) {
         uploadButton.prop('value', 'Uploading...');
         filesToUpload++;
         console.log("Uploading " + filename);
-        var fd = new FormData($(formId));
+        var fd = new FormData();
         fd.append('file',$(fileId)[0].files[0]);
         ajaxUpload(fd, filename, callback);
     }
@@ -285,15 +285,20 @@ APP.rtsp = (function ($) {
             licUploadRow.show();
         }
         
-        if(!isRtspPresent)
+        if (isCameraStillBooting)
+        {
+            licenseStatusElem.text("The camera is still booting. Reloading the page in 5 seconds..");
+
+            stepsElem.hide();
+            licUploadRow.hide();
+            rtspUploadRow.hide();
+
+            setTimeout(location.reload.bind(location), 5000);
+        }
+        else if(!isRtspPresent)
         {
             licenseStatusElem.text("You first need to upload the rtspv4 file.");
             stepRtspElem.show();
-        }
-        else if (isCameraStillBooting)
-        {
-            licenseStatusElem.text("The camera is still booting. Reloading the page in 2 seconds..");
-            setTimeout(location.reload.bind(location), 2000);
         }
         else if (!isLicensePresent)
         {

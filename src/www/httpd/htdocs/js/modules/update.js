@@ -101,7 +101,7 @@ APP.update = (function ($) {
     {
         filesToUpload++;
         console.log("Uploading " + filename);
-        var fd = new FormData($(formId));
+        var fd = new FormData();
         fd.append('file',$(fileId)[0].files[0]);
         ajaxUpload(fd, filename, callback);
     }
