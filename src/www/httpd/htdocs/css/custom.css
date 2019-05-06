@@ -146,6 +146,10 @@ nav ul li.icon { display: none; }
 	padding-right: 20px;
 }
 
+.ios-onclick-fix {
+    cursor: pointer;
+}
+
 table.padded-table tr td {
     padding: 10px 10px 9px;
 }
