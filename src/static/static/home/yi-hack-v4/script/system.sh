@@ -63,7 +63,7 @@ fi
 
 if [[ $(get_config NTPD) == "yes" ]] ; then
     # Wait until all the other processes have been initialized
-    sleep 5 && ntpd -p pool.ntp.org &
+    sleep 5 && ntpd -p $(get_config NTP_SERVER) &
 fi
 
 if [[ $(get_config MQTT) == "yes" ]] ; then
