@@ -51,6 +51,7 @@ This firmware will add the following features:
   - **NEW CAMERAS SUPPORTED**: Yi Outdoor 1080p and Yi Cloud Dome 1080p.
   - **RTSP server** - which will allow a RTSP stream of the video while keeping the cloud features enabled.
   - viewd - a daemon to check the `/tmp/view` buffer heads/tails location (needed by the RTSP).
+  - **MQTT** - detect motion directly from your home server!
   - WebServer - user-friendly stats and configurations.
   - SSH server -  _Enabled by default._
   - Telnet server -  _Disabled by default._
@@ -58,7 +59,6 @@ This firmware will add the following features:
   - Web server -  _Enabled by default._
   - Proxychains-ng - _Disabled by default. Useful if the camera is region locked._
 - In development:
-  - MQTT
   - ONVIF
   - A static image snapshot from the web interface.
   - The possibility to disable all the cloud features while keeping the RTSP stream.
