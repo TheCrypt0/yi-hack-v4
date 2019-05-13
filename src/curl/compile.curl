@@ -1,1 +1,10 @@
+#!/bin/bash
 
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+cd curl || exit 1
+
+make clean
+make -j$(nproc) || exit 1
+make install
