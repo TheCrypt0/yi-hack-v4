@@ -24,4 +24,7 @@ git reset --hard || exit 1
     --disable-gopher \
     --disable-ipv6 \
     --disable-manual \
+    --disable-smtp \
+    --disable-telnet \
+    --disable-rtsp \
     || exit 1
