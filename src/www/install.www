@@ -3,12 +3,4 @@
 SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
-# Compress the tinyhttp binary
-# upx ./_install/tinyhttp
-
-#rsync -a ./_install/bin/tinyhttp ../../build/home/yi-hack-v4/bin/
-
-#rsync -a ./_install/htdocs ../../build/home/yi-hack-v4/www/htdocs
-#rsync -a ./_install/cgi-bin ../../build/home/yi-hack-v4/www/cgi-bin
-
-rsync -a ./_install/www/* ../../build/home/yi-hack-v4/www/
+rsync -a ./_install/* ../../build/home/yi-hack-v4/

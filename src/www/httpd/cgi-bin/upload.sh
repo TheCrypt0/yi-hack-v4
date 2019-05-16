@@ -74,6 +74,9 @@ else
 
     if [ "$FILE_TYPE" == "rtspv4__upload" ] ; then
         7za x "$TMP_FILE" -y -o. &>/dev/null
+        
+        killall viewd rtspv4
+        
         cp -rf rtspv4__*/* $YI_HACK_PREFIX/
         rm -rf rtspv4__*
         
