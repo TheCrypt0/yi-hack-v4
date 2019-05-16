@@ -18,6 +18,8 @@
 #  along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
+#set -e
+
 get_script_dir()
 {
     echo "$(cd `dirname $0` && pwd)"
@@ -42,20 +44,20 @@ BUILD_DIR=$BASE_DIR/build
 OUT_DIR=$BASE_DIR/out
 
 echo "Cleaning sysroot..."
-cd $SYSROOT_DIR
-rm -r yi_*
+rm -r $SYSROOT_DIR/yi_*
 echo "Cleaning out dir..."
-cd $OUT_DIR
-rm -r yi_*
+rm -r $OUT_DIR/yi_*
 
 echo "Cleaning src/*/_install folders..."
-rm -r $BASE_DIR/src/busybox/_install
-rm -r $BASE_DIR/src/dropbear/_install
-rm -r $BASE_DIR/src/ftpd/_install
-rm -r $BASE_DIR/src/proxychains-ng/_install
-rm -r $BASE_DIR/src/static/_install
-rm -r $BASE_DIR/src/uClibc/_install
-rm -r $BASE_DIR/src/www/_install
+
+SRC_DIR=$(get_script_dir)/../src
+
+for SUB_DIR in $SRC_DIR/* ; do
+    if [ -d ${SUB_DIR} ]; then # Will not run if no directories are available
+        echo "Cleaning $(basename \"$SUB_DIR\")..."
+        rm -r $SUB_DIR/_install
+    fi
+done
 
 echo ""
 echo "Finished!"
