@@ -46,7 +46,7 @@ APP.reboot = (function ($) {
                 },
                 timeout: 3000,
             });
-        }, 3000);
+        }, 5000);
     }
 
     function setStatus(text)
