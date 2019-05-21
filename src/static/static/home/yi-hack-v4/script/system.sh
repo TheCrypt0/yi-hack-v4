@@ -11,7 +11,7 @@ fi
 get_config()
 {
     key=$1
-    grep $1 $YI_HACK_PREFIX/$CONF_FILE | cut -d "=" -f2
+    grep -w $1 $YI_HACK_PREFIX/$CONF_FILE | cut -d "=" -f2
 }
 
 if [ -d "/usr/yi-hack-v4" ]; then
