@@ -54,7 +54,11 @@ if [[ $(get_config TELNETD) == "yes" ]] ; then
 fi
 
 if [[ $(get_config FTPD) == "yes" ]] ; then
-    pure-ftpd -B
+    if [[ $(get_config BUSYBOX_FTPD) == "yes" ]] ; then
+        tcpsvd -vE 0.0.0.0 21 ftpd -w &
+    else
+        pure-ftpd -B
+    fi
 fi
 
 if [[ $(get_config SSHD) == "yes" ]] ; then
