@@ -7,7 +7,3 @@ rm -rf ./_install
 
 cd uClibc++ || exit 1
 git reset --hard 
-
-
-
-

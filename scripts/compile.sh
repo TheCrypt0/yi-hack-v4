@@ -72,8 +72,6 @@ compile_module()
 
 source "$(get_script_dir)/common.sh"
 
-require_root
-
 echo ""
 echo "------------------------------------------------------------------------"
 echo " YI-HACK-V4 - SRC COMPILER"
@@ -93,7 +91,7 @@ SRC_DIR=$(get_script_dir)/../src
 
 for SUB_DIR in $SRC_DIR/* ; do
     if [ -d ${SUB_DIR} ]; then # Will not run if no directories are available
-        compile_module $(normalize_path "$SUB_DIR")
+        compile_module $(normalize_path "$SUB_DIR") || exit 1
     fi
 done
 

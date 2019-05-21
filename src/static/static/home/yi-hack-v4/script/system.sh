@@ -11,7 +11,7 @@ fi
 get_config()
 {
     key=$1
-    grep $1 $YI_HACK_PREFIX/$CONF_FILE | cut -d "=" -f2
+    grep -w $1 $YI_HACK_PREFIX/$CONF_FILE | cut -d "=" -f2
 }
 
 if [ -d "/usr/yi-hack-v4" ]; then
@@ -54,7 +54,11 @@ if [[ $(get_config TELNETD) == "yes" ]] ; then
 fi
 
 if [[ $(get_config FTPD) == "yes" ]] ; then
-    pure-ftpd -B
+    if [[ $(get_config BUSYBOX_FTPD) == "yes" ]] ; then
+        tcpsvd -vE 0.0.0.0 21 ftpd -w &
+    else
+        pure-ftpd -B
+    fi
 fi
 
 if [[ $(get_config SSHD) == "yes" ]] ; then
