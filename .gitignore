@@ -17,6 +17,5 @@
 # The following files are ignored because they need some cleanup
 REQUIRED_PACKAGES
 INIT_SUBMODULES.md
-src/www/httpd/htdocs/.DS_Store
-src/www/httpd/htdocs/images/.DS_Store
-.DS_Store
+
+*.DS_Store
