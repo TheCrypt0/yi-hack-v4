@@ -58,10 +58,10 @@ This firmware will add the following features:
   - FTP server -  _Enabled by default._
   - Web server -  _Enabled by default._
   - Proxychains-ng - _Disabled by default. Useful if the camera is region locked._
+  - The possibility to disable all the cloud features while keeping the RTSP stream.
 - In development:
   - ONVIF
   - A static image snapshot from the web interface.
-  - The possibility to disable all the cloud features while keeping the RTSP stream.
 
 This firmware _might_ add:
 - Alarm functionality via Telegram (@frekel's [PR #177 in yi-hack-v3](https://github.com/shadow-1/yi-hack-v3/pull/117))
