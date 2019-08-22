@@ -90,7 +90,12 @@
         <div id="container" class="container">
 
         </div>
-
+	<script>
+	function access_check() {
+	if(!document.getElementById("SSHD").checked)
+	  document.getElementById("HTTPD").checked = true;
+	}
+	</script>
 	<!-- End Document
 	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
 	</body>
