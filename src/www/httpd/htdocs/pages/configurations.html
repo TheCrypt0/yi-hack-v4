@@ -81,7 +81,7 @@
                         <td>SSH</td>
                         <td>
                             <label class="switch small">
-                                <input type="checkbox" data-key="SSHD"/>
+                                <input type="checkbox" data-key="SSHD" id="SSHD" onclick="access_check()"/>
                                 <span class="slider round"></span>
                                 <span class="switch-text"></span>
                             </label>
@@ -152,7 +152,7 @@
                         <td>HTTPD</td>
                         <td>
                             <label class="switch small">
-                                <input type="checkbox" data-key="HTTPD"/>
+                                <input type="checkbox" data-key="HTTPD" id="HTTPD" onclick="access_check()"/>
                                 <span class="slider round"></span>
                                 <span class="switch-text"></span>
                             </label>
@@ -173,7 +173,7 @@
         <br/>
         <div class="float-right">
             <div class="padded-right save-text" id="save-status"></div>
-            <input class="button-primary" type="button" id="button-save" value="Save Configuration"/>
+            <input class="button-primary" type="button" id="button-save" value="Save Configuration" onclick="access_check()"/>
         </div>
     </div>
 </div>
