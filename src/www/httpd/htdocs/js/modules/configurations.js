@@ -41,6 +41,8 @@ APP.configurations = (function ($) {
         var saveStatusElem;
         let configs = {};
         
+        $('input[type="checkbox"][data-key="SSHD"]').prop('checked') ? '' : $('input[type="checkbox"][data-key="HTTPD"]').prop('checked', true);
+        
         saveStatusElem = $('#save-status');
         
         saveStatusElem.text("Saving...");
