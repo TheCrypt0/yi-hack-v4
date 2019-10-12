@@ -29,3 +29,6 @@
 	path = src/curl/curl
 	url = https://github.com/curl/curl.git
 	
+[submodule "src/curl/mbedtls"]
+	path = src/curl/mbedtls
+	url = https://github.com/ARMmbed/mbedtls.git
