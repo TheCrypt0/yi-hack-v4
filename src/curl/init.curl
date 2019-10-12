@@ -5,6 +5,10 @@ cd $SCRIPT_DIR
 
 rm -rf ./_install
 
+cd mbedtls || exit 1
+git reset --hard || exit 1
+cd ..
+
 cd curl || exit 1
 git reset --hard || exit 1
 
@@ -15,16 +19,31 @@ git reset --hard || exit 1
     AR=arm-hisiv300-linux-ar \
     RANLIB=arm-hisiv300-linux-ranlib \
     --host=arm \
-    --disable-shared \
-    --disable-libcurl-option \
+    --disable-curldebug \
+    --disable-debug \
     --disable-dict \
-    --disable-tftp \
-    --disable-pop3 \
-    --disable-imap \
+    --disable-file \
+    --disable-ssl \
     --disable-gopher \
+    --disable-imap \
     --disable-ipv6 \
+    --disable-ldap \
+    --disable-libcurl-option \
     --disable-manual \
-    --disable-smtp \
-    --disable-telnet \
+    --disable-ntlm \
+    --disable-ntlm-wb \
+    --disable-pop3 \
     --disable-rtsp \
+    --disable-shared \
+    --disable-smb \
+    --disable-smtp \
+    --disable-soname-bump \
+    --disable-sspi \
+    --disable-symbol-hiding \
+    --disable-telnet \
+    --disable-tftp \
+    --disable-tls-srp \
+    --enable-http \
+    --enable-optimize \
+    --with-mbedtls=/usr/local/ \
     || exit 1
