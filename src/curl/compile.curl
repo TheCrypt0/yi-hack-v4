@@ -4,7 +4,8 @@ SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
 cd mbedtls || exit 1
-CFLAGS="-I$SCRIPT_DIR -DMBEDTLS_CONFIG_FILE='<mbedtls-config.h>'" make CC=arm-hisiv300-linux-gcc SHARE=1
+make clean
+CFLAGS="-I$SCRIPT_DIR -DMBEDTLS_CONFIG_FILE='<mbedtls-config.h>'" make -j$(nproc) CC=arm-hisiv300-linux-gcc SHARE=1 || exit 1
 make install
 cd ..
 
