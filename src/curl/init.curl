@@ -5,12 +5,13 @@ cd $SCRIPT_DIR
 
 rm -rf ./_install
 
-cd mbedtls || exit 1
-git reset --hard || exit 1
-cd ..
-
 cd curl || exit 1
 git reset --hard || exit 1
+
+if [ ! -f $SCRIPT_DIR/../cmbedtls/_install/lib/libmbedcrypto.a ] ; then
+    echo "ERROR: curl requires mbedtls to be compiled first."
+    exit 1
+fi
 
 ./buildconf || exit 1
 ./configure CC=arm-hisiv300-linux-gcc \
@@ -45,5 +46,5 @@ git reset --hard || exit 1
     --disable-tls-srp \
     --enable-http \
     --enable-optimize \
-    --with-mbedtls=/usr/local/ \
+    --with-mbedtls=$SCRIPT_DIR/../cmbedtls/_install \
     || exit 1

@@ -28,6 +28,6 @@
 [submodule "src/curl/curl"]
 	path = src/curl/curl
 	url = https://github.com/curl/curl.git
-[submodule "src/curl/mbedtls"]
-	path = src/curl/mbedtls
+[submodule "src/cmbedtls/mbedtls"]
+	path = src/cmbedtls/mbedtls
 	url = https://github.com/ARMmbed/mbedtls.git
