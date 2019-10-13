@@ -9,3 +9,5 @@ cd mbedtls || exit 1
 git reset --hard || exit 1
 git submodule init
 git submodule update
+
+cp ../mbedtls-config.h ./include/mbedtls/config.h || exit 1

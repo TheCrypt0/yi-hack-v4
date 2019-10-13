@@ -8,10 +8,10 @@ mkdir -p ./_install/include/mbedtls || exit 1
 mkdir -p ./_install/include/mbedtls/mbedtls || exit 1
 mkdir -p ./_install/include/psa || exit 1
 
-cp -rp ./mbedtls/include/mbedtls ./_install/include || exit 1
-cp -rp ./mbedtls/include/mbedtls ./_install/include/mbedtls || exit 1
 cp -rp ./mbedtls/crypto/include/mbedtls ./_install/include || exit 1
 cp -rp ./mbedtls/crypto/include/psa ./_install/include || exit 1
+cp -rp ./mbedtls/include/mbedtls ./_install/include || exit 1
+cp ./mbedtls/include/mbedtls/config.h ./_install/include/mbedtls/mbedtls || exit 1
 cp ./mbedtls/library/libmbedtls.* ./_install/lib || exit 1
 cp ./mbedtls/library/libmbedx509.* ./_install/lib || exit 1
 cp ./mbedtls/crypto/library/libmbedcrypto.* ./_install/lib || exit 1
