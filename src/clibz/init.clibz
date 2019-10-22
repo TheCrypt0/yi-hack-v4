@@ -1,0 +1,15 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+rm -rf ./_install
+
+cd zlib || exit 1
+git reset --hard || exit 1
+
+./configure \
+    --prefix=$SCRIPT_DIR/_install \
+    --libdir=$SCRIPT_DIR/_install/lib \
+    --static \
+    || exit 1

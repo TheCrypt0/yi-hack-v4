@@ -8,6 +8,11 @@ rm -rf ./_install
 cd curl || exit 1
 git reset --hard || exit 1
 
+if [ ! -f $SCRIPT_DIR/../clibz/_install/lib/libz.a ] ; then
+    echo "ERROR: curl requires zlib to be compiled first."
+    exit 1
+fi
+
 if [ ! -f $SCRIPT_DIR/../cmbedtls/_install/lib/libmbedcrypto.a ] ; then
     echo "ERROR: curl requires mbedtls to be compiled first."
     exit 1
@@ -47,4 +52,5 @@ fi
     --enable-http \
     --enable-optimize \
     --with-mbedtls=$SCRIPT_DIR/../cmbedtls/_install \
+    --with-zlib=$SCRIPT_DIR/../clibz/_install \
     || exit 1

@@ -31,3 +31,6 @@
 [submodule "src/cmbedtls/mbedtls"]
 	path = src/cmbedtls/mbedtls
 	url = https://github.com/ARMmbed/mbedtls.git
+[submodule "src/clibz/zlib"]
+	path = src/clibz/zlib
+	url = https://github.com/madler/zlib.git
