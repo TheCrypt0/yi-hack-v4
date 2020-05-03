@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="twelf columns">
+        <h3 class="no-margin" id="header">PTZ</h3>
+        <hr class="tiny-margin"/>
+        <div id="ptz_description" class="row">
+            <p>
+                In this page you can move your cam.
+            </p>
+        </div>
+        <div id="ptz_available" class="row" style="display: none;">
+            <p>
+                PTZ functions are not available for this camera model.
+            </p>
+        </div>
+
+        <div id="ptz_main" class="row" >
+            <h4 class="no-margin">Move pad</h4>
+            <hr class="tiny-margin"/>
+            <table class="u-full-width ptz-table">
+                <tbody>
+                <tr class="row">
+                    <td></td>
+                    <td><input type="image" id="img-au" src="images/arrow-up-bold-box-outline.png" /></td>
+                    <td></td>
+                </tr>
+                <tr class="row">
+                    <td><input type="image" id="img-al" src="images/arrow-left-bold-box-outline.png" /></td>
+                    <td></td>
+                    <td><input type="image" id="img-ar" src="images/arrow-right-bold-box-outline.png" /></td>
+                </tr>
+                <tr class="row">
+                    <td></td>
+                    <td><input type="image" id="img-ad" src="images/arrow-down-bold-box-outline.png" /></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h4 class="no-margin">Presets</h4>
+            <hr class="tiny-margin"/>
+            <table class="u-full-width ptz-table">
+                <tbody>
+                <tr class="row">
+                    <td>
+                        <select id="select-goto">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="button-primary" type="button" id="button-goto" value="Goto Preset"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

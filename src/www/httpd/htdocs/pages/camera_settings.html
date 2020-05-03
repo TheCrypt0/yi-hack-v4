@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="twelve columns">
+        <div class="row">
+            <div class="twelve columns">
+                <h3 class="no-margin inline-block" id="header">Camera Settings</h3>
+                <h6 id="loading-status" class="float-right loading-text"></h6>
+            </div>
+        </div>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <p>
+                On this page you can change some camera settings.
+            </p>
+        </div>
+        <h4 class="no-margin">General</h4>
+        <hr class="tiny-margin"/>
+        <div class="row">
+            <div class="twelve columns configs-switch">
+                <table class="u-full-width padded-table config-table">
+                    <tbody>
+                    <tr class="row">
+                        <td>Switch on/off the camera</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="SWITCH_ON"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Switch on/off the video on the camera.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Save video when a motion is detected</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="SAVE_VIDEO_ON_MOTION"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                If enabled, video will be saved only when a motion is detected.
+                            </span>
+                            <br/>
+                            <span class="switch-description">
+                                If disabled, video will be always saved.
+                            </span>
+                            <br/>
+                            <span class="switch-description">
+                                (It takes effect only if recording is enabled)
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Detection sensitivity</td>
+                        <td>
+                            <div class="standard-select">
+                                <select data-key="SENSITIVITY" id="SENSITIVITY">
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Status led</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="LED"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Set status led on or off.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>IR led</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="IR"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable IR led for night vision.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td>Rotate</td>
+                        <td>
+                            <label class="switch small">
+                                <input type="checkbox" data-key="ROTATE"/>
+                                <span class="slider round"></span>
+                                <span class="switch-text"></span>
+                            </label>
+                            <span class="switch-description">
+                                Enable image rotation for ceiling mount.
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="align-right">
+            <span class="strong">Any change will take effect immediately.</span>
+            <br/>
+            <span class="strong">Note that these settings are not synchronized with the settings made with the app.</span>
+        </div>
+        <br/>
+        <div class="float-right">
+            <div class="padded-right save-text" id="save-status"></div>
+            <input class="button-primary" type="button" id="button-save" value="Save Configuration"/>
+        </div>
+    </div>
+</div>
