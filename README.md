@@ -52,12 +52,19 @@ This firmware will add the following features:
   - **RTSP server** - which will allow a RTSP stream of the video while keeping the cloud features enabled (available to the supporters of the project).
   - viewd - a daemon to check the `/tmp/view` buffer heads/tails location (needed by the RTSP).
   - **MQTT** - detect motion directly from your home server!
-  - PTZ
   - WebServer - user-friendly stats and configurations.
   - SSH server -  _Enabled by default._
   - Telnet server -  _Disabled by default._
   - FTP server -  _Enabled by default._
   - Web server -  _Enabled by default._
+  - The possibility to change some camera settings (copied from official app):
+    - camera on/off
+    - video saving mode
+    - detection sensitivity
+    - status led
+    - ir led
+    - rotate
+  - PTZ support through a web page.
   - Proxychains-ng - _Disabled by default. Useful if the camera is region locked._
   - The possibility to disable all the cloud features while keeping the RTSP stream.
 
