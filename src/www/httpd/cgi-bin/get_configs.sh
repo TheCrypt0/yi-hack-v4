@@ -7,11 +7,11 @@ elif [ -d "/home/yi-hack-v4" ]; then
 fi
 
 get_conf_type()
-{
+{   
     CONF="$(echo $QUERY_STRING | cut -d'=' -f1)"
     VAL="$(echo $QUERY_STRING | cut -d'=' -f2)"
-
-    if [ "$CONF" == "conf" ] ; then
+    
+    if [ $CONF == "conf" ] ; then
         echo $VAL
     fi
 }
@@ -21,7 +21,7 @@ printf "Content-type: application/json\r\n\r\n"
 CONF_TYPE="$(get_conf_type)"
 CONF_FILE=""
 
-if [ "$CONF_TYPE" == "mqtt" ] ; then
+if [ $CONF_TYPE == "mqtt" ] ; then
     CONF_FILE="$YI_HACK_PREFIX/etc/mqttv4.conf"
 else
     CONF_FILE="$YI_HACK_PREFIX/etc/$CONF_TYPE.conf"
@@ -37,9 +37,8 @@ while IFS= read -r LINE ; do
     fi
 done < "$CONF_FILE"
 
-if [ "$CONF_TYPE" == "system" ] ; then
+if [ $CONF_TYPE == "system" ] ; then
     printf "\"%s\":\"%s\",\n"  "HOSTNAME" "$(cat /etc/hostname)"
-    printf "\"%s\":\"%s\",\n"  "TIMEZONE" "$(cat /etc/TZ)"
 fi
 
 # Empty values to "close" the json
