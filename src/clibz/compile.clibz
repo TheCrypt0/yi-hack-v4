@@ -1,0 +1,13 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+cd zlib || exit 1
+make clean
+make -j$(nproc) \
+    CC=arm-hisiv300-linux-gcc \
+    AR=arm-hisiv300-linux-ar \
+    RANLIB=arm-hisiv300-linux-ranlib \
+    LDSHARED="arm-hisiv300-linux-gcc -shared -Wl,-soname,libz.so.1,--version-script,zlib.map" || exit 1
+make install

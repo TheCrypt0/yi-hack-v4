@@ -25,3 +25,12 @@
 [submodule "src/mqtt/mqttv4"]
 	path = src/mqtt/mqttv4
 	url = https://github.com/TheCrypt0/mqttv4.git
+[submodule "src/curl/curl"]
+	path = src/curl/curl
+	url = https://github.com/curl/curl.git
+[submodule "src/cmbedtls/mbedtls"]
+	path = src/cmbedtls/mbedtls
+	url = https://github.com/ARMmbed/mbedtls.git
+[submodule "src/clibz/zlib"]
+	path = src/clibz/zlib
+	url = https://github.com/madler/zlib.git

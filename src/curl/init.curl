@@ -1,0 +1,56 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+rm -rf ./_install
+
+cd curl || exit 1
+git reset --hard || exit 1
+
+if [ ! -f $SCRIPT_DIR/../clibz/_install/lib/libz.a ] ; then
+    echo "ERROR: curl requires zlib to be compiled first."
+    exit 1
+fi
+
+if [ ! -f $SCRIPT_DIR/../cmbedtls/_install/lib/libmbedcrypto.a ] ; then
+    echo "ERROR: curl requires mbedtls to be compiled first."
+    exit 1
+fi
+
+./buildconf || exit 1
+./configure CC=arm-hisiv300-linux-gcc \
+    --prefix=$SCRIPT_DIR/_install \
+    USER_CFLAGS="-march=armv5te -mcpu=arm926ej-s -I/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/include -L/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/usr/lib" \
+    AR=arm-hisiv300-linux-ar \
+    RANLIB=arm-hisiv300-linux-ranlib \
+    --host=arm \
+    --disable-curldebug \
+    --disable-debug \
+    --disable-dict \
+    --disable-file \
+    --disable-ssl \
+    --disable-gopher \
+    --disable-imap \
+    --disable-ipv6 \
+    --disable-ldap \
+    --disable-libcurl-option \
+    --disable-manual \
+    --disable-ntlm \
+    --disable-ntlm-wb \
+    --disable-pop3 \
+    --disable-rtsp \
+    --disable-shared \
+    --disable-smb \
+    --disable-smtp \
+    --disable-soname-bump \
+    --disable-sspi \
+    --disable-symbol-hiding \
+    --disable-telnet \
+    --disable-tftp \
+    --disable-tls-srp \
+    --enable-http \
+    --enable-optimize \
+    --with-mbedtls=$SCRIPT_DIR/../cmbedtls/_install \
+    --with-zlib=$SCRIPT_DIR/../clibz/_install \
+    || exit 1
