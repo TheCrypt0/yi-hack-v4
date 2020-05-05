@@ -87,6 +87,34 @@ Currently this project supports the following cameras:
 
 **_IMPORTANT: The microSD card must be formatted in FAT32. exFAT formatted microSD cards will not work._**
 
+<details><summary>How to format microSD cards > 32GB as FAT32 in Windows 10</summary><p>
+
+For microSD cards larger than 32 GB, Windows 10 only gives you the option to format as NTFS or exFAT. You can create a small partition (e.g 4 GB) on a large microSD card (e.g. 64 GB) to get the FAT32 formatting option.
+
+* insert microSD card into PC card reader
+* open Disk Management (e.g. <kbd>Win</kbd>+<kbd>x</kbd>, <kbd>k</kbd>)
+  * Disk Management: delete all partitions on the microSD card
+    * right click each partition > "Delete Volume..."
+    * repeat until there are no partitions on the card
+  * Disk Management: create a new FAT32 partition
+    * right click on "Unallocated" > "New Simple Volume..."
+    * Welcome to the New Simple Volume Wizard: click "Next"
+    * Specify Volume Size: 4096 > "Next"
+    * Assign Drive Letter or Path: (Any) > "Next"
+    * Format Partition: Format this volume with the following settings:
+      * File system: FAT32
+      * Allocation unit size: Default
+      * Volume label: Something
+      * Perform a quick format: &#9745;
+
+You should now have a FAT32 partition on your microSD card that will allow the camera to load the firmware files to update to `yi-hack-v4`.
+
+### Example: 4 GB FAT32 partition on 64 GB microSD card
+
+![example: 4 GB FAT32 on 64 GB](imgs/4gb-fat32-on-64gb-card.png)
+
+</p></details>
+
 3. Get the correct firmware files for your camera from this link: https://github.com/TheCrypt0/yi-hack-v4/releases
 
 | Camera | rootfs partition | home partition | Remarks |
