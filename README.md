@@ -57,17 +57,16 @@ This firmware will add the following features:
   - Telnet server -  _Disabled by default._
   - FTP server -  _Enabled by default._
   - Web server -  _Enabled by default._
+  - The possibility to change some camera settings (copied from official app):
+    - camera on/off
+    - video saving mode
+    - detection sensitivity
+    - status led
+    - ir led
+    - rotate
+  - PTZ support through a web page.
   - Proxychains-ng - _Disabled by default. Useful if the camera is region locked._
   - The possibility to disable all the cloud features while keeping the RTSP stream.
-- In development:
-  - ONVIF
-  - A static image snapshot from the web interface.
-
-This firmware _might_ add:
-- Alarm functionality via Telegram (@frekel's [PR #177 in yi-hack-v3](https://github.com/shadow-1/yi-hack-v3/pull/117))
-- Auto upload of the recorded footage to the cloud (eg. Google Drive, Dropbox, etc.)
-- Rotation control (on Yi Dome versions of the camera) without need for the app.
-- **You decide**, just open an issue with the request.
 
 ## Supported cameras
 
@@ -162,6 +161,7 @@ Special thanks to the following people and projects, without them `yi-hack-v4` w
 - @xmflsct -  [https://github.com/xmflsct/yi-hack-1080p](https://github.com/xmflsct/yi-hack-1080p)
 - @dvv - [Ideas for the RSTP stream](https://github.com/shadow-1/yi-hack-v3/issues/126)
 - @andy2301 - [Ideas for the RSTP rtsp and rtsp2301](https://github.com/xmflsct/yi-hack-1080p/issues/5#issuecomment-294326131)
+- @roleoroleo - [PTZ Implementation](https://github.com/roleoroleo/yi-hack-MStar)
 
 ---
 ### DISCLAIMER

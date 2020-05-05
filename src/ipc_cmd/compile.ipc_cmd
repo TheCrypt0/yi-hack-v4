@@ -1,0 +1,31 @@
+#!/bin/bash
+
+export CROSSPATH=/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/bin
+export PATH=${PATH}:${CROSSPATH}
+
+export TARGET=arm-hisiv300-linux
+export CROSS=arm-hisiv300-linux
+export BUILD=x86_64-pc-linux-gnu
+
+export CROSSPREFIX=${CROSS}-
+
+export STRIP=${CROSSPREFIX}strip
+export CXX=${CROSSPREFIX}g++
+export CC=${CROSSPREFIX}gcc
+export LD=${CROSSPREFIX}ld
+export AS=${CROSSPREFIX}as
+export AR=${CROSSPREFIX}ar
+
+SCRIPT_DIR=$(cd `dirname $0` && pwd)
+cd $SCRIPT_DIR
+
+cd ipc_cmd || exit 1
+
+make clean
+make || exit 1
+
+mkdir -p ../_install/bin || exit 1
+
+cp ./ipc_cmd ../_install/bin || exit 1
+
+arm-hisiv300-linux-strip ../_install/bin/* || exit 1
