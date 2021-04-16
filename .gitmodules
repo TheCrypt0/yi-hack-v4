@@ -1,27 +1,36 @@
 [submodule "src/dropbear/dropbear"]
 	path = src/dropbear/dropbear
 	url = https://github.com/mkj/dropbear.git
+	ignore = dirty
 [submodule "src/uClibc/uClibc"]
 	path = src/uClibc/uClibc
 	url = https://github.com/kraj/uClibc.git
+	ignore = dirty
 [submodule "src/busybox/busybox"]
 	path = src/busybox/busybox
 	url = https://github.com/mirror/busybox.git
+	ignore = dirty
 [submodule "src/proxychains-ng/proxychains-ng"]
 	path = src/proxychains-ng/proxychains-ng
 	url = https://github.com/rofl0r/proxychains-ng.git
+	ignore = dirty
 [submodule "src/ftpd/pure-ftpd"]
 	path = src/ftpd/pure-ftpd
 	url = https://github.com/jedisct1/pure-ftpd.git
+	ignore = dirty
 [submodule "src/uClibc++/uClibc++"]
 	path = src/uClibc++/uClibc++
 	url = https://git.busybox.net/uClibc++
+	ignore = dirty
 [submodule "src/libfuse/libfuse"]
 	path = src/libfuse/libfuse
 	url = https://github.com/libfuse/libfuse.git
+	ignore = dirty
 [submodule "src/mosquitto/mosquitto"]
 	path = src/mosquitto/mosquitto
 	url = https://github.com/eclipse/mosquitto.git
+	ignore = dirty
 [submodule "src/mqtt/mqttv4"]
 	path = src/mqtt/mqttv4
 	url = https://github.com/TheCrypt0/mqttv4.git
+	ignore = dirty

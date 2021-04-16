@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Get the source directory of a Bash script from within the script itself
 SCRIPT_DIR=$(cd `dirname $0` && pwd)
 cd $SCRIPT_DIR
 
